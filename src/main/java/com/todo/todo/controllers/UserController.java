@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/store")
-    public String contact() {
+    public String store() {
         this.userRepository.deleteAll();
 
         User user1 = new User();
