@@ -1,0 +1,59 @@
+{
+  "appName": "Taskify",
+  "searchPlaceholder": "Search tasks...",
+  "dashboard": "Dashboard",
+  "today": "Today",
+  "important": "Important",
+  "completed": "Completed",
+  "projects": "Projects",
+  "settings": "Settings",
+  "example": "Example",
+  "addTask": "Add Task",
+  "dueSoon": "Due Soon",
+  "tasks": "tasks",
+  "highPriority": "High Priority",
+  "recentTasks": "Recent Tasks",
+  "priority": {
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low"
+  },
+  "loading": "Loading...",
+  "noTasks": "No tasks found",
+  "errors": {
+    "404": {
+      "title": "404 - Page Not Found",
+      "message": "Sorry, the page you're looking for doesn't exist."
+    },
+    "back": "Go Back"
+  },
+  "login": {
+    "title": "Welcome back",
+    "description": "Sign in to your account",
+    "email-address": "Email Address",
+    "email-address-placeholder": "Enter your email address",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "login-btn": "Sign In",
+    "help": "We'll never share your email to anyone",
+    "forget-password": {
+      "title": "Forget Password ?",
+      "get-otp": "Get OTP",
+      "remembered": "Password Remembered?"
+    },
+    "login-google-btn": "Google",
+    "login-github-btn": "Github",
+    "dont-have-account": "Don't have an account? Sign up"
+  },
+  "register": {
+    "name": "Name",
+    "name-placeholder": "Enter your name",
+    "email": "Email",
+    "email-placeholder": "Enter your email",
+    "password": "Password",
+    "password-placeholder": "Enter your password",
+    "confirm_password": "Confirm Password",
+    "confirm-password-placeholder": "Enter your password again",
+    "register-btn": "Sign Up"
+  }
+}
