@@ -35,17 +35,17 @@ public class OrganizationController {
     }
 
     @PostMapping
-    public ApiResponse<Organization> store(@RequestBody Organization organization) {
-        return this.organizationService.store(organization);
+    public ApiResponse<Organization> store(@RequestBody OrganizationDTO organizationDto) {
+        return this.organizationService.store(organizationDto);
     }
 
     @PostMapping("/create-many")
-    public ApiResponse<List<Organization>> storeMany(@RequestBody List<Organization> organizations) {
+    public ApiResponse<List<Organization>> storeMany(@RequestBody List<OrganizationDTO> organizations) {
         return this.organizationService.storeMany(organizations);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Organization> update(@PathVariable Long id, @RequestBody Organization organization) {
+    public ApiResponse<Organization> update(@PathVariable Long id, @RequestBody OrganizationDTO organization) {
         return this.organizationService.update(id, organization);
     }
 

@@ -45,7 +45,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
         Organization organization = organizationRepository.findById(workspaceDTO.getOrganization_id())
             .orElseThrow(() -> new IllegalArgumentException("Organization not found with ID: " + workspaceDTO.getOrganization_id()));
     
-        Workspace workspace = modelMapper.map(workspaceDTO, Workspace.class);
+        Workspace workspace = this.modelMapper.map(workspaceDTO, Workspace.class);
         workspace.setOrganization(organization);
     
         Workspace savedWorkspace = this.workspaceRepository.save(workspace);

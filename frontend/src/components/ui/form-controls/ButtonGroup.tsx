@@ -2,9 +2,9 @@ import React from 'react';
 
 interface ButtonGroupProps {
   children: React.ReactNode;
-  alignment?: 'start' | 'center' | 'end'; // Button alignment
-  gap?: 'sm' | 'md' | 'lg'; // Spacing between buttons
-  className?: string; // Additional class names for customization
+  alignment?: 'start' | 'center' | 'end'; 
+  gap?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({

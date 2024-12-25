@@ -1,9 +1,10 @@
-package com.crm.crm.models;
+package com.crm.crm.users;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
+import com.crm.crm.enums.Status;
 import com.crm.crm.organizations.Organization;
 
 import jakarta.persistence.Column;
@@ -55,16 +56,16 @@ public class User {
     @Comment(value = "Phone number of the user")
     private String phone;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @Comment(value = "Status of the user")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(columnDefinition = "json")
     @Comment(value = "Preferences of the user")
     private String preferences;
 
-    @Column(columnDefinition = "json")
+    @Column(name = "notification_settings", columnDefinition = "json")
     @Comment(value = "Notification settings of the user")
     private String notificationSettings;
 
@@ -90,9 +91,5 @@ public class User {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
-    }
-
-    public enum Status {
-        ACTIVE, INACTIVE, SUSPENDED
     }
 }

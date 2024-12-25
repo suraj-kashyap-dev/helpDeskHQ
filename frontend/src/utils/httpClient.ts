@@ -20,58 +20,16 @@ class HttpClient {
         'Content-Type': 'application/json',
       },
     });
-
-    this.setupInterceptors();
   }
 
   public static getInstance(): HttpClient {
     if (!HttpClient.instance) {
       HttpClient.instance = new HttpClient();
     }
+
     return HttpClient.instance;
   }
 
-  private getAuthToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  private setupInterceptors(): void {
-    this.api.interceptors.request.use(
-      (config: CustomAxiosRequestConfig) => {
-        const token = this.getAuthToken();
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error: AxiosError) => {
-        return Promise.reject(error);
-      },
-    );
-
-    this.api.interceptors.response.use(
-      (response) => response,
-      async (error: AxiosError) => {
-        const originalRequest = error.config as CustomAxiosRequestConfig;
-
-        if (error.response?.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-
-          try {
-            localStorage.removeItem('token');
-
-            return Promise.reject(error);
-          } catch (refreshError) {
-            return Promise.reject(refreshError);
-          }
-        }
-
-        return Promise.reject(error);
-      },
-    );
-  }
-
-  // Generic request methods
   public async get<T>(url: string) {
     return this.api.get<T>(url);
   }

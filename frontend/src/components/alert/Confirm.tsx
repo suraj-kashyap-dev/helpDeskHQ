@@ -43,16 +43,17 @@ const Confirm: React.FC = () => {
   const handleConfirm = async () => {
     try {
       await options.onConfirm();
+
       setIsOpen(false);
     } catch (error) {
       console.error('Error in confirmation action:', error);
     }
   };
 
-  if (!isOpen) return null;
+  if (! isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
         <h2 className="text-lg font-semibold text-gray-800">{options.title}</h2>
         <p className="mt-2 text-sm text-gray-600">{options.description}</p>
@@ -61,6 +62,7 @@ const Confirm: React.FC = () => {
           <Button size="sm" variant="outline" onClick={handleClose}>
             {options.cancelText}
           </Button>
+
           <Button size="sm" variant="danger" onClick={handleConfirm}>
             {options.confirmText}
           </Button>

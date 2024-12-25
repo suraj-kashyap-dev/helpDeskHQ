@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { httpClient } from '../utils/httpClient';
 import { ORGANIZATIONS } from '../config/constant';
@@ -22,6 +22,14 @@ export const useOrganizationApi = () => {
     organizations: null,
     createdOrganization: null,
   });
+
+  useEffect(() => {
+    if (state.error) {
+      showToast(state.error, {
+        type: 'error',
+      });
+    }
+  }, [state.error]);
 
   const handleError = (error: unknown) => {
     if (error instanceof AxiosError && error.response?.data?.message) {
@@ -84,17 +92,13 @@ export const useOrganizationApi = () => {
           : [newOrganization],
       }));
 
-      showToast('Organization created successfully', {
-        type: 'success',
-        position: 'bottom-center',
-        autoClose: 3000,
-      });
+      showToast('Organization created successfully');
 
       return newOrganization;
     } catch (error) {
       const errorMessage = handleError(error);
       setState((prev) => ({ ...prev, error: errorMessage }));
-      throw error; // Re-throw to be handled by the form
+      throw error;
     } finally {
       setState((prev) => ({ ...prev, loading: false }));
     }
@@ -110,6 +114,8 @@ export const useOrganizationApi = () => {
             ? prev.organizations.filter((org) => org.id !== id)
             : null,
         }));
+
+        showToast('Organization delete successfully');
       })
       .catch((error) => {
         const errorMessage = handleError(error);
