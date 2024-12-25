@@ -7,17 +7,23 @@ import org.modelmapper.ModelMapper;
 
 import com.crm.crm.exceptions.resources.ResourceNotFoundException;
 import com.crm.crm.helpers.ApiResponse;
+import com.crm.crm.organizations.Organization;
+import com.crm.crm.organizations.OrganizationRepository;
+import com.crm.crm.workspaces.Workspace;
 
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final OrganizationRepository organizationRepository;
 
     public UserServiceImpl(
         UserRepository userRepository,
-        ModelMapper modelMapper
+        ModelMapper modelMapper,
+        OrganizationRepository organizationRepository
     ) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.organizationRepository = organizationRepository;
     }
 
     @Override
@@ -45,35 +51,39 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse<User> store(UserDTO userDto) {
+         Organization organization = organizationRepository.findById(userDto.getOrganizationId())
+            .orElseThrow(() -> new IllegalArgumentException("Organization not found with ID: " + userDto.getOrganizationId()));
+    
         User user = this.modelMapper.map(userDto, User.class);
+        user.setOrganization(organization);
     
         return ApiResponse.success(
-            "User created successfully", 
+            "Workspace created successfully",
             this.userRepository.save(user)
         );
     }
 
     @Override
-    public ApiResponse<List<User>> storeMany(Iterable<User> Users) {
-        List<User> savedUsers = this.userRepository.saveAll(Users);
+    public ApiResponse<List<User>> storeMany(Iterable<User> users) {
+        List<User> savedUser = this.userRepository.saveAll(users);
 
-        return ApiResponse.success("Users created successfully", savedUsers);
+        return ApiResponse.success("Workspaces created successfully", savedUser);
     }
 
     @Override
     public ApiResponse<User> update(Long id, User user) {
         return this.userRepository.findById(id)
                 .map(existingUser -> {
-                    existingUser.setFullName(user.getFullName());
                     existingUser.setEmail(user.getEmail());
+                    existingUser.setFullName(user.getFullName());
+                    existingUser.setPassword(user.getPassword());
                     existingUser.setPhone(user.getPhone());
-                    existingUser.setOrganization(user.getOrganization());
 
                     User updatedUser = this.userRepository.save(existingUser);
 
-                    return ApiResponse.success("User updated successfully", updatedUser);
+                    return ApiResponse.success("Workspace updated successfully", updatedUser);
                 })
-                .orElse(ApiResponse.error("User not found", null));
+                .orElse(ApiResponse.error("Workspace not found", null));
     }
 
     @Override

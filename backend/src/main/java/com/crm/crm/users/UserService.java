@@ -5,10 +5,10 @@ import java.util.List;
 import com.crm.crm.helpers.ApiResponse;
 
 public interface UserService {
-    ApiResponse<List<User>> index();
-    ApiResponse<User> show(Long id);
-    ApiResponse<User> store(UserDTO workspaceDTO);
-    ApiResponse<List<User>> storeMany(Iterable<User> workspaces);
-    ApiResponse<User> update(Long id, User workspace);
-    ApiResponse<Void> destroy(Long id);
+    public ApiResponse<List<User>> index();
+    public ApiResponse<User> show(Long id);
+    public ApiResponse<User> store(UserDTO userDTO);
+    public ApiResponse<List<User>> storeMany(Iterable<User> user);
+    public ApiResponse<User> update(Long id, User user);
+    public ApiResponse<Void> destroy(Long id);
 }

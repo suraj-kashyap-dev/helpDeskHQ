@@ -88,22 +88,9 @@ const Index: React.FC = () => {
                           key={organization.id}
                           className="hover:bg-neutral-50"
                         >
-                          {/* Organization Name */}
-                          <td className="px-6 py-4 text-sm">
-                            {organization.name}
-                          </td>
-
-                          {/* Organization Domain */}
-                          <td className="px-6 py-4 text-sm">
-                            {organization.domain}
-                          </td>
-
-                          {/* Subscription Type */}
-                          <td className="px-6 py-4 text-sm">
-                            {organization.subscriptionType}
-                          </td>
-
-                          {/* Actions */}
+                          <td className="px-6 py-4 text-sm">{organization.name}</td>
+                          <td className="px-6 py-4 text-sm">{organization.domain}</td>
+                          <td className="px-6 py-4 text-sm">{organization.subscriptionType}</td>
                           <td className="px-6 py-4 text-sm">
                             <div className="flex space-x-3">
                               <ButtonGroup alignment="center" gap="md">

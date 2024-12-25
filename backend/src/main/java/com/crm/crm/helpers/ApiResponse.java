@@ -1,12 +1,10 @@
 package com.crm.crm.helpers;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.HashMap;
 
-@Getter
-@Setter
+@Data
 public class ApiResponse<T> {
     private boolean success;
     private String message;
@@ -14,8 +12,7 @@ public class ApiResponse<T> {
     private HashMap<String, String> errors;
     private Meta meta;
 
-    @Getter
-    @Setter
+    @Data
     public static class Meta {
         private int total;
         private int page;

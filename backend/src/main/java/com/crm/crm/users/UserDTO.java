@@ -3,14 +3,13 @@ package com.crm.crm.users;
 import java.time.LocalDateTime;
 
 import com.crm.crm.enums.UserStatus;
-import com.crm.crm.organizations.Organization;
 
 import lombok.Data;
 
 @Data
 public class UserDTO {
     private Long id;
-    private Organization organization;
+    private Long organizationId;
     private String email;
     private String fullName;
     private String password;
