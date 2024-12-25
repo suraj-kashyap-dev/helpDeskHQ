@@ -2,7 +2,7 @@ export interface Workspace {
   id: string;
   name: string;
   image: string;
-  inviteCode: string,
+  inviteCode: string;
   createdAt: string;
 }
 

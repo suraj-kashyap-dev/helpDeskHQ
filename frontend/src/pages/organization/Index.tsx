@@ -33,7 +33,7 @@ const Index: React.FC = () => {
             type: 'error',
           });
         }
-      }
+      },
     });
   };
 

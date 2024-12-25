@@ -11,7 +11,6 @@ import { Select } from '../../components/ui/form-controls/Select';
 import { ArrowLeft } from 'lucide-react';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
-import { showToast } from '../../utils/eventBus';
 
 const subscriptionTypes = [
   { value: 'Free', label: 'Free Plan' },
@@ -28,7 +27,7 @@ const validationSchema = Yup.object({
     .required('Organization domain is required')
     .matches(
       /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/,
-      'Please enter a valid domain'
+      'Please enter a valid domain',
     ),
   subscriptionType: Yup.string()
     .required('Subscription type is required')
@@ -70,9 +69,8 @@ const CreateOrganization: React.FC = () => {
       try {
         await createOrganization(values);
         navigate('/dashboard/organizations');
-        showToast('Organization created successfully');
       } catch (error) {
-        showToast('Something went wrong');
+        console.error(error);
       } finally {
         setSubmitting(false);
       }

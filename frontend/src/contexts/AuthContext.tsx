@@ -5,7 +5,11 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
-import { User, AuthResponse, AuthContextType } from '../types/organization.types';
+import {
+  User,
+  AuthResponse,
+  AuthContextType,
+} from '../types/organization.types';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

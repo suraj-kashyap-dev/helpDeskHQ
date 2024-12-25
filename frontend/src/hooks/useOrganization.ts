@@ -3,8 +3,12 @@ import { AxiosError } from 'axios';
 import { httpClient } from '../utils/httpClient';
 import { ORGANIZATIONS } from '../config/constant';
 import { ApiState } from '../types/apiState.types';
-import { Organization, OrganizationFormValues } from '../types/organization.types';
+import {
+  Organization,
+  OrganizationFormValues,
+} from '../types/organization.types';
 import { ApiResponse } from '../types/apiResponse.types';
+import { showToast } from '../utils/eventBus';
 
 interface OrganizationApiState extends ApiState {
   organizations: Organization[] | null;
@@ -12,7 +16,7 @@ interface OrganizationApiState extends ApiState {
 }
 
 export const useOrganizationApi = () => {
-  const [ state, setState ] = useState<OrganizationApiState>({
+  const [state, setState] = useState<OrganizationApiState>({
     loading: false,
     error: null,
     organizations: null,
@@ -20,10 +24,7 @@ export const useOrganizationApi = () => {
   });
 
   const handleError = (error: unknown) => {
-    if (
-      error instanceof AxiosError
-      && error.response?.data?.message
-    ) {
+    if (error instanceof AxiosError && error.response?.data?.message) {
       return error.response.data.message;
     }
 
@@ -34,9 +35,8 @@ export const useOrganizationApi = () => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response = await httpClient.get<ApiResponse<Organization[]>>(
-        ORGANIZATIONS
-      );
+      const response =
+        await httpClient.get<ApiResponse<Organization[]>>(ORGANIZATIONS);
 
       setState((prev) => ({
         ...prev,
@@ -51,7 +51,7 @@ export const useOrganizationApi = () => {
   };
 
   const createOrganization = async (
-    payload: OrganizationFormValues
+    payload: OrganizationFormValues,
   ): Promise<Organization> => {
     try {
       setState((prev) => ({
@@ -63,14 +63,15 @@ export const useOrganizationApi = () => {
 
       const formattedPayload = {
         ...payload,
-        settings: typeof payload.settings === 'string'
-          ? payload.settings
-          : JSON.stringify(payload.settings),
+        settings:
+          typeof payload.settings === 'string'
+            ? payload.settings
+            : JSON.stringify(payload.settings),
       };
 
       const response = await httpClient.post<ApiResponse<Organization>>(
         ORGANIZATIONS,
-        formattedPayload
+        formattedPayload,
       );
 
       const newOrganization = response.data.data;
@@ -79,22 +80,29 @@ export const useOrganizationApi = () => {
         ...prev,
         createdOrganization: newOrganization,
         organizations: prev.organizations
-          ? [ ...prev.organizations, newOrganization ]
-          : [ newOrganization ],
+          ? [...prev.organizations, newOrganization]
+          : [newOrganization],
       }));
+
+      showToast('Organization created successfully', {
+        type: 'success',
+        position: 'bottom-center',
+        autoClose: 3000,
+      });
 
       return newOrganization;
     } catch (error) {
       const errorMessage = handleError(error);
       setState((prev) => ({ ...prev, error: errorMessage }));
-      throw new Error(errorMessage);
+      throw error; // Re-throw to be handled by the form
     } finally {
       setState((prev) => ({ ...prev, loading: false }));
     }
   };
 
   const deleteOrganization = (id: number) => {
-    httpClient.delete(`${ORGANIZATIONS}/${id}`)
+    httpClient
+      .delete(`${ORGANIZATIONS}/${id}`)
       .then(() => {
         setState((prev) => ({
           ...prev,
@@ -107,7 +115,7 @@ export const useOrganizationApi = () => {
         const errorMessage = handleError(error);
         setState((prev) => ({ ...prev, error: errorMessage }));
       });
-  }
+  };
 
   const clearCreatedOrganization = () => {
     setState((prev) => ({
@@ -121,6 +129,6 @@ export const useOrganizationApi = () => {
     fetchOrganization,
     createOrganization,
     clearCreatedOrganization,
-    deleteOrganization
+    deleteOrganization,
   };
 };

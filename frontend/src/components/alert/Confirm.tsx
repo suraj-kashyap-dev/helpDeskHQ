@@ -58,10 +58,10 @@ const Confirm: React.FC = () => {
         <p className="mt-2 text-sm text-gray-600">{options.description}</p>
 
         <div className="mt-6 flex justify-end gap-4">
-          <Button size='sm' variant="outline" onClick={handleClose}>
+          <Button size="sm" variant="outline" onClick={handleClose}>
             {options.cancelText}
           </Button>
-          <Button size='sm' variant="danger" onClick={handleConfirm}>
+          <Button size="sm" variant="danger" onClick={handleConfirm}>
             {options.confirmText}
           </Button>
         </div>

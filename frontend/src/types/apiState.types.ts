@@ -1,4 +1,4 @@
 export interface ApiState {
-    loading: boolean;
-    error: string | null;
-  }
+  loading: boolean;
+  error: string | null;
+}
