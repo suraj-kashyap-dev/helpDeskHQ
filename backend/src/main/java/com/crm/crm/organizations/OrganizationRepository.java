@@ -1,4 +1,4 @@
-package com.todo.todo.organizations;
+package com.crm.crm.organizations;
 
 import java.util.List;
 

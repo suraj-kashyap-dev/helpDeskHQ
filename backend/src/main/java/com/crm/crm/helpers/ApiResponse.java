@@ -1,9 +1,9 @@
-package com.todo.todo.helpers;
-
-import java.util.HashMap;
+package com.crm.crm.helpers;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
 
 @Getter
 @Setter

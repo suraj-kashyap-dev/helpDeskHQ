@@ -1,4 +1,4 @@
-package com.todo.todo.organizations;
+package com.crm.crm.organizations;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.todo.todo.helpers.ApiResponse;
+import com.crm.crm.helpers.ApiResponse;
 
 @Component
 public class OrganizationService {

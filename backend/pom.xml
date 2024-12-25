@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<groupId>com.todo</groupId>
-	<artifactId>todo</artifactId>
+	<groupId>com.crm</groupId>
+	<artifactId>crm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>todo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>crm</name>
+	<description>A crm</description>
 	<url/>
 	<licenses>
 		<license/>

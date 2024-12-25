@@ -1,10 +1,10 @@
-package com.todo.todo.models;
+package com.crm.crm.models;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
-import com.todo.todo.organizations.Organization;
+import com.crm.crm.organizations.Organization;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

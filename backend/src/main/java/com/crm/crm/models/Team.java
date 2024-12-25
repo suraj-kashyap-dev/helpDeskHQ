@@ -1,12 +1,13 @@
-package com.todo.todo.models;
+package com.crm.crm.models;
 
 import java.time.LocalDateTime;
-import org.hibernate.annotations.Comment;
 
-import com.todo.todo.organizations.Organization;
+import org.hibernate.annotations.Comment;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,31 +22,30 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "workspaces")
+@Table(name = "teams")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Workspace {
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "organization_id")
-    @Comment(value = "Organization to which the workspace belongs")
-    private Organization organization;
+    @JoinColumn(name = "workspace_id")
+    private Workspace workspace;
 
     @Column(name = "name")
-    @Comment(value = "Name of the workspace")
+    @Comment(value = "Name of the team")
     private String name;
 
     @Column(name = "description")
-    @Comment(value = "Description of the workspace")
+    @Comment(value = "Description of the team")
     private String description;
 
-    @Column(columnDefinition = "json")
-    private String settings;
+    @Enumerated(EnumType.STRING)
+    private AccessLevel accessLevel;
 
     @Column(name = "created_at")
     @Comment(value = "Date and time when the organization was created")
@@ -65,5 +65,9 @@ public class Workspace {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public enum AccessLevel {
+        READ, WRITE, ADMIN
     }
 }
