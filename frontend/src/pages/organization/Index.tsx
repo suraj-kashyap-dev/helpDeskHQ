@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CirclePlus, Edit, PencilIcon, Trash, Trash2 } from 'lucide-react';
+import { CirclePlus, Edit, Trash2 } from 'lucide-react';
 import { useOrganizationApi } from '../../hooks/useOrganization';
 import { Button } from '../../components/ui/form-controls/Button';
 import { ButtonGroup } from '../../components/ui/form-controls/ButtonGroup';
-import { number } from 'yup';
-import { showToast } from '../../utils/toast';
-import Confirm from '../../components/alert/Confirm';
+import { confirmDialog, showToast } from '../../utils/eventBus';
 
 const Index: React.FC = () => {
   const {
@@ -16,15 +14,27 @@ const Index: React.FC = () => {
     fetchOrganization,
     deleteOrganization,
   } = useOrganizationApi();
-  const [isConfirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     fetchOrganization();
   }, []);
 
   const handleDelete = (id: number) => {
-    setConfirmOpen(true);
-    deleteOrganization(id);
+    confirmDialog({
+      title: 'Delete Organization',
+      description: 'Are you sure you want to delete this organization?',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      onConfirm: async () => {
+        try {
+          deleteOrganization(id);
+        } catch (error) {
+          showToast('Failed to delete organization', {
+            type: 'error',
+          });
+        }
+      }
+    });
   };
 
   useEffect(() => {
@@ -179,16 +189,6 @@ const Index: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <Confirm
-        isOpen={isConfirmOpen}
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={() => handleDelete()}
-        title="Confirm Logout?"
-        description="This action is logout and redirect to login page."
-        confirmText="Logout"
-        cancelText="Cancel"
-      />
     </React.Fragment>
   );
 };

@@ -8,7 +8,7 @@ import { Textarea } from '../components/ui/form-controls/Textarea';
 import { Label } from '../components/ui/form-controls/Label';
 import { ErrorMessage } from '../components/ui/form-controls/ErrorMessage';
 import { useProfileApi } from '../hooks/useProfileApi';
-import { showToast } from '../utils/toast';
+import { showToast } from '../utils/eventBus';
 
 const initialValues = {
   firstName: '',

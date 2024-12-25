@@ -10,8 +10,8 @@ import { Textarea } from '../../components/ui/form-controls/Textarea';
 import { Select } from '../../components/ui/form-controls/Select';
 import { ArrowLeft } from 'lucide-react';
 import { Input } from '../../components/ui/form-controls/Input';
-import { showToast } from '../../utils/toast';
 import { Button } from '../../components/ui/form-controls/Button';
+import { showToast } from '../../utils/eventBus';
 
 const subscriptionTypes = [
   { value: 'Free', label: 'Free Plan' },
@@ -70,9 +70,9 @@ const CreateOrganization: React.FC = () => {
       try {
         await createOrganization(values);
         navigate('/dashboard/organizations');
-        showToast('Organization created successfully', { type: 'success' });
+        showToast('Organization created successfully');
       } catch (error) {
-        showToast('Something went wrong', { type: 'warning' });
+        showToast('Something went wrong');
       } finally {
         setSubmitting(false);
       }

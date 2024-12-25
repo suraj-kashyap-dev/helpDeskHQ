@@ -1,31 +1,18 @@
-import { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect } from 'react';
+import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import eventBus from '../../utils/eventBus';
 
-const Toast = () => {
+const Toast: React.FC = () => {
   useEffect(() => {
-    const showToast = ({ message, options }) => {
-      toast(message, {
-        position: 'bottom-center',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        type: 'success',
-        theme: document.documentElement.classList.contains('dark')
-          ? 'dark'
-          : 'light',
-        ...options,
-      });
+    const handleToast = ({ message, options }: { message: string; options: ToastOptions }) => {
+      toast(message, options);
     };
 
-    eventBus.on('toast', showToast);
+    eventBus.on('show-toast', handleToast);
 
     return () => {
-      eventBus.off('toast', showToast);
+      eventBus.off('show-toast', handleToast);
     };
   }, []);
 

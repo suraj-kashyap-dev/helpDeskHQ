@@ -1,23 +1,33 @@
 import mitt, { Emitter } from 'mitt';
 
-interface ToastOptions {
-  duration?: number;
-  position?: 'top' | 'bottom' | 'center';
-}
+type ConfirmOptions = {
+  title?: string;
+  description?: string;
+  confirmText?: string;
+  cancelText?: string;
+  onConfirm: () => void | Promise<void>;
+  onCancel?: () => void;
+};
 
 type Events = {
-  toast: { message: string; options?: ToastOptions };
-  someEvent?: string;
+  'open-confirm': ConfirmOptions;
+  'show-toast': {
+    message: string;
+    options: any;
+  };
 };
 
 const eventBus: Emitter<Events> = mitt<Events>();
 
-declare global {
-  interface Window {
-    eventBus: Emitter<Events>;
-  }
-}
+export const confirmDialog = (options: ConfirmOptions) => {
+  eventBus.emit('open-confirm', options);
+};
 
-window.eventBus = eventBus;
+export const showToast = (
+  message: string,
+  options?: any,
+) => {
+  eventBus.emit('show-toast', { message, options });
+};
 
 export default eventBus;
