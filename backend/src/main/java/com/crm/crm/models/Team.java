@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
+import com.crm.crm.workspaces.Workspace;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

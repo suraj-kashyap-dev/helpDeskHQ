@@ -1,6 +1,7 @@
-package com.crm.crm.models;
+package com.crm.crm.workspaces;
 
 import java.time.LocalDateTime;
+
 import org.hibernate.annotations.Comment;
 
 import com.crm.crm.organizations.Organization;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "workspaces")
@@ -26,6 +28,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
