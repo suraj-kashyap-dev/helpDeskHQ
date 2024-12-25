@@ -1,9 +1,9 @@
-package com.todo.todo.organizations;
+package com.crm.crm.organizations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.todo.todo.helpers.ApiResponse;
+import com.crm.crm.helpers.ApiResponse;
 
 import java.util.List;
 

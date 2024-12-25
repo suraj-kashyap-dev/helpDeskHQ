@@ -1,4 +1,4 @@
-package com.todo.todo.configs;
+package com.crm.crm.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;

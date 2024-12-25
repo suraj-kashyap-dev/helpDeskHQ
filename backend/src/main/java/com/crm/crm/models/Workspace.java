@@ -1,13 +1,12 @@
-package com.todo.todo.models;
+package com.crm.crm.models;
 
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.Comment;
+
+import com.crm.crm.organizations.Organization;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,30 +21,31 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "teams")
+@Table(name = "workspaces")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Team {
+public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "workspace_id")
-    private Workspace workspace;
+    @JoinColumn(name = "organization_id")
+    @Comment(value = "Organization to which the workspace belongs")
+    private Organization organization;
 
     @Column(name = "name")
-    @Comment(value = "Name of the team")
+    @Comment(value = "Name of the workspace")
     private String name;
 
     @Column(name = "description")
-    @Comment(value = "Description of the team")
+    @Comment(value = "Description of the workspace")
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private AccessLevel accessLevel;
+    @Column(columnDefinition = "json")
+    private String settings;
 
     @Column(name = "created_at")
     @Comment(value = "Date and time when the organization was created")
@@ -65,9 +65,5 @@ public class Team {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
-    }
-
-    public enum AccessLevel {
-        READ, WRITE, ADMIN
     }
 }

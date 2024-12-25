@@ -1,11 +1,11 @@
-package com.todo.todo;
+package com.crm.crm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TodoApplication {
+public class CrmApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(TodoApplication.class, args);
+		SpringApplication.run(CrmApplication.class, args);
 	}
 }
