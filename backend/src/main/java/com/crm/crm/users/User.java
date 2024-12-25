@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
-import com.crm.crm.enums.Status;
+import com.crm.crm.enums.UserStatus;
 import com.crm.crm.organizations.Organization;
 
 import jakarta.persistence.Column;
@@ -59,7 +59,7 @@ public class User {
     @Column(name = "status")
     @Comment(value = "Status of the user")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private UserStatus status;
 
     @Column(columnDefinition = "json")
     @Comment(value = "Preferences of the user")

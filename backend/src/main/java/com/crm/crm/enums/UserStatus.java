@@ -1,5 +1,5 @@
 package com.crm.crm.enums;
 
-public enum Status {
+public enum UserStatus {
     ACTIVE, INACTIVE, SUSPENDED
 }

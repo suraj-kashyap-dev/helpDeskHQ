@@ -2,7 +2,7 @@ package com.crm.crm.users;
 
 import java.time.LocalDateTime;
 
-import com.crm.crm.enums.Status;
+import com.crm.crm.enums.UserStatus;
 import com.crm.crm.organizations.Organization;
 
 import lombok.Data;
@@ -15,7 +15,7 @@ public class UserDTO {
     private String fullName;
     private String password;
     private String phone;
-    private Status status;
+    private UserStatus status;
     private String preferences;
     private String notificationSettings;
     private LocalDateTime lastLogin;
