@@ -19,11 +19,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "organizations")
 public class Organization {
     @Id

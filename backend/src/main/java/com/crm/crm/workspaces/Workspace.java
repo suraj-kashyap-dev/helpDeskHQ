@@ -23,12 +23,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "workspaces")
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Table(name = "workspaces")
 public class Workspace {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
