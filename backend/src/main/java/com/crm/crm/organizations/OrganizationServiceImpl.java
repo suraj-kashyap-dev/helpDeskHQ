@@ -70,7 +70,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public ApiResponse<List<Organization>> storeMany(Iterable<OrganizationDTO> organizationDtos) {
         try {
-             List<Organization> organizations = 
+            List<Organization> organizations = 
                 ((List<OrganizationDTO>) organizationDtos)
                 .stream()
                 .map(dto -> modelMapper.map(dto, Organization.class))

@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 import com.crm.crm.exceptions.resources.ResourceNotFoundException;
+import com.crm.crm.exceptions.resources.ResourceUpdateException;
+import com.crm.crm.exceptions.resources.ResourceCreationException;
+import com.crm.crm.exceptions.resources.ResourceDeletionException;
 import com.crm.crm.helpers.ApiResponse;
 import com.crm.crm.organizations.Organization;
 import com.crm.crm.organizations.OrganizationRepository;
-import com.crm.crm.workspaces.Workspace;
 
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -42,58 +46,95 @@ public class UserServiceImpl implements UserService {
             Optional<User> users = this.userRepository.findById(id);
 
             return users
-                .map(org -> ApiResponse.success("Users retrieved successfully", org))
+                .map(user -> ApiResponse.success("User retrieved successfully", user))
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         } catch (Exception e) {
-            throw new RuntimeException("Error retrieving users", e);
+            throw new RuntimeException("Error retrieving user", e);
         }
     }
 
     @Override
     public ApiResponse<User> store(UserDTO userDto) {
-         Organization organization = organizationRepository.findById(userDto.getOrganizationId())
-            .orElseThrow(() -> new IllegalArgumentException("Organization not found with ID: " + userDto.getOrganizationId()));
+        try {
+            Optional<Organization> organizationOpt = Optional.empty();
+
+            if (userDto.getOrganizationId() != null) {
+                organizationOpt = this.organizationRepository.findById(userDto.getOrganizationId());
     
-        User user = this.modelMapper.map(userDto, User.class);
-        user.setOrganization(organization);
+                if (organizationOpt.isEmpty()) {
+                    throw new ResourceNotFoundException("Organization not found");
+                }
+            }
     
-        return ApiResponse.success(
-            "Workspace created successfully",
-            this.userRepository.save(user)
-        );
+            User user = this.modelMapper.map(userDto, User.class);
+    
+            organizationOpt.ifPresent(user::setOrganization);
+    
+            return ApiResponse.success(
+                "User created successfully", 
+                this.userRepository.save(user)
+            );
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResourceCreationException("Error creating user: " + e.getMessage());
+        }
     }
 
     @Override
-    public ApiResponse<List<User>> storeMany(Iterable<User> users) {
-        List<User> savedUser = this.userRepository.saveAll(users);
+    public ApiResponse<User> update(Long id, UserDTO userDto) {
+        try {
+            Optional<Organization> organizationOpt = Optional.empty();
 
-        return ApiResponse.success("Workspaces created successfully", savedUser);
-    }
+            if (userDto.getOrganizationId() != null) {
+                organizationOpt = this.organizationRepository.findById(userDto.getOrganizationId());
+                
+                if (organizationOpt.isEmpty()) {
+                    throw new ResourceNotFoundException("Organization not found");
+                }
+            }
 
-    @Override
-    public ApiResponse<User> update(Long id, User user) {
-        return this.userRepository.findById(id)
-                .map(existingUser -> {
-                    existingUser.setEmail(user.getEmail());
-                    existingUser.setFullName(user.getFullName());
-                    existingUser.setPassword(user.getPassword());
-                    existingUser.setPhone(user.getPhone());
+            Optional<User> userOpt = this.userRepository.findById(id);
 
-                    User updatedUser = this.userRepository.save(existingUser);
+            if (userOpt.isEmpty()) {
+                throw new ResourceNotFoundException("Workspace not found");
+            }
 
-                    return ApiResponse.success("Workspace updated successfully", updatedUser);
-                })
-                .orElse(ApiResponse.error("Workspace not found", null));
+            User existingUser = userOpt.get();
+
+            organizationOpt.ifPresent(existingUser::setOrganization);
+            existingUser.setEmail(userDto.getEmail());
+            existingUser.setFullName(userDto.getFullName());
+            existingUser.setPhone(userDto.getPhone());
+            existingUser.setPassword(userDto.getPassword());
+            existingUser.setStatus(userDto.getStatus());
+
+            User updateUser = this.userRepository.save(existingUser);
+
+            return ApiResponse.success("User updated successfully", updateUser);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            throw new ResourceUpdateException("Error updating User: " + e.getMessage());
+        }
     }
 
     @Override
     public ApiResponse<Void> destroy(Long id) {
-        if (! this.userRepository.existsById(id)) {
-            return ApiResponse.error("User not found", null);
+        try {
+            if (! this.userRepository.existsById(id)) {
+                throw new ResourceNotFoundException("User not found");
+            }
+
+            this.userRepository.deleteById(id);
+            return ApiResponse.success("User deleted successfully", null);
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ResourceDeletionException("Error deleting user");
         }
-
-        this.userRepository.deleteById(id);
-
-        return ApiResponse.success("User deleted successfully", null);
     }
 }
