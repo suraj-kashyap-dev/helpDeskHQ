@@ -14,12 +14,12 @@ import com.crm.crm.workspaces.WorkspaceRepository;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
-    private final ProjectRespository projectRepository;
+    private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
     private final WorkspaceRepository workspaceRepository;
 
     public ProjectServiceImpl(
-        ProjectRespository projectRepository,
+        ProjectRepository projectRepository,
         ModelMapper modelMapper,
         WorkspaceRepository workspaceRepository
     ) {
