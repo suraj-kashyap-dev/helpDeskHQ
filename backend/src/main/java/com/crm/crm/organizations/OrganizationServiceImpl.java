@@ -36,7 +36,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             List<Organization> organizations = this.organizationRepository.findAllByOrderByCreatedAtDesc();
             return ApiResponse.success("Organizations retrieved successfully", organizations);
         } catch (Exception e) {
-            throw new RuntimeException("Error retrieving organizations", e);
+            throw new RuntimeException("Error retrieving organizations: " + e);
         }
     }
 

@@ -18,25 +18,25 @@ public class OrganizationController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Organization>>> index() {
-        ApiResponse<List<Organization>> response = organizationService.index();
+        ApiResponse<List<Organization>> response = this.organizationService.index();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Organization>> show(@PathVariable Long id) {
-        ApiResponse<Organization> response = organizationService.show(id);
+        ApiResponse<Organization> response = this.organizationService.show(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Organization>> store(@RequestBody OrganizationDTO organizationDto) {
-        ApiResponse<Organization> response = organizationService.store(organizationDto);
+        ApiResponse<Organization> response = this.organizationService.store(organizationDto);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create-many")
     public ResponseEntity<ApiResponse<List<Organization>>> storeMany(@RequestBody List<OrganizationDTO> organizations) {
-        ApiResponse<List<Organization>> response = organizationService.storeMany(organizations);
+        ApiResponse<List<Organization>> response = this.organizationService.storeMany(organizations);
         return ResponseEntity.ok(response);
     }
 
@@ -45,13 +45,13 @@ public class OrganizationController {
         @PathVariable Long id,
         @RequestBody OrganizationDTO organization
     ) {
-        ApiResponse<Organization> response = organizationService.update(id, organization);
+        ApiResponse<Organization> response = this.organizationService.update(id, organization);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
-        ApiResponse<Void> response = organizationService.destroy(id);
+        ApiResponse<Void> response = this.organizationService.destroy(id);
         return ResponseEntity.ok(response);
     }
 }
