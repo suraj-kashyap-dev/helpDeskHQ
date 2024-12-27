@@ -1,6 +1,5 @@
 package com.crm.crm.tickets;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.crm.crm.exceptions.resources.ResourceNotFoundException;
 import com.crm.crm.exceptions.resources.ResourceCreationException;
