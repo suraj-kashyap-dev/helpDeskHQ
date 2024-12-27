@@ -1,6 +1,6 @@
 package com.crm.crm.teams;
 
-import com.crm.crm.enums.AccessLevel;
+import com.crm.crm.teams.enums.AccessLevel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

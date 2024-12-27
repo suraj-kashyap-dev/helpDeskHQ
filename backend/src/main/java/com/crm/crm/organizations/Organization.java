@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
-import com.crm.crm.enums.SubscriptionType;
+import com.crm.crm.organizations.enums.SubscriptionType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,7 +1,8 @@
 package com.crm.crm.users;
 
 import java.time.LocalDateTime;
-import com.crm.crm.enums.UserStatus;
+
+import com.crm.crm.users.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 

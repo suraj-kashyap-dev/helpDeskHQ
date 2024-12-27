@@ -2,7 +2,8 @@ package com.crm.crm.projects;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.Comment;
-import com.crm.crm.enums.ProjectStatus;
+
+import com.crm.crm.projects.enums.ProjectStatus;
 import com.crm.crm.workspaces.Workspace;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

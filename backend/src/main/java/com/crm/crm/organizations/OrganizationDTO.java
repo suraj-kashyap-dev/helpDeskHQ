@@ -1,6 +1,6 @@
 package com.crm.crm.organizations;
 
-import com.crm.crm.enums.SubscriptionType;
+import com.crm.crm.organizations.enums.SubscriptionType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;

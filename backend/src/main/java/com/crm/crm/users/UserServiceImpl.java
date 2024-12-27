@@ -100,7 +100,7 @@ public class UserServiceImpl implements UserService {
             Optional<User> userOpt = this.userRepository.findById(id);
 
             if (userOpt.isEmpty()) {
-                throw new ResourceNotFoundException("Workspace not found");
+                throw new ResourceNotFoundException("User not found");
             }
 
             User existingUser = userOpt.get();

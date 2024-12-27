@@ -1,4 +1,4 @@
-package com.crm.crm.enums;
+package com.crm.crm.organizations.enums;
 
 public enum SubscriptionType {
     FREE, STANDARD, PREMIUM

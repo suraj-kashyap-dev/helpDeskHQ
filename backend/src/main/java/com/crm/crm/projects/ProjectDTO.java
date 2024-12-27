@@ -2,7 +2,7 @@ package com.crm.crm.projects;
 
 import java.time.LocalDateTime;
 
-import com.crm.crm.enums.ProjectStatus;
+import com.crm.crm.projects.enums.ProjectStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
