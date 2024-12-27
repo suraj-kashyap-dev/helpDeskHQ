@@ -2,15 +2,8 @@ package com.crm.crm.workspaces;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.crm.crm.helpers.ApiResponse;
 
@@ -19,33 +12,40 @@ import com.crm.crm.helpers.ApiResponse;
 public class WorkspaceController {
     private final WorkspaceService workspaceService;
 
-    @Autowired
     public WorkspaceController(WorkspaceService workspaceService) {
         this.workspaceService = workspaceService;
     }
 
     @GetMapping
-    public ApiResponse<List<Workspace>> index() {
-        return this.workspaceService.index();
+    public ResponseEntity<ApiResponse<List<Workspace>>> index() {
+        ApiResponse<List<Workspace>> response = workspaceService.index();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Workspace> show(@PathVariable Long id) {
-        return this.workspaceService.show(id);
+    public ResponseEntity<ApiResponse<Workspace>> show(@PathVariable Long id) {
+        ApiResponse<Workspace> response = workspaceService.show(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ApiResponse<Workspace> store(@RequestBody WorkspaceDTO workspaceDTO) {
-        return this.workspaceService.store(workspaceDTO);
+    public ResponseEntity<ApiResponse<Workspace>> store(@RequestBody WorkspaceDTO workspaceDTO) {
+        ApiResponse<Workspace> response = workspaceService.store(workspaceDTO);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Workspace> update(@PathVariable Long id, @RequestBody WorkspaceDTO workspaceDTO) {
-        return this.workspaceService.update(id, workspaceDTO);
+    public ResponseEntity<ApiResponse<Workspace>> update(
+        @PathVariable Long id,
+        @RequestBody WorkspaceDTO workspaceDTO
+    ) {
+        ApiResponse<Workspace> response = workspaceService.update(id, workspaceDTO);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> destroy(@PathVariable Long id) {
-        return this.workspaceService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
+        ApiResponse<Void> response = workspaceService.destroy(id);
+        return ResponseEntity.ok(response);
     }
 }

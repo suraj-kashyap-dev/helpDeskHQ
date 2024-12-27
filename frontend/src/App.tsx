@@ -23,11 +23,11 @@ const App: React.FC = () => {
             <Route element={<Layout />}>
               <Route path="/dashboard/" element={<Dashboard />} />
               <Route
-                path="/dashboard/organizations"
+                path="/organizations"
                 element={<OrganizationIndex />}
               />
               <Route
-                path="/dashboard/organizations/create"
+                path="/organizations/create"
                 element={<OrganizationCreate />}
               />
               <Route path="/dashboard/profile" element={<Profile />} />

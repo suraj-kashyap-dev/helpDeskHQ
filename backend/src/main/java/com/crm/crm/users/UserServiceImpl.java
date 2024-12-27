@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService {
                 .map(user -> ApiResponse.success("User retrieved successfully", user))
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         } catch (Exception e) {
-            throw new RuntimeException("Error retrieving user", e);
+            e.printStackTrace();
+
+            throw new RuntimeException("Error retrieving user");
         }
     }
 

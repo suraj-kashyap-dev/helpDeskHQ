@@ -2,15 +2,8 @@ package com.crm.crm.teams;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.crm.crm.helpers.ApiResponse;
 
@@ -19,33 +12,40 @@ import com.crm.crm.helpers.ApiResponse;
 public class TeamController {
     private final TeamService teamService;
 
-    @Autowired
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
     }
 
     @GetMapping
-    public ApiResponse<List<Team>> index() {
-        return this.teamService.index();
+    public ResponseEntity<ApiResponse<List<Team>>> index() {
+        ApiResponse<List<Team>> response = teamService.index();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Team> show(@PathVariable Long id) {
-        return this.teamService.show(id);
+    public ResponseEntity<ApiResponse<Team>> show(@PathVariable Long id) {
+        ApiResponse<Team> response = teamService.show(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ApiResponse<Team> store(@RequestBody TeamDTO teamDTO) {
-        return this.teamService.store(teamDTO);
+    public ResponseEntity<ApiResponse<Team>> store(@RequestBody TeamDTO teamDTO) {
+        ApiResponse<Team> response = teamService.store(teamDTO);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Team> update(@PathVariable Long id, @RequestBody TeamDTO teamDTO) {
-        return this.teamService.update(id, teamDTO);
+    public ResponseEntity<ApiResponse<Team>> update(
+        @PathVariable Long id, 
+        @RequestBody TeamDTO teamDTO
+    ) {
+        ApiResponse<Team> response = teamService.update(id, teamDTO);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> destroy(@PathVariable Long id) {
-        return this.teamService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
+        ApiResponse<Void> response = teamService.destroy(id);
+        return ResponseEntity.ok(response);
     }
 }

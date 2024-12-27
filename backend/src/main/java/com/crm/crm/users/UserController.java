@@ -2,15 +2,8 @@ package com.crm.crm.users;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.crm.crm.helpers.ApiResponse;
 
@@ -19,33 +12,40 @@ import com.crm.crm.helpers.ApiResponse;
 public class UserController {
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    public ApiResponse<List<User>> index() {
-        return this.userService.index();
+    public ResponseEntity<ApiResponse<List<User>>> index() {
+        ApiResponse<List<User>> response = userService.index();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<User> show(@PathVariable Long id) {
-        return this.userService.show(id);
+    public ResponseEntity<ApiResponse<User>> show(@PathVariable Long id) {
+        ApiResponse<User> response = userService.show(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ApiResponse<User> store(@RequestBody UserDTO userDTO) {
-        return this.userService.store(userDTO);
+    public ResponseEntity<ApiResponse<User>> store(@RequestBody UserDTO userDTO) {
+        ApiResponse<User> response = userService.store(userDTO);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<User> update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        return this.userService.update(id, userDTO);
+    public ResponseEntity<ApiResponse<User>> update(
+        @PathVariable Long id,
+        @RequestBody UserDTO userDTO
+    ) {
+        ApiResponse<User> response = userService.update(id, userDTO);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> destroy(@PathVariable Long id) {
-        return this.userService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
+        ApiResponse<Void> response = userService.destroy(id);
+        return ResponseEntity.ok(response);
     }
 }

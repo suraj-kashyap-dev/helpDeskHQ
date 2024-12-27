@@ -68,7 +68,7 @@ const CreateOrganization: React.FC = () => {
     onSubmit: async (values, { setSubmitting }) => {
       try {
         await createOrganization(values);
-        navigate('/dashboard/organizations');
+        navigate('/organizations');
       } catch (error) {
         console.error(error);
       } finally {
@@ -84,7 +84,7 @@ const CreateOrganization: React.FC = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <Link
-                to="/dashboard/organizations"
+                to="/organizations"
                 className="flex items-center space-x-2 text-neutral-500 hover:text-neutral-700"
               >
                 <ArrowLeft className="h-5 w-5" />

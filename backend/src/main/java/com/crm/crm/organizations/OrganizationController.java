@@ -2,15 +2,8 @@ package com.crm.crm.organizations;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.crm.crm.helpers.ApiResponse;
 
@@ -19,38 +12,46 @@ import com.crm.crm.helpers.ApiResponse;
 public class OrganizationController {
     private final OrganizationService organizationService;
 
-    @Autowired
     public OrganizationController(OrganizationService organizationService) {
         this.organizationService = organizationService;
     }
 
     @GetMapping
-    public ApiResponse<List<Organization>> index() {
-        return this.organizationService.index();
+    public ResponseEntity<ApiResponse<List<Organization>>> index() {
+        ApiResponse<List<Organization>> response = organizationService.index();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<Organization> show(@PathVariable Long id) {
-        return this.organizationService.show(id);
+    public ResponseEntity<ApiResponse<Organization>> show(@PathVariable Long id) {
+        ApiResponse<Organization> response = organizationService.show(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ApiResponse<Organization> store(@RequestBody OrganizationDTO organizationDto) {
-        return this.organizationService.store(organizationDto);
+    public ResponseEntity<ApiResponse<Organization>> store(@RequestBody OrganizationDTO organizationDto) {
+        ApiResponse<Organization> response = organizationService.store(organizationDto);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create-many")
-    public ApiResponse<List<Organization>> storeMany(@RequestBody List<OrganizationDTO> organizations) {
-        return this.organizationService.storeMany(organizations);
+    public ResponseEntity<ApiResponse<List<Organization>>> storeMany(@RequestBody List<OrganizationDTO> organizations) {
+        ApiResponse<List<Organization>> response = organizationService.storeMany(organizations);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<Organization> update(@PathVariable Long id, @RequestBody OrganizationDTO organization) {
-        return this.organizationService.update(id, organization);
+    public ResponseEntity<ApiResponse<Organization>> update(
+        @PathVariable Long id,
+        @RequestBody OrganizationDTO organization
+    ) {
+        ApiResponse<Organization> response = organizationService.update(id, organization);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<Void> destroy(@PathVariable Long id) {
-        return this.organizationService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
+        ApiResponse<Void> response = organizationService.destroy(id);
+        return ResponseEntity.ok(response);
     }
 }

@@ -19,7 +19,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     {
       icon: <Building2 className="h-5 w-5" />,
       label: t('Organizations'),
-      path: '/dashboard/organizations',
+      path: '/organizations',
     },
   ];
 
