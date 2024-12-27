@@ -10,7 +10,8 @@ import { Select } from '../../components/ui/form-controls/Select';
 import OrganizationTableShimmer from '../../components/shimmer/OrganizationTableShimmer';
 
 const Index: React.FC = () => {
-  const { organizations, loading, fetchOrganization, deleteOrganization } = useOrganizationApi();
+  const { organizations, loading, fetchOrganization, deleteOrganization } =
+    useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
@@ -18,10 +19,6 @@ const Index: React.FC = () => {
 
   const handleDelete = (id: number) => {
     confirmDialog({
-      title: 'Delete Organization',
-      description: 'Are you sure you want to delete this organization?',
-      confirmText: 'Delete',
-      cancelText: 'Cancel',
       onConfirm: async () => deleteOrganization(id),
     });
   };
@@ -88,9 +85,15 @@ const Index: React.FC = () => {
                           key={organization.id}
                           className="hover:bg-neutral-50"
                         >
-                          <td className="px-6 py-4 text-sm">{organization.name}</td>
-                          <td className="px-6 py-4 text-sm">{organization.domain}</td>
-                          <td className="px-6 py-4 text-sm">{organization.subscriptionType}</td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.name}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.domain}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.subscriptionType}
+                          </td>
                           <td className="px-6 py-4 text-sm">
                             <div className="flex space-x-3">
                               <ButtonGroup alignment="center" gap="md">

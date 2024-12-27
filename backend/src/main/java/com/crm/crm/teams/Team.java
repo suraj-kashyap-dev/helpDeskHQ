@@ -1,9 +1,10 @@
-package com.crm.crm.models;
+package com.crm.crm.teams;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
+import com.crm.crm.enums.AccessLevel;
 import com.crm.crm.workspaces.Workspace;
 
 import jakarta.persistence.Column;
@@ -67,9 +68,5 @@ public class Team {
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
-    }
-
-    public enum AccessLevel {
-        READ, WRITE, ADMIN
     }
 }

@@ -110,9 +110,10 @@ public class UserServiceImpl implements UserService {
             existingUser.setPassword(userDto.getPassword());
             existingUser.setStatus(userDto.getStatus());
 
-            User updateUser = this.userRepository.save(existingUser);
-
-            return ApiResponse.success("User updated successfully", updateUser);
+            return ApiResponse.success(
+                "User updated successfully", 
+                this.userRepository.save(existingUser)
+            );
         } catch (ResourceNotFoundException e) {
             throw e;
         } catch (Exception e) {
