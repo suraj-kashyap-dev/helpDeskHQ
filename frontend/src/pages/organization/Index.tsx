@@ -10,7 +10,8 @@ import { Select } from '../../components/ui/form-controls/Select';
 import OrganizationTableShimmer from '../../components/shimmer/OrganizationTableShimmer';
 
 const Index: React.FC = () => {
-  const { organizations, loading, fetchOrganization, deleteOrganization } = useOrganizationApi();
+  const { organizations, loading, fetchOrganization, deleteOrganization } =
+    useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
@@ -88,22 +89,30 @@ const Index: React.FC = () => {
                           key={organization.id}
                           className="hover:bg-neutral-50"
                         >
-                          <td className="px-6 py-4 text-sm">{organization.name}</td>
-                          <td className="px-6 py-4 text-sm">{organization.domain}</td>
-                          <td className="px-6 py-4 text-sm">{organization.subscriptionType}</td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.name}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.domain}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            {organization.subscriptionType}
+                          </td>
                           <td className="px-6 py-4 text-sm">
                             <div className="flex space-x-3">
                               <ButtonGroup alignment="center" gap="md">
                                 <Button
-                                  variant="primary"
+                                  variant="ghost"
                                   size="sm"
+                                  className="text-blue-700 focus:ring-0 focus:ring-offset-0"
                                   leftIcon={<Edit className="h-4 w-4" />}
                                 >
                                   Edit
                                 </Button>
                                 <Button
-                                  variant="danger"
+                                  variant="ghost"
                                   size="sm"
+                                  className="text-red-500 focus:ring-0 focus:ring-offset-0"
                                   leftIcon={<Trash2 className="h-4 w-4" />}
                                   onClick={() => handleDelete(organization.id)}
                                 >

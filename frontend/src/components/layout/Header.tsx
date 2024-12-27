@@ -1,95 +1,155 @@
-import React from 'react';
-import { Menu, Bell, Search, User } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bell, Search, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from './Translator';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Dropdown from '../ui/Dropdown';
-import logo from '../../assets/logo.png';
+import { useMenuData } from '../../hooks/useMenuData';
+import logo from '../../assets/vite.svg';
 
-interface HeaderProps {
-  toggleSidebar: () => void;
-}
-
-export const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+const Header: React.FC = () => {
   const { t } = useTranslation();
+  const { mainMenus } = useMenuData();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation(); // Get current URL pathname
+
+  useEffect(() => {
+    // Set the active menu based on the current URL
+    const activeItem = mainMenus.find(
+      (item) => item.path && location.pathname.startsWith(item.path),
+    );
+    if (activeItem) {
+      setActiveMenu(activeItem.label);
+    }
+  }, [location, mainMenus]); // Re-run when the location or mainMenus change
+
+  const handleNavigation = (item: any) => {
+    setActiveMenu(item.label === activeMenu ? null : item.label);
+    if (item.path) {
+      navigate(item.path);
+    }
+  };
+
+  const toggleSubMenu = (label: string) => {
+    setOpenSubMenu(openSubMenu === label ? null : label);
+  };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-1 border-b border-gray-200 bg-white">
-      <div className="flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={toggleSidebar}
-            className="rounded-lg p-2 hover:bg-gray-100 lg:hidden"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+    <>
+      <header className="fixed left-0 right-0 top-0 z-51 border-b border-gray-300 bg-gray-800 shadow-lg">
+        <div className="flex h-14 items-center justify-between px-6">
+          <div className="flex gap-5">
+            <div className="flex items-center gap-3">
+              <Link to="/dashboard" className="flex items-center gap-2">
+                <img src={logo} alt="Logo" className="h-8 w-auto" />
+              </Link>
+            </div>
 
-          <div className="flex items-center justify-center gap-4">
-            <Link to="/dashboard" className="select-none text-xl font-bold">
-              <img src={logo} alt="" className="h-14" />
-            </Link>
-          </div>
-        </div>
+            <nav className="hidden flex-1 items-center lg:flex">
+              <div className="flex space-x-1">
+                {mainMenus.map((item) => (
+                  <div key={item.label} className="relative">
+                    <button
+                      onClick={() =>
+                        item.subMenus
+                          ? toggleSubMenu(item.label)
+                          : handleNavigation(item)
+                      }
+                      className={`
+                        flex items-center gap-2  px-4 py-2 text-sm font-medium hover:border-b-2
+                        transition-all duration-300 ease-in-out
+                        ${
+                          activeMenu === item.label
+                            ? 'text-white border-b-2 border-white'
+                            : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-gray-300'
+                        }
+                      `}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </button>
 
-        <div className="mx-4 hidden max-w-md flex-1 items-center md:flex">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 transform text-gray-400" />
-            <input
-              type="text"
-              placeholder={'Global Searh'}
-              className="w-full rounded-lg border border-gray-200 py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          <button className="relative rounded-lg p-2 hover:bg-gray-100">
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500"></span>
-          </button>
-
-          <Dropdown position="bottom-right">
-            <Dropdown.Toggle>
-              <button className="relative rounded-lg p-2 hover:bg-gray-100">
-                <User className="h-5 w-5" />
-              </button>
-            </Dropdown.Toggle>
-            <Dropdown.Content>
-              <div className="min-w-[150px] max-w-[150px]">
-                <div className="border-b p-3 text-xl font-bold dark:border-gray-800 dark:text-gray-300">
-                  {t('Account')}
-                </div>
-                <div className="grid">
-                  <Link
-                    className="flex items-start gap-1.5 border-b p-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
-                    to="/dashboard/profile"
-                  >
-                    <span className="icon-information h-fit rounded-full bg-amber-100 text-2xl text-amber-600" />
-                    <div className="grid">
-                      <p className="text-gray-800 dark:text-white">
-                        {t('Profile')}
-                      </p>
-                    </div>
-                  </Link>
-
-                  <button
-                    className="flex items-start gap-1.5 border-b p-3 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-950"
-                    onClick={() => setConfirmOpen(true)}
-                  >
-                    <span className="icon-information h-fit rounded-full bg-amber-100 text-2xl text-amber-600" />
-                    <div className="grid">
-                      <p className="text-gray-800 dark:text-white">
-                        {t('Logout')}
-                      </p>
-                    </div>
-                  </button>
-                </div>
+                    {item.subMenus && openSubMenu === item.label && (
+                      <div className="absolute left-0 mt-2 w-48 rounded-lg border bg-gray-800 shadow-lg">
+                        {item.subMenus.map((subItem) => (
+                          <Link
+                            key={subItem.label}
+                            to={subItem.path || '#'}
+                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                          >
+                            {subItem?.icon}
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </Dropdown.Content>
-          </Dropdown>
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <button className="relative rounded-full p-2 hover:bg-gray-700">
+              <Search className="h-5 w-5 text-gray-300" />
+            </button>
+
+            <button className="relative rounded-full p-2 hover:bg-gray-700">
+              <Bell className="h-5 w-5 text-gray-300" />
+              <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
+            </button>
+
+            <Dropdown position="bottom-right">
+              <Dropdown.Toggle>
+                <button className="relative rounded-full p-2 hover:bg-gray-700">
+                  <User className="h-5 w-5 text-gray-300" />
+                </button>
+              </Dropdown.Toggle>
+              <Dropdown.Content>
+                <div className="w-64 rounded-lg shadow-lg">
+                  <div className="border-b p-4">
+                    <p className="font-medium text-gray-900">{t('John Doe')}</p>
+                    <p className="text-sm text-gray-500">john@example.com</p>
+                  </div>
+                  <div className="p-2">
+                    <Link
+                      to="/profile"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                    >
+                      <User className="h-4 w-4" />
+                      {t('Profile')}
+                    </Link>
+                    <button
+                      className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50"
+                      onClick={() => {
+                        /* handle logout */
+                      }}
+                    >
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                        />
+                      </svg>
+                      {t('Logout')}
+                    </button>
+                  </div>
+                </div>
+              </Dropdown.Content>
+            </Dropdown>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
+
+export default Header;
