@@ -12,9 +12,11 @@ const Sidebar = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  const toggleMenuItem = (itemId: string) => setExpandedItem(expandedItem === itemId ? null : itemId);
+  const toggleMenuItem = (itemId: string) =>
+    setExpandedItem(expandedItem === itemId ? null : itemId);
 
-  const isActiveLink = (path?: string) => path ? location.pathname.startsWith(path) : false;
+  const isActiveLink = (path?: string) =>
+    path ? location.pathname.startsWith(path) : false;
 
   return (
     <>

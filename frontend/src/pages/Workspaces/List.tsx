@@ -59,6 +59,12 @@ const Index: React.FC = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
+                #
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Name
               </th>
               <th
@@ -81,10 +87,15 @@ const Index: React.FC = () => {
               workspaces.map((workspace) => (
                 <tr key={workspace.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{workspace.id}</div>
+                  </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
                       {workspace.name}
                     </div>
                   </td>
+
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
                       <Tooltip text={workspace.description} limit={25} />

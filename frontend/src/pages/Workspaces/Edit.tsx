@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useWorkspaceApi } from '../../hooks/useWorkspace';
@@ -34,20 +34,18 @@ const validationSchema = Yup.object({
   }),
 });
 
-const initialValues: WorkspaceFormValues = {
-  name: '',
-  organization_id: 0,
-  settings: JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
-  description: '',
-};
-
-const Create: React.FC = () => {
+const Edit: React.FC = () => {
   const navigate = useNavigate();
-  const { create } = useWorkspaceApi();
+  const { id } = useParams();
+  const { edit, show, workspace } = useWorkspaceApi();
   const { organizations, loading, fetchOrganization } = useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
+
+    if (id) {
+      show(parseInt(id));
+    }
   }, []);
 
   const {
@@ -59,16 +57,24 @@ const Create: React.FC = () => {
     handleBlur,
     isSubmitting,
   } = useFormik<WorkspaceFormValues>({
-    initialValues,
+    enableReinitialize: true,
+    initialValues: {
+      name: workspace?.name || '',
+      organization_id: workspace?.organization.id || 0,
+      settings: JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
+      description: workspace?.description || '',
+    },
     validationSchema,
     onSubmit: async (values) => {
-      await create(values);
+      if (id) {
+        await edit(parseInt(id), values);
 
-      navigate('/workspaces');
+        navigate('/workspaces');
+      }
     },
   });
 
-  if (loading) {
+  if (loading || !workspace) {
     return <Loading />;
   }
 
@@ -77,7 +83,7 @@ const Create: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-800">
-            Create Workspace
+            Edit Workspace
           </h2>
           <div className="flex gap-2">
             <Link
@@ -86,7 +92,6 @@ const Create: React.FC = () => {
             >
               Cancel
             </Link>
-
             <Button
               disabled={isSubmitting}
               type="submit"
@@ -100,12 +105,11 @@ const Create: React.FC = () => {
 
         <div className="p-6 space-y-6 bg-white border shadow-sm border-neutral-200/30 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-6">
               <div className="flex-1 space-y-2">
                 <Label htmlFor="name" className="required">
                   Workspace Name
                 </Label>
-
                 <Input
                   id="name"
                   name="name"
@@ -116,7 +120,6 @@ const Create: React.FC = () => {
                   value={values.name}
                   className={`mt-1 block w-full rounded-md shadow-sm ${errors.name && touched.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}
                 />
-
                 {errors.name && touched.name && (
                   <ErrorMessage error={errors.name} />
                 )}
@@ -126,7 +129,6 @@ const Create: React.FC = () => {
                 <Label htmlFor="organization_id" className="required">
                   Organization
                 </Label>
-
                 <Select
                   id="organization_id"
                   name="organization_id"
@@ -141,7 +143,6 @@ const Create: React.FC = () => {
                     </option>
                   ))}
                 </Select>
-
                 {errors.organization_id && touched.organization_id && (
                   <ErrorMessage error={errors.organization_id} />
                 )}
@@ -149,7 +150,6 @@ const Create: React.FC = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
-
                 <Textarea
                   id="description"
                   name="description"
@@ -159,7 +159,6 @@ const Create: React.FC = () => {
                   value={values.description}
                   className={`h-32 resize-none mt-1 block w-full rounded-md shadow-sm ${errors.description && touched.description ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}
                 />
-
                 {errors.description && touched.description && (
                   <ErrorMessage error={errors.description} />
                 )}
@@ -172,4 +171,4 @@ const Create: React.FC = () => {
   );
 };
 
-export default Create;
+export default Edit;

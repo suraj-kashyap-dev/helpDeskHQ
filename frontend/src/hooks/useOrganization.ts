@@ -62,8 +62,9 @@ export const useOrganizationApi = () => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response =
-        await httpClient.get<ApiResponse<Organization>>(`${ORGANIZATIONS}/${id}`);
+      const response = await httpClient.get<ApiResponse<Organization>>(
+        `${ORGANIZATIONS}/${id}`,
+      );
 
       setState((prev) => ({
         ...prev,
@@ -135,7 +136,7 @@ export const useOrganizationApi = () => {
         loading: true,
         error: null,
       }));
-  
+
       const formattedPayload = {
         ...payload,
         settings:
@@ -143,14 +144,14 @@ export const useOrganizationApi = () => {
             ? payload.settings
             : JSON.stringify(payload.settings),
       };
-  
+
       const response = await httpClient.put<ApiResponse<Organization>>(
         `${ORGANIZATIONS}/${id}`,
         formattedPayload,
       );
-  
+
       const updatedOrganization = response.data.data;
-  
+
       setState((prev) => ({
         ...prev,
         organizations: prev.organizations
@@ -159,9 +160,9 @@ export const useOrganizationApi = () => {
             )
           : null,
       }));
-  
+
       showToast('Organization updated successfully');
-  
+
       return updatedOrganization;
     } catch (error) {
       const errorMessage = handleError(error);

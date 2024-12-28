@@ -87,9 +87,7 @@ const Header: React.FC = () => {
                 className="items-center gap-2 text-white flex ml-14 lg:ml-0"
               >
                 <img src={logo} alt="Logo" className="h-8 w-auto" />
-                <span className='hidden lg:block'>
-                  HelpDeskHQ
-                </span>
+                <span className="hidden lg:block">HelpDeskHQ</span>
               </Link>
             </div>
 

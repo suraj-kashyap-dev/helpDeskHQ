@@ -19,6 +19,8 @@ const OrganizationView = lazy(() => import('./pages/Organizations/View'));
 // Workspace
 const WorkspaceList = lazy(() => import('./pages/Workspaces/List'));
 const WorkspaceCreate = lazy(() => import('./pages/Workspaces/Create'));
+const WorkspaceEdit = lazy(() => import('./pages/Workspaces/Edit'));
+const WorkspaceView = lazy(() => import('./pages/Workspaces/View'));
 
 const App: React.FC = () => {
   return (
@@ -46,6 +48,8 @@ const App: React.FC = () => {
 
               <Route path="/workspaces" element={<WorkspaceList />} />
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />
+              <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />
+              <Route path="/workspaces/view/:id" element={<WorkspaceView />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />

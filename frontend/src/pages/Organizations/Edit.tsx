@@ -77,7 +77,9 @@ const Edit: React.FC = () => {
     initialValues: {
       name: organization?.name || '',
       domain: organization?.domain || '',
-      subscription_type: sanitizeSubscriptionType(organization?.subscriptionType),
+      subscription_type: sanitizeSubscriptionType(
+        organization?.subscriptionType,
+      ),
       settings: organization?.settings
         ? JSON.stringify(organization.settings, null, 2)
         : JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
@@ -124,98 +126,82 @@ const Edit: React.FC = () => {
 
         <div className="p-6 space-y-6 bg-white border shadow-sm border-neutral-200/30 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="name" className="required">
-                Organization Name
-              </Label>
+            <div className="flex flex-col gap-4">
+              <div className="flex-1 space-y-2">
+                <Label htmlFor="name" className="required">
+                  Organization Name
+                </Label>
 
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Enter organization name"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.name}
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.name && touched.name
-                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-              />
-              {errors.name && touched.name && (
-                <ErrorMessage error={errors.name} />
-              )}
-            </div>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Enter organization name"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                  className={`mt-1 block w-full rounded-md shadow-sm ${
+                    errors.name && touched.name
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                  }`}
+                />
+                {errors.name && touched.name && (
+                  <ErrorMessage error={errors.name} />
+                )}
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="domain" className="required">
-                Domain
-              </Label>
+              <div className="space-y-2">
+                <Label htmlFor="domain" className="required">
+                  Domain
+                </Label>
 
-              <Input
-                id="domain"
-                name="domain"
-                type="text"
-                placeholder="Enter organization domain"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.domain}
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.domain && touched.domain
-                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-              />
-              {errors.domain && touched.domain && (
-                <ErrorMessage error={errors.domain} />
-              )}
-            </div>
+                <Input
+                  id="domain"
+                  name="domain"
+                  type="text"
+                  placeholder="Enter organization domain"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.domain}
+                  className={`mt-1 block w-full rounded-md shadow-sm ${
+                    errors.domain && touched.domain
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                  }`}
+                />
+                {errors.domain && touched.domain && (
+                  <ErrorMessage error={errors.domain} />
+                )}
+              </div>
 
-            {/* Subscription Type Field */}
-            <div className="space-y-2">
-              <Label htmlFor="subscription_type" className="required">
-                Subscription Type
-              </Label>
+              {/* Subscription Type Field */}
+              <div className="space-y-2">
+                <Label htmlFor="subscription_type" className="required">
+                  Subscription Type
+                </Label>
 
-              <Select
-                name="subscription_type"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.subscription_type}
-                className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.subscription_type && touched.subscription_type
-                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-                options={subscriptionTypes.map((type) => ({
-                  value: type.value,
-                  label: type.label,
-                }))}
-              />
-              {errors.subscription_type && touched.subscription_type && (
-                <ErrorMessage error={errors.subscription_type} />
-              )}
-            </div>
-
-            {/* Settings Field */}
-            <div className="space-y-2">
-              <Label htmlFor="settings">Settings (JSON)</Label>
-
-              <Textarea
-                name="settings"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.settings}
-                className={`h-32 resize-none mt-1 block w-full rounded-md shadow-sm ${
-                  errors.settings && touched.settings
-                    ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-              />
-              {errors.settings && touched.settings && (
-                <ErrorMessage error={errors.settings} />
-              )}
+                <Select
+                  name="subscription_type"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.subscription_type}
+                  className={`mt-1 block w-full rounded-md shadow-sm ${
+                    errors.subscription_type && touched.subscription_type
+                      ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                      : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                  }`}
+                >
+                  {subscriptionTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </Select>
+                {errors.subscription_type && touched.subscription_type && (
+                  <ErrorMessage error={errors.subscription_type} />
+                )}
+              </div>
             </div>
           </div>
         </div>
