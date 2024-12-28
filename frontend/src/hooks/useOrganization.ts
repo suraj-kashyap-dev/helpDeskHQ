@@ -31,12 +31,12 @@ export const useOrganizationApi = () => {
     }
   }, [state.error]);
 
-  const handleError = (error: unknown) => {
+  const handleError = (error: any) => {
     if (error instanceof AxiosError && error.response?.data?.message) {
       return error.response.data.message;
     }
 
-    return 'An error occurred';
+    return error.message ?? 'An error occurred';
   };
 
   const fetchOrganization = async (): Promise<void> => {

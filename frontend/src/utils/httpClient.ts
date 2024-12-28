@@ -1,13 +1,5 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { API_URL } from '../config/constant';
-
-interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
-  _retry?: boolean;
-}
 
 class HttpClient {
   private static instance: HttpClient;

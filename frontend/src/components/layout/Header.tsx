@@ -141,7 +141,7 @@ const Header: React.FC = () => {
                 <Input
                   type="search"
                   placeholder="Mega Search"
-                  className="w-80 px-4 py-2"
+                  className="w-96 px-4 py-2"
                 />
               </div>
             </div>
