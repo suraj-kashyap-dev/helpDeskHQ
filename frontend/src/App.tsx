@@ -9,8 +9,9 @@ import Profile from './pages/Profile';
 import ConfirmModal from './components/alert/Confirm';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
-const OrganizationIndex = lazy(() => import('./pages/organization/Index'));
-const OrganizationCreate = lazy(() => import('./pages/organization/Create'));
+const OrganizationList = lazy(() => import('./pages/Organizations/List'));
+const OrganizationCreate = lazy(() => import('./pages/Organizations/Create'));
+const OrganizationEdit = lazy(() => import('./pages/Organizations/Edit'));
 
 const App: React.FC = () => {
   return (
@@ -22,10 +23,14 @@ const App: React.FC = () => {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/dashboard/" element={<Dashboard />} />
-              <Route path="/organizations" element={<OrganizationIndex />} />
+              <Route path="/organizations" element={<OrganizationList />} />
               <Route
                 path="/organizations/new"
                 element={<OrganizationCreate />}
+              />
+              <Route
+                path="/organizations/edit/:id"
+                element={<OrganizationEdit />}
               />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; // useEffect // useState,
+import React, { useEffect, useState } from 'react';
 import {
   Home,
   Ticket,

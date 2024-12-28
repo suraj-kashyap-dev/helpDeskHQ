@@ -11,6 +11,6 @@ export interface Organization {
 export interface OrganizationFormValues {
   name: string;
   domain: string;
-  subscriptionType: 'Free' | 'Standard' | 'Premium';
+  subscription_type: 'FREE' | 'STANDARD' | 'PREMIUM';
   settings: string;
 }

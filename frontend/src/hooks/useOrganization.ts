@@ -12,7 +12,7 @@ import { showToast } from '../utils/eventBus';
 
 interface OrganizationApiState extends ApiState {
   organizations: Organization[] | null;
-  createdOrganization: Organization | null;
+  organization: Organization | null;
 }
 
 export const useOrganizationApi = () => {
@@ -20,7 +20,7 @@ export const useOrganizationApi = () => {
     loading: false,
     error: null,
     organizations: null,
-    createdOrganization: null,
+    organization: null,
   });
 
   useEffect(() => {
@@ -58,6 +58,25 @@ export const useOrganizationApi = () => {
     }
   };
 
+  const showOrganization = async (id: number): Promise<void> => {
+    try {
+      setState((prev) => ({ ...prev, loading: true, error: null }));
+
+      const response =
+        await httpClient.get<ApiResponse<Organization>>(`${ORGANIZATIONS}/${id}`);
+
+      setState((prev) => ({
+        ...prev,
+        organization: response.data.data,
+      }));
+    } catch (error) {
+      const errorMessage = handleError(error);
+      setState((prev) => ({ ...prev, error: errorMessage }));
+    } finally {
+      setState((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
   const createOrganization = async (
     payload: OrganizationFormValues,
   ): Promise<Organization> => {
@@ -66,7 +85,7 @@ export const useOrganizationApi = () => {
         ...prev,
         loading: true,
         error: null,
-        createdOrganization: null,
+        organization: null,
       }));
 
       const formattedPayload = {
@@ -86,7 +105,7 @@ export const useOrganizationApi = () => {
 
       setState((prev) => ({
         ...prev,
-        createdOrganization: newOrganization,
+        organization: newOrganization,
         organizations: prev.organizations
           ? [...prev.organizations, newOrganization]
           : [newOrganization],
@@ -97,7 +116,58 @@ export const useOrganizationApi = () => {
       return newOrganization;
     } catch (error) {
       const errorMessage = handleError(error);
+
       setState((prev) => ({ ...prev, error: errorMessage }));
+
+      throw error;
+    } finally {
+      setState((prev) => ({ ...prev, loading: false }));
+    }
+  };
+
+  const editOrganization = async (
+    id: number,
+    payload: OrganizationFormValues,
+  ): Promise<Organization> => {
+    try {
+      setState((prev) => ({
+        ...prev,
+        loading: true,
+        error: null,
+      }));
+  
+      const formattedPayload = {
+        ...payload,
+        settings:
+          typeof payload.settings === 'string'
+            ? payload.settings
+            : JSON.stringify(payload.settings),
+      };
+  
+      const response = await httpClient.put<ApiResponse<Organization>>(
+        `${ORGANIZATIONS}/${id}`,
+        formattedPayload,
+      );
+  
+      const updatedOrganization = response.data.data;
+  
+      setState((prev) => ({
+        ...prev,
+        organizations: prev.organizations
+          ? prev.organizations.map((org) =>
+              org.id === id ? updatedOrganization : org,
+            )
+          : null,
+      }));
+  
+      showToast('Organization updated successfully');
+  
+      return updatedOrganization;
+    } catch (error) {
+      const errorMessage = handleError(error);
+
+      setState((prev) => ({ ...prev, error: errorMessage }));
+
       throw error;
     } finally {
       setState((prev) => ({ ...prev, loading: false }));
@@ -126,7 +196,7 @@ export const useOrganizationApi = () => {
   const clearCreatedOrganization = () => {
     setState((prev) => ({
       ...prev,
-      createdOrganization: null,
+      organization: null,
     }));
   };
 
@@ -134,6 +204,8 @@ export const useOrganizationApi = () => {
     ...state,
     fetchOrganization,
     createOrganization,
+    showOrganization,
+    editOrganization,
     clearCreatedOrganization,
     deleteOrganization,
   };

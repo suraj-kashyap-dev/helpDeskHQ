@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { Edit, Trash2 } from 'lucide-react';
 import { useOrganizationApi } from '../../hooks/useOrganization';
 import { Button } from '../../components/ui/form-controls/Button';
-import { ButtonGroup } from '../../components/ui/form-controls/ButtonGroup';
 import { confirmDialog } from '../../utils/eventBus';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../routes/paths';
 
 const Index: React.FC = () => {
-  const { organizations, fetchOrganization, deleteOrganization } =
-    useOrganizationApi();
+  const { organizations, fetchOrganization, deleteOrganization } = useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
@@ -97,26 +96,26 @@ const Index: React.FC = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm">
-                    <div className="flex space-x-3">
-                      <ButtonGroup alignment="center" gap="md">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-blue-700 focus:ring-0 focus:ring-offset-0"
-                          leftIcon={<Edit className="h-4 w-4" />}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-red-500 focus:ring-0 focus:ring-offset-0"
-                          leftIcon={<Trash2 className="h-4 w-4" />}
-                          onClick={() => handleDelete(organization.id)}
-                        >
-                          Delete
-                        </Button>
-                      </ButtonGroup>
+                  <div className="flex justify-center items-center gap-3">
+                      <Link
+                        to={ROUTES.ORGANIZATIONS.EDIT(organization.id)}
+                        className="text-blue-700 focus:ring-0 focus:ring-offset-0"
+                      >
+                        <div className="flex justify-center gap-2 items-center">
+                          <Edit className="h-4 w-4" />
+                          <span className="font-medium">Edit</span>
+                        </div>
+                      </Link>
+
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-red-500"
+                        leftIcon={<Trash2 className="h-4 w-4" />}
+                        onClick={() => handleDelete(organization.id)}
+                      >
+                        Delete
+                      </Button>
                     </div>
                   </td>
                 </tr>

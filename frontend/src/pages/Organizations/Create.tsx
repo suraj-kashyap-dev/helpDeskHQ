@@ -11,10 +11,12 @@ import { Select } from '../../components/ui/form-controls/Select';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
 
-const subscriptionTypes = [
-  { value: 'Free', label: 'Free Plan' },
-  { value: 'Standard', label: 'Standard Plan' },
-  { value: 'Premium', label: 'Premium Plan' },
+type SubscriptionType = 'FREE' | 'STANDARD' | 'PREMIUM';
+
+const subscriptionTypes: Array<{ value: SubscriptionType; label: string }> = [
+  { value: 'FREE', label: 'Free Plan' },
+  { value: 'STANDARD', label: 'Standard Plan' },
+  { value: 'PREMIUM', label: 'Premium Plan' },
 ];
 
 const validationSchema = Yup.object({
@@ -28,9 +30,9 @@ const validationSchema = Yup.object({
       /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/,
       'Please enter a valid domain',
     ),
-  subscriptionType: Yup.string()
+  subscription_type: Yup.string()
     .required('Subscription type is required')
-    .oneOf(['Free', 'Standard', 'Premium'], 'Invalid subscription type'),
+    .oneOf(['FREE', 'STANDARD', 'PREMIUM'], 'Invalid subscription type'),
   settings: Yup.string().test('valid-json', 'Invalid JSON format', (value) => {
     if (!value) return true;
     try {
@@ -45,13 +47,13 @@ const validationSchema = Yup.object({
 const initialValues: OrganizationFormValues = {
   name: '',
   domain: '',
-  subscriptionType: 'Free',
+  subscription_type: 'FREE',
   settings: JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
 };
 
 const CreateOrganization: React.FC = () => {
   const navigate = useNavigate();
-  const { createOrganization, loading, error } = useOrganizationApi();
+  const { createOrganization, loading } = useOrganizationApi();
 
   const {
     values,
@@ -96,6 +98,7 @@ const CreateOrganization: React.FC = () => {
               disabled={isSubmitting}
               type="submit"
               className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+              isLoading={loading}
             >
               Save Organization
             </Button>
@@ -152,27 +155,26 @@ const CreateOrganization: React.FC = () => {
               )}
             </div>
 
-            {/* Subscription Type Field */}
             <div className="space-y-2">
-              <Label htmlFor="subscriptionType" className="required">
+              <Label htmlFor="subscription_type" className="required">
                 Subscription Type
               </Label>
 
               <Select
-                name="subscriptionType"
+                name="subscription_type"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.subscriptionType}
+                value={values.subscription_type}
                 className={`mt-1 block w-full rounded-md shadow-sm ${
-                  errors.subscriptionType && touched.subscriptionType
+                  errors.subscription_type && touched.subscription_type
                     ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
                     : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
                 }`}
                 required
                 options={subscriptionTypes}
               ></Select>
-              {errors.subscriptionType && touched.subscriptionType && (
-                <ErrorMessage error={errors.subscriptionType} />
+              {errors.subscription_type && touched.subscription_type && (
+                <ErrorMessage error={errors.subscription_type} />
               )}
             </div>
 
