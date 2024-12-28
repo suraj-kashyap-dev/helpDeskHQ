@@ -11,7 +11,7 @@ const NotFound: React.FC = () => {
       <p className="mt-4 text-lg">{t('errors.404.message')}</p>
       <Link
         to="/dashboard"
-        className="mt-6 rounded-lg bg-gray-500 px-4 py-2 text-white hover:bg-gray-600"
+        className="mt-6 rounded-lg px-4 py-2 text-white bg-gray-700 hover:bg-gray-800"
       >
         {t('Go Back To Dashboard')}
       </Link>
