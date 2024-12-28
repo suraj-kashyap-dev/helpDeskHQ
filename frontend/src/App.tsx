@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Layout } from './components/layout/Index';
+import Layout from './components/layout/Index';
 import NotFound from './pages/Notfound';
 import Loading from './components/Loading';
 import Profile from './pages/Profile';
@@ -22,10 +22,7 @@ const App: React.FC = () => {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/dashboard/" element={<Dashboard />} />
-              <Route
-                path="/organizations"
-                element={<OrganizationIndex />}
-              />
+              <Route path="/organizations" element={<OrganizationIndex />} />
               <Route
                 path="/organizations/create"
                 element={<OrganizationCreate />}

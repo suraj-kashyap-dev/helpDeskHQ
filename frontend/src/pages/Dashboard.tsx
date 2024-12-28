@@ -1,111 +1,266 @@
 import React from 'react';
-import { PlusCircle, Clock, AlertCircle } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-
-interface Task {
-  id: number;
-  title: string;
-  priority: 'high' | 'medium' | 'low';
-  dueDate: string;
-}
 
 const Dashboard: React.FC = () => {
-  const { t } = useTranslation();
-
-  const tasks: Task[] = [
-    {
-      id: 1,
-      title: 'Complete project proposal',
-      priority: 'high',
-      dueDate: '2024-10-20',
-    },
-    {
-      id: 2,
-      title: 'Review team submissions',
-      priority: 'medium',
-      dueDate: '2024-10-21',
-    },
-    {
-      id: 3,
-      title: 'Update documentation',
-      priority: 'low',
-      dueDate: '2024-10-22',
-    },
-  ];
-
   return (
     <React.Fragment>
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">{t('dashboard')}</h2>
-        <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
-          <PlusCircle className="h-5 w-5" />
-          {t('addTask')}
-        </button>
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="mb-2 flex items-center gap-2 text-orange-600">
-              <Clock className="h-5 w-5" />
-              <h3 className="font-semibold">{t('dueSoon')}</h3>
+      <div id="ticketsDashboard" className="p-6 bg-neutral-50">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-neutral-500">
+                Total Tickets
+              </h3>
+              <span className="text-green-500 text-sm">+12.5%</span>
             </div>
-            <p className="text-2xl font-bold">5 {t('tasks')}</p>
+            <div className="flex items-baseline">
+              <p className="text-2xl font-semibold">1,482</p>
+              <span className="ml-2 text-sm text-neutral-500">tickets</span>
+            </div>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="mb-2 flex items-center gap-2 text-red-600">
-              <AlertCircle className="h-5 w-5" />
-              <h3 className="font-semibold">{t('highPriority')}</h3>
+          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-neutral-500">
+                Open Tickets
+              </h3>
+              <span className="text-yellow-500 text-sm">+5.2%</span>
             </div>
-            <p className="text-2xl font-bold">3 {t('tasks')}</p>
+            <div className="flex items-baseline">
+              <p className="text-2xl font-semibold">247</p>
+              <span className="ml-2 text-sm text-neutral-500">tickets</span>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-neutral-500">
+                Avg. Response Time
+              </h3>
+              <span className="text-green-500 text-sm">-8.3%</span>
+            </div>
+            <div className="flex items-baseline">
+              <p className="text-2xl font-semibold">2.5</p>
+              <span className="ml-2 text-sm text-neutral-500">hours</span>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-neutral-500">
+                Satisfaction Rate
+              </h3>
+              <span className="text-green-500 text-sm">+3.1%</span>
+            </div>
+            <div className="flex items-baseline">
+              <p className="text-2xl font-semibold">94.8%</p>
+              <span className="ml-2 text-sm text-neutral-500">satisfied</span>
+            </div>
           </div>
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-200 p-4">
-            <h3 className="font-semibold">{t('recentTasks')}</h3>
+        <div className="bg-white rounded-lg border border-neutral-200 mb-6">
+          <div className="p-6 border-b border-neutral-200">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">Recent Tickets</h2>
+              <button className="text-sm text-neutral-500 hover:text-neutral-700">
+                View All
+              </button>
+            </div>
           </div>
-          <div className="divide-y divide-gray-200">
-            {tasks.length > 0 ? (
-              tasks.map((task) => (
-                <div
-                  key={task.id}
-                  className="flex items-center justify-between p-4 hover:bg-gray-50"
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300"
-                    />
-                    <span>{task.title}</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span
-                      className={`
-                    px-2 py-1 rounded-full text-sm
-                    ${
-                      task.priority === 'high'
-                        ? 'bg-red-100 text-red-700'
-                        : task.priority === 'medium'
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-green-100 text-green-700'
-                    }
-                  `}
-                    >
-                      {t(`priority.${task.priority}`)}
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-neutral-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Ticket
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Customer
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Priority
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                    Created
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200">
+                <tr className="hover:bg-neutral-50">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
+                      <span className="text-sm font-medium">#TK-2024</span>
+                      <span className="ml-2 text-sm text-neutral-500">
+                        Login Issue
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
+                      <img
+                        src="https://avatar.iran.liara.run/public"
+                        className="w-6 h-6 rounded-full transition-opacity duration-300 opacity-100"
+                        loading="lazy"
+                      />
+                      <span className="ml-2 text-sm">John Doe</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                      In Progress
                     </span>
-                    <span className="text-sm text-gray-500">
-                      {task.dueDate}
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                      High
                     </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-neutral-500">2h ago</td>
+                </tr>
+                <tr className="hover:bg-neutral-50">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
+                      <span className="text-sm font-medium">#TK-2023</span>
+                      <span className="ml-2 text-sm text-neutral-500">
+                        Payment Failed
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
+                      <img
+                        src="https://avatar.iran.liara.run/public"
+                        className="w-6 h-6 rounded-full transition-opacity duration-300 opacity-100"
+                        loading="lazy"
+                      />
+                      <span className="ml-2 text-sm">Sarah Smith</span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Resolved
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                      Medium
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-neutral-500">4h ago</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg border border-neutral-200">
+          <div className="p-6 border-b border-neutral-200">
+            <h2 className="text-lg font-semibold">Recent Activity</h2>
+          </div>
+          <div className="p-6">
+            <div className="flow-root">
+              <ul className="-mb-8">
+                <li className="relative pb-8">
+                  <span
+                    className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-neutral-200"
+                    aria-hidden="true"
+                  ></span>
+                  <div className="relative flex space-x-3">
+                    <div>
+                      <span className="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M5 13l4 4L19 7"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div>
+                        <div className="text-sm">
+                          <a href="#" className="font-medium text-neutral-900">
+                            Ticket #TK-2024
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-neutral-500">
+                          Resolved by David Wilson
+                        </p>
+                      </div>
+                      <div className="mt-2 text-sm text-neutral-700">
+                        <p>
+                          Issue resolved: Login functionality restored after
+                          server restart.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
+                      30min ago
+                    </div>
                   </div>
-                </div>
-              ))
-            ) : (
-              <div className="p-4 text-center text-gray-500">
-                {t('noTasks')}
-              </div>
-            )}
+                </li>
+
+                <li className="relative pb-8">
+                  <div className="relative flex space-x-3">
+                    <div>
+                      <span className="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          ></path>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div>
+                        <div className="text-sm">
+                          <a href="#" className="font-medium text-neutral-900">
+                            Ticket #TK-2023
+                          </a>
+                        </div>
+                        <p className="mt-0.5 text-sm text-neutral-500">
+                          Updated by Emily Brown
+                        </p>
+                      </div>
+                      <div className="mt-2 text-sm text-neutral-700">
+                        <p>
+                          Payment issue investigation in progress. Customer
+                          contacted for additional details.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
+                      1h ago
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

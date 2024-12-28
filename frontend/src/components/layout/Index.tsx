@@ -1,16 +1,37 @@
 import React from 'react';
-import Header from './Header';
 import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import { useMenuState } from '../../hooks/useMenuState';
+// import { mainMenus } from '../../Data/menuData';
 
-export const Layout: React.FC = () => {
+const Layout: React.FC = () => {
+  // const { isSidebarOpen, setIsSidebarOpen, activeMenu, setActiveMenu } =
+  useMenuState();
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
-      <main className="pt-8">
-        <div className="p-8">
-          <Outlet />
-        </div>
+    <div className="min-h-screen bg-gray-50">
+      <Header
+      // isSidebarOpen={isSidebarOpen}
+      // setIsSidebarOpen={setIsSidebarOpen}
+      // activeMenu={activeMenu}
+      // setActiveMenu={setActiveMenu}
+      // mainMenus={mainMenus}
+      />
+
+      <Sidebar
+      // isSidebarOpen={isSidebarOpen}
+      // setIsSidebarOpen={setIsSidebarOpen}
+      // activeMenu={activeMenu}
+      // mainMenus={mainMenus}
+      />
+
+      {/* Main content */}
+      <main className="pt-16 lg:pl-64">
+        <Outlet />
       </main>
     </div>
   );
 };
+
+export default Layout;

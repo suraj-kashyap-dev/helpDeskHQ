@@ -1,62 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import { Bell, Search, User } from 'lucide-react';
+import React from // useEffect // useState,
+'react';
+import {
+  // Home,
+  // Ticket,
+  // Settings,
+  // Users,
+  // Building2,
+  Bell,
+  ChevronDown,
+  Plus,
+  Search,
+  User,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Link,
+  // useNavigate,
+  // useLocation
+} from 'react-router-dom';
 import Dropdown from '../ui/Dropdown';
-import { useMenuData } from '../../hooks/useMenuData';
-import logo from '../../assets/vite.svg';
+import logo from '../../assets/logo.svg';
+// import { MenuItem } from '../../types/menu.types';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
-  const { mainMenus } = useMenuData();
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
-  const navigate = useNavigate();
-  const location = useLocation(); // Get current URL pathname
+  // const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  // const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
-  useEffect(() => {
-    // Set the active menu based on the current URL
-    const activeItem = mainMenus.find(
-      (item) => item.path && location.pathname.startsWith(item.path),
-    );
-    if (activeItem) {
-      setActiveMenu(activeItem.label);
-    }
-  }, [location, mainMenus]); // Re-run when the location or mainMenus change
+  // const mainMenus: MenuItem[] = [
+  //   {
+  //     label: 'Tickets',
+  //     path: '/tickets',
+  //     icon: <Ticket />,
+  //   },
+  //   {
+  //     label: 'Organizations',
+  //     path: '/organizations',
+  //     icon: <Building2 />,
+  //   },
+  //   {
+  //     label: 'Analytics',
+  //     path: '/analytics',
+  //     icon: <Home />,
+  //   },
+  //   {
+  //     label: 'Team',
+  //     path: '/team',
+  //     icon: <Users />,
+  //   },
+  //   {
+  //     label: 'Settings',
+  //     path: '/settings',
+  //     icon: <Settings />,
+  //   },
+  // ];
 
-  const handleNavigation = (item: any) => {
-    setActiveMenu(item.label === activeMenu ? null : item.label);
-    if (item.path) {
-      navigate(item.path);
-    }
-  };
+  // useEffect(() => {
+  //   const activeItem = mainMenus.find(
+  //     (item) => item.path && location.pathname.startsWith(item.path),
+  //   );
+  //   if (activeItem) {
+  //     setActiveMenu(activeItem.label);
+  //   }
+  // }, [location, mainMenus]);
 
-  const toggleSubMenu = (label: string) => {
-    setOpenSubMenu(openSubMenu === label ? null : label);
-  };
+  // const handleNavigation = (item: any) => {
+  //   setActiveMenu(item.label === activeMenu ? null : item.label);
+  //   if (item.path) {
+  //     navigate(item.path);
+  //   }
+  // };
+
+  // const toggleSubMenu = (label: string) => {
+  //   setOpenSubMenu(openSubMenu === label ? null : label);
+  // };
 
   return (
     <>
       <header className="fixed left-0 right-0 top-0 z-51 border-b border-gray-300 bg-gray-800 shadow-lg">
-        <div className="flex h-14 items-center justify-between px-6">
-          <div className="flex gap-5">
+        <div className="h-14 px-6 flex items-center justify-between element-highlight">
+          <div className="flex items-center space-x-6">
             <div className="flex items-center gap-3">
-              <Link to="/dashboard" className="flex items-center gap-2">
+              <Link
+                to="/dashboard"
+                className="items-center gap-2 text-white flex ml-14 lg:ml-0"
+              >
                 <img src={logo} alt="Logo" className="h-8 w-auto" />
+                HelpDeskHQ
               </Link>
             </div>
 
-            <nav className="hidden flex-1 items-center lg:flex">
-              <div className="flex space-x-1">
-                {mainMenus.map((item) => (
-                  <div key={item.label} className="relative">
-                    <button
-                      onClick={() =>
-                        item.subMenus
-                          ? toggleSubMenu(item.label)
-                          : handleNavigation(item)
-                      }
-                      className={`
+            {/* <div className="flex space-x-1">
+              {mainMenus.map((item) => (
+                <div key={item.label} className="relative">
+                  <button
+                    onClick={() =>
+                      item.subMenus
+                        ? toggleSubMenu(item.label)
+                        : handleNavigation(item)
+                    }
+                    className={`
                         flex items-center gap-2  px-4 py-2 text-sm font-medium hover:border-b-2
                         transition-all duration-300 ease-in-out
                         ${
@@ -65,32 +110,40 @@ const Header: React.FC = () => {
                             : 'text-gray-300 hover:text-white hover:border-b-2 hover:border-gray-300'
                         }
                       `}
-                    >
-                      {item.icon}
-                      {item.label}
-                    </button>
+                  >
+                    {item.icon}
+                    {item.label}
+                  </button>
 
-                    {item.subMenus && openSubMenu === item.label && (
-                      <div className="absolute left-0 mt-2 w-48 rounded-lg border bg-gray-800 shadow-lg">
-                        {item.subMenus.map((subItem) => (
-                          <Link
-                            key={subItem.label}
-                            to={subItem.path || '#'}
-                            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
-                          >
-                            {subItem?.icon}
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </nav>
+                  {item.subMenus && openSubMenu === item.label && (
+                    <div className="absolute left-0 mt-2 w-48 rounded-lg border z-50 bg-gray-800 shadow-lg">
+                      {item.subMenus.map((subItem) => (
+                        <Link
+                          key={subItem.label}
+                          to={subItem.path || '#'}
+                          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                        >
+                          {item.icon && null}
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div> */}
           </div>
 
           <div className="flex items-center gap-6">
+            <div className="flex ">
+              <button className="relative rounded-l-md bg-blue-500 p-2 hover:bg-blue-600">
+                <Plus className="h-4 w-4 text-bold text-gray-300" />
+              </button>
+              <button className="relative rounded-r-md border-l-[.5px] bg-blue-500 p-2 hover:bg-blue-600">
+                <ChevronDown className="h-4 w-4 text-gray-300" />
+              </button>
+            </div>
+
             <button className="relative rounded-full p-2 hover:bg-gray-700">
               <Search className="h-5 w-5 text-gray-300" />
             </button>
@@ -122,9 +175,7 @@ const Header: React.FC = () => {
                     </Link>
                     <button
                       className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50"
-                      onClick={() => {
-                        /* handle logout */
-                      }}
+                      onClick={() => {}}
                     >
                       <svg
                         className="h-4 w-4"

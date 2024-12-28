@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ButtonGroupProps {
   children: React.ReactNode;
-  alignment?: 'start' | 'center' | 'end'; 
+  alignment?: 'start' | 'center' | 'end';
   gap?: 'sm' | 'md' | 'lg';
   className?: string;
 }

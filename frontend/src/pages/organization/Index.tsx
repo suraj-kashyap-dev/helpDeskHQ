@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CirclePlus, Edit, Trash2 } from 'lucide-react';
+import { CirclePlus, Edit, Filter, RefreshCcw, Trash2 } from 'lucide-react';
 import { useOrganizationApi } from '../../hooks/useOrganization';
 import { Button } from '../../components/ui/form-controls/Button';
 import { ButtonGroup } from '../../components/ui/form-controls/ButtonGroup';
@@ -30,43 +30,14 @@ const Index: React.FC = () => {
   return (
     <React.Fragment>
       <div className="space-y-6">
-        <div id="employee_management" className="p-6 space-y-6">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold">Organizations</h2>
-            <Link
-              to="create"
-              className="flex items-center space-x-2  bg-blue-600 text-white rounded-lg px-3 py-1.5 text-sm hover:bg-blue-700 transition-colors"
-            >
-              <CirclePlus className="h-4 w-4" />
-              <span>Create Organization</span>
-            </Link>
-          </div>
-
-          <div className="bg-white border border-neutral-200/30 rounded-lg p-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Input type="text" placeholder="Search organization..." />
-
-              <Input type="text" placeholder="Search domain..." />
-
-              <Select
-                options={[
-                  { label: 'Subscription Type', value: '' },
-                  { label: 'Premium', value: 'premium' },
-                  { label: 'Standard', value: 'standard' },
-                  { label: 'Enterprise', value: 'enterprise' },
-                  { label: 'Free', value: 'free' },
-                ]}
-              ></Select>
-            </div>
-          </div>
-
+        <div className="py-6 space-y-6">
           <div className="bg-white border border-neutral-200/30 rounded-lg">
             <div className="overflow-x-auto">
               {loading ? (
                 <OrganizationTableShimmer></OrganizationTableShimmer>
               ) : (
                 <table className="w-full">
-                  <thead className="bg-neutral-50 border-b border-neutral-200/30">
+                  <thead className="bg-neutral-200 border-b border-neutral-200/30">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm font-medium text-neutral-500">
                         Name

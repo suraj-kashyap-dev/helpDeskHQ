@@ -98,7 +98,7 @@ const CreateOrganization: React.FC = () => {
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="domain" >Organization Name</Label>
+                  <Label htmlFor="domain">Organization Name</Label>
 
                   <Input
                     id="name"
