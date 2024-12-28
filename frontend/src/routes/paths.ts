@@ -4,11 +4,13 @@ export const ROUTES = {
       LIST: '/organizations',
       CREATE: '/organizations/create',
       EDIT: (id: number | string) => `/organizations/edit/${id}`,
+      VIEW: (id: number | string) => `/organizations/view/${id}`,
     },
-    PROJECTS: {
-      LIST: '/projects',
-      CREATE: '/projects/create',
-      EDIT: (id: number | string) => `/projects/edit/${id}`,
+    WORKSPACE: {
+      LIST: '/workspaces',
+      CREATE: '/workspaces/new',
+      EDIT: (id: number | string) => `/workspaces/edit/${id}`,
+      VIEW: (id: number | string) => `/workspaces/view/${id}`,
     },
   };
   

@@ -12,6 +12,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 const OrganizationList = lazy(() => import('./pages/Organizations/List'));
 const OrganizationCreate = lazy(() => import('./pages/Organizations/Create'));
 const OrganizationEdit = lazy(() => import('./pages/Organizations/Edit'));
+const OrganizationView = lazy(() => import('./pages/Organizations/View'));
 
 const App: React.FC = () => {
   return (
@@ -31,6 +32,10 @@ const App: React.FC = () => {
               <Route
                 path="/organizations/edit/:id"
                 element={<OrganizationEdit />}
+              />
+              <Route
+                path="/organizations/view/:id"
+                element={<OrganizationView />}
               />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>

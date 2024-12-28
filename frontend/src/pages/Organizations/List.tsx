@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Eye, Trash2 } from 'lucide-react';
 import { useOrganizationApi } from '../../hooks/useOrganization';
 import { Button } from '../../components/ui/form-controls/Button';
 import { confirmDialog } from '../../utils/eventBus';
@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/paths';
 
 const Index: React.FC = () => {
-  const { organizations, fetchOrganization, deleteOrganization } = useOrganizationApi();
+  const { organizations, fetchOrganization, deleteOrganization } =
+    useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
@@ -74,6 +75,7 @@ const Index: React.FC = () => {
               </th>
             </tr>
           </thead>
+
           <tbody className="bg-white divide-y divide-gray-200">
             {organizations && organizations.length > 0 ? (
               organizations.map((organization) => (
@@ -86,7 +88,12 @@ const Index: React.FC = () => {
 
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {organization.domain}
+                      <a
+                        href={organization.domain}
+                        className='text-blue-500 hover:underline'
+                      >
+                        {organization.domain}
+                      </a>
                     </div>
                   </td>
 
@@ -96,7 +103,16 @@ const Index: React.FC = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm">
-                  <div className="flex justify-center items-center gap-3">
+                    <div className="flex justify-center items-center gap-3">
+                      <Link
+                        to={ROUTES.ORGANIZATIONS.VIEW(organization.id)}
+                        className="text-gray-800 focus:ring-0 focus:ring-offset-0"
+                      >
+                        <div className="flex justify-center gap-2 items-center">
+                          <Eye className="h-4 w-4" />
+                          <span className="font-medium">View</span>
+                        </div>
+                      </Link>
                       <Link
                         to={ROUTES.ORGANIZATIONS.EDIT(organization.id)}
                         className="text-blue-700 focus:ring-0 focus:ring-offset-0"
@@ -110,7 +126,7 @@ const Index: React.FC = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-red-500"
+                        className="text-red-500 !p-0"
                         leftIcon={<Trash2 className="h-4 w-4" />}
                         onClick={() => handleDelete(organization.id)}
                       >
