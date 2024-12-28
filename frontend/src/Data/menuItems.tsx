@@ -116,5 +116,12 @@ export const menuItems: MenuItem[] = [
     label: 'Settings',
     path: '/settings',
     icon: <Settings className="w-5 h-5 mr-3" />,
+    subMenus: [
+      {
+        id: 'users',
+        label: 'Users',
+        path: '/settings/users',
+      },
+    ],
   },
 ];
