@@ -6,7 +6,6 @@ import { useOrganizationApi } from '../../hooks/useOrganization';
 import { OrganizationFormValues } from '../../types/organization.types';
 import { ErrorMessage } from '../../components/ui/form-controls/ErrorMessage';
 import { Label } from '../../components/ui/form-controls/Label';
-import { Textarea } from '../../components/ui/form-controls/Textarea';
 import { Select } from '../../components/ui/form-controls/Select';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
@@ -107,7 +106,7 @@ const Create: React.FC = () => {
 
         <div className="p-6 space-y-6 bg-white border shadow-sm border-neutral-200/30 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               <div className="flex-1 space-y-2">
                 <Label htmlFor="domain" className="required">
                   Organization Name

@@ -65,25 +65,27 @@ const View: React.FC = () => {
           </div>
         </Card>
 
-        <Card title="Organization Details">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <InfoListItem
-              icon={<Building2 className="h-5 w-5 text-gray-600" />}
-              label="Organization Name"
-              value={workspace.organization.name}
-            />
-            <InfoListItem
-              icon={<Globe className="h-5 w-5 text-gray-600" />}
-              label="Domain"
-              value={workspace.organization.domain}
-            />
-            <InfoListItem
-              icon={<Rss className="h-5 w-5 text-gray-600" />}
-              label="Subscription Type"
-              value={workspace.organization.subscriptionType}
-            />
-          </div>
-        </Card>
+        {workspace?.organization && (
+          <Card title="Organization Details">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <InfoListItem
+                icon={<Building2 className="h-5 w-5 text-gray-600" />}
+                label="Organization Name"
+                value={workspace.organization.name}
+              />
+              <InfoListItem
+                icon={<Globe className="h-5 w-5 text-gray-600" />}
+                label="Domain"
+                value={workspace.organization.domain}
+              />
+              <InfoListItem
+                icon={<Rss className="h-5 w-5 text-gray-600" />}
+                label="Subscription Type"
+                value={workspace.organization.subscriptionType}
+              />
+            </div>
+          </Card>
+        )}
       </div>
     </React.Fragment>
   );
