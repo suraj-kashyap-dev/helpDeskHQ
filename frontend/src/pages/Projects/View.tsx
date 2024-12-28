@@ -8,9 +8,10 @@ import {
   Rss,
   Briefcase,
   Scroll,
-  RefreshCcw,
-  RefreshCw,
   FolderDot,
+  ChartBarBig,
+  Calendar,
+  Calendar1,
 } from 'lucide-react';
 import InfoListItem from '../../components/ui/InfolistItem';
 import { ROUTES } from '../../routes/paths';
@@ -58,7 +59,7 @@ const View: React.FC = () => {
 
       <div className="flex gap-2 flex-col">
         <Card title="General Information">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             <InfoListItem
               icon={<FolderDot className="h-5 w-5 text-gray-600" />}
               label="Project Name"
@@ -68,6 +69,21 @@ const View: React.FC = () => {
               icon={<Scroll className="h-5 w-5 text-gray-600" />}
               label="Description"
               value={project.description}
+            />
+            <InfoListItem
+              icon={<ChartBarBig className="h-5 w-5 text-gray-600" />}
+              label="Status"
+              value={project.status}
+            />
+            <InfoListItem
+              icon={<Calendar className="h-5 w-5 text-gray-600" />}
+              label="Start Date"
+              value={project.startDate}
+            />
+            <InfoListItem
+              icon={<Calendar className="h-5 w-5 text-gray-600" />}
+              label="End Date"
+              value={project.endDate ?? '-'}
             />
           </div>
         </Card>
