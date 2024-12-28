@@ -6,3 +6,4 @@ export const API_USER_REGISTER: string = 'auth/register';
 export const API_WORKSPACE: string = 'workspace';
 
 export const ORGANIZATIONS = 'organizations';
+export const WORKSPACES = 'workspaces';

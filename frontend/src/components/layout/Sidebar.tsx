@@ -11,13 +11,10 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-  const toggleMenuItem = (itemId: string) => {
-    setExpandedItem(expandedItem === itemId ? null : itemId);
-  };
 
-  const isActiveLink = (path?: string) => {
-    return path ? location.pathname.startsWith(path) : false;
-  };
+  const toggleMenuItem = (itemId: string) => setExpandedItem(expandedItem === itemId ? null : itemId);
+
+  const isActiveLink = (path?: string) => path ? location.pathname.startsWith(path) : false;
 
   return (
     <>

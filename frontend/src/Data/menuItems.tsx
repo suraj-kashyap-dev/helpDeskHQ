@@ -7,6 +7,7 @@ import {
   UsersRound,
   BarChart,
   Settings,
+  Briefcase,
 } from 'lucide-react';
 
 export const menuItems: MenuItem[] = [
@@ -21,6 +22,12 @@ export const menuItems: MenuItem[] = [
     label: 'Organizations',
     path: '/organizations',
     icon: <Building2 className="w-5 h-5 mr-3" />,
+  },
+  {
+    id: 'workspaces',
+    label: 'Workspaces',
+    path: '/workspaces',
+    icon: <Briefcase className="w-5 h-5 mr-3" />,
   },
   {
     id: 'tickets',

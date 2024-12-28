@@ -51,7 +51,7 @@ const initialValues: OrganizationFormValues = {
   settings: JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
 };
 
-const CreateOrganization: React.FC = () => {
+const Create: React.FC = () => {
   const navigate = useNavigate();
   const { createOrganization, loading } = useOrganizationApi();
 
@@ -204,4 +204,4 @@ const CreateOrganization: React.FC = () => {
   );
 };
 
-export default CreateOrganization;
+export default Create;

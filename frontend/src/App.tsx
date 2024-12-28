@@ -9,10 +9,16 @@ import Profile from './pages/Profile';
 import ConfirmModal from './components/alert/Confirm';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+
+// Oraganization
 const OrganizationList = lazy(() => import('./pages/Organizations/List'));
 const OrganizationCreate = lazy(() => import('./pages/Organizations/Create'));
 const OrganizationEdit = lazy(() => import('./pages/Organizations/Edit'));
 const OrganizationView = lazy(() => import('./pages/Organizations/View'));
+
+// Workspace
+const WorkspaceList = lazy(() => import('./pages/Workspaces/List'));
+const WorkspaceCreate = lazy(() => import('./pages/Workspaces/Create'));
 
 const App: React.FC = () => {
   return (
@@ -37,6 +43,9 @@ const App: React.FC = () => {
                 path="/organizations/view/:id"
                 element={<OrganizationView />}
               />
+
+              <Route path="/workspaces" element={<WorkspaceList />} />
+              <Route path="/workspaces/new" element={<WorkspaceCreate />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />

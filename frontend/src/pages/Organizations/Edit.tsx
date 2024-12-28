@@ -52,7 +52,7 @@ const validationSchema = Yup.object({
   }),
 });
 
-const EditOrganization: React.FC = () => {
+const Edit: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { editOrganization, showOrganization, organization, loading } =
@@ -224,4 +224,4 @@ const EditOrganization: React.FC = () => {
   );
 };
 
-export default EditOrganization;
+export default Edit;

@@ -1,12 +1,25 @@
+// Type for the workspace data as retrieved from the API response
 export interface Workspace {
-  id: string;
+  id: number;
+  organization: {
+    id: number;
+    name: string;
+    domain: string;
+    subscriptionType: string;
+    settings: string;
+    createdAt: string;
+    updatedAt: string;
+  };
   name: string;
-  image: string;
-  inviteCode: string;
+  description: string;
+  settings: string;
   createdAt: string;
+  updatedAt: string;
 }
 
-export interface WorkspaceUserInput {
+export interface WorkspaceFormValues {
+  organization_id: number;
   name: string;
-  image: File | null;
+  description: string;
+  settings: string;
 }
