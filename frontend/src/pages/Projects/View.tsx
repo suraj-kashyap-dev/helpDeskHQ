@@ -17,6 +17,7 @@ import InfoListItem from '../../components/ui/InfolistItem';
 import { ROUTES } from '../../routes/paths';
 import Card from '../../components/ui/Card';
 import { useProjectApi } from '../../hooks/useProjectApi';
+import formatDate from '../../utils/dateFormat';
 
 const View: React.FC = () => {
   const { id } = useParams();
@@ -65,11 +66,7 @@ const View: React.FC = () => {
               label="Project Name"
               value={project.name}
             />
-            <InfoListItem
-              icon={<Scroll className="h-5 w-5 text-gray-600" />}
-              label="Description"
-              value={project.description}
-            />
+
             <InfoListItem
               icon={<ChartBarBig className="h-5 w-5 text-gray-600" />}
               label="Status"
@@ -78,12 +75,18 @@ const View: React.FC = () => {
             <InfoListItem
               icon={<Calendar className="h-5 w-5 text-gray-600" />}
               label="Start Date"
-              value={project.startDate}
+              value={formatDate(project.startDate, 'yyyy-MM-dd HH:mm')}
             />
             <InfoListItem
               icon={<Calendar className="h-5 w-5 text-gray-600" />}
               label="End Date"
-              value={project.endDate ?? '-'}
+              value={formatDate(project.endDate, 'yyyy-MM-dd HH:mm')}
+            />
+
+            <InfoListItem
+              icon={<Scroll className="h-5 w-5 text-gray-600" />}
+              label="Description"
+              value={project.description}
             />
           </div>
         </Card>
