@@ -26,7 +26,6 @@ const Index: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div id="teamManagement" className="bg-gray-50 p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-800">Organizations</h2>
 
@@ -38,7 +37,7 @@ const Index: React.FC = () => {
           </Button>
         </div>
 
-        <div className="bg-white rounded-lg border overflow-x-auto border-gray-200">
+        <div className="bg-white rounded-lg border overflow-x-auto border-gray-200 shadow-lg">
           <div className="px-6 py-2 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div className="">
@@ -132,7 +131,6 @@ const Index: React.FC = () => {
             </tbody>
           </table>
         </div>
-      </div>
     </React.Fragment>
   );
 };

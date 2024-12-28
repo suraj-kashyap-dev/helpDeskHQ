@@ -10,7 +10,7 @@ const Layout: React.FC = () => {
   useMenuState();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-100">
       <Header
       // isSidebarOpen={isSidebarOpen}
       // setIsSidebarOpen={setIsSidebarOpen}
@@ -28,7 +28,9 @@ const Layout: React.FC = () => {
 
       {/* Main content */}
       <main className="pt-16 lg:pl-64">
-        <Outlet />
+        <div className="bg-slate-100 p-6">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
