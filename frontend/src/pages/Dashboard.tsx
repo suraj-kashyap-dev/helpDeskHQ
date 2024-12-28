@@ -3,66 +3,66 @@ import React from 'react';
 const Dashboard: React.FC = () => {
   return (
     <React.Fragment>
-      <div id="ticketsDashboard" className="p-6 bg-neutral-50">
+      <div className="p-6 bg-gray-50">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-neutral-500">
+              <h3 className="text-sm font-medium text-gray-500">
                 Total Tickets
               </h3>
               <span className="text-green-500 text-sm">+12.5%</span>
             </div>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold">1,482</p>
-              <span className="ml-2 text-sm text-neutral-500">tickets</span>
+              <span className="ml-2 text-sm text-gray-500">tickets</span>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-neutral-500">
+              <h3 className="text-sm font-medium text-gray-500">
                 Open Tickets
               </h3>
               <span className="text-yellow-500 text-sm">+5.2%</span>
             </div>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold">247</p>
-              <span className="ml-2 text-sm text-neutral-500">tickets</span>
+              <span className="ml-2 text-sm text-gray-500">tickets</span>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-neutral-500">
+              <h3 className="text-sm font-medium text-gray-500">
                 Avg. Response Time
               </h3>
               <span className="text-green-500 text-sm">-8.3%</span>
             </div>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold">2.5</p>
-              <span className="ml-2 text-sm text-neutral-500">hours</span>
+              <span className="ml-2 text-sm text-gray-500">hours</span>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg border border-neutral-200">
+          <div className="bg-white p-6 rounded-lg border border-gray-200">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-neutral-500">
+              <h3 className="text-sm font-medium text-gray-500">
                 Satisfaction Rate
               </h3>
               <span className="text-green-500 text-sm">+3.1%</span>
             </div>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold">94.8%</p>
-              <span className="ml-2 text-sm text-neutral-500">satisfied</span>
+              <span className="ml-2 text-sm text-gray-500">satisfied</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border border-neutral-200 mb-6">
-          <div className="p-6 border-b border-neutral-200">
+        <div className="bg-white rounded-lg border border-gray-200 mb-6">
+          <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Recent Tickets</h2>
-              <button className="text-sm text-neutral-500 hover:text-neutral-700">
+              <button className="text-sm text-gray-500 hover:text-gray-700">
                 View All
               </button>
             </div>
@@ -70,31 +70,31 @@ const Dashboard: React.FC = () => {
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-neutral-50">
+              <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Ticket
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Customer
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Priority
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Created
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-200">
-                <tr className="hover:bg-neutral-50">
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <span className="text-sm font-medium">#TK-2024</span>
-                      <span className="ml-2 text-sm text-neutral-500">
+                      <span className="ml-2 text-sm text-gray-500">
                         Login Issue
                       </span>
                     </div>
@@ -119,13 +119,13 @@ const Dashboard: React.FC = () => {
                       High
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-neutral-500">2h ago</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">2h ago</td>
                 </tr>
-                <tr className="hover:bg-neutral-50">
+                <tr className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <span className="text-sm font-medium">#TK-2023</span>
-                      <span className="ml-2 text-sm text-neutral-500">
+                      <span className="ml-2 text-sm text-gray-500">
                         Payment Failed
                       </span>
                     </div>
@@ -150,15 +150,15 @@ const Dashboard: React.FC = () => {
                       Medium
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-neutral-500">4h ago</td>
+                  <td className="px-6 py-4 text-sm text-gray-500">4h ago</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border border-neutral-200">
-          <div className="p-6 border-b border-neutral-200">
+        <div className="bg-white rounded-lg border border-gray-200">
+          <div className="p-6 border-b border-gray-200">
             <h2 className="text-lg font-semibold">Recent Activity</h2>
           </div>
           <div className="p-6">
@@ -166,7 +166,7 @@ const Dashboard: React.FC = () => {
               <ul className="-mb-8">
                 <li className="relative pb-8">
                   <span
-                    className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-neutral-200"
+                    className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200"
                     aria-hidden="true"
                   ></span>
                   <div className="relative flex space-x-3">
@@ -190,22 +190,22 @@ const Dashboard: React.FC = () => {
                     <div className="min-w-0 flex-1">
                       <div>
                         <div className="text-sm">
-                          <a href="#" className="font-medium text-neutral-900">
+                          <a href="#" className="font-medium text-gray-900">
                             Ticket #TK-2024
                           </a>
                         </div>
-                        <p className="mt-0.5 text-sm text-neutral-500">
+                        <p className="mt-0.5 text-sm text-gray-500">
                           Resolved by David Wilson
                         </p>
                       </div>
-                      <div className="mt-2 text-sm text-neutral-700">
+                      <div className="mt-2 text-sm text-gray-700">
                         <p>
                           Issue resolved: Login functionality restored after
                           server restart.
                         </p>
                       </div>
                     </div>
-                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
+                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
                       30min ago
                     </div>
                   </div>
@@ -239,22 +239,22 @@ const Dashboard: React.FC = () => {
                     <div className="min-w-0 flex-1">
                       <div>
                         <div className="text-sm">
-                          <a href="#" className="font-medium text-neutral-900">
+                          <a href="#" className="font-medium text-gray-900">
                             Ticket #TK-2023
                           </a>
                         </div>
-                        <p className="mt-0.5 text-sm text-neutral-500">
+                        <p className="mt-0.5 text-sm text-gray-500">
                           Updated by Emily Brown
                         </p>
                       </div>
-                      <div className="mt-2 text-sm text-neutral-700">
+                      <div className="mt-2 text-sm text-gray-700">
                         <p>
                           Payment issue investigation in progress. Customer
                           contacted for additional details.
                         </p>
                       </div>
                     </div>
-                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-neutral-500">
+                    <div className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
                       1h ago
                     </div>
                   </div>

@@ -1,11 +1,10 @@
-import React from // useEffect // useState,
-'react';
+import React, { useEffect, useState } from 'react'; // useEffect // useState,
 import {
-  // Home,
-  // Ticket,
-  // Settings,
-  // Users,
-  // Building2,
+  Home,
+  Ticket,
+  Settings,
+  Users,
+  Building2,
   Bell,
   ChevronDown,
   Plus,
@@ -13,69 +12,71 @@ import {
   User,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import {
-  Link,
-  // useNavigate,
-  // useLocation
-} from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Dropdown from '../ui/Dropdown';
 import logo from '../../assets/logo.svg';
-// import { MenuItem } from '../../types/menu.types';
+import { Input } from '../ui/form-controls/Input';
+import { MenuItem } from '../../types/menu.types';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
-  // const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  // const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
-  // const navigate = useNavigate();
-  // const location = useLocation();
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // const mainMenus: MenuItem[] = [
-  //   {
-  //     label: 'Tickets',
-  //     path: '/tickets',
-  //     icon: <Ticket />,
-  //   },
-  //   {
-  //     label: 'Organizations',
-  //     path: '/organizations',
-  //     icon: <Building2 />,
-  //   },
-  //   {
-  //     label: 'Analytics',
-  //     path: '/analytics',
-  //     icon: <Home />,
-  //   },
-  //   {
-  //     label: 'Team',
-  //     path: '/team',
-  //     icon: <Users />,
-  //   },
-  //   {
-  //     label: 'Settings',
-  //     path: '/settings',
-  //     icon: <Settings />,
-  //   },
-  // ];
+  const mainMenus: MenuItem[] = [
+    {
+      id: 'tickets',
+      label: 'Tickets',
+      path: '/tickets',
+      icon: <Ticket />,
+    },
+    {
+      id: 'organizations',
+      label: 'Organizations',
+      path: '/organizations',
+      icon: <Building2 />,
+    },
+    {
+      id: 'analytics',
+      label: 'Analytics',
+      path: '/analytics',
+      icon: <Home />,
+    },
+    {
+      id: 'team',
+      label: 'Team',
+      path: '/team',
+      icon: <Users />,
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      path: '/settings',
+      icon: <Settings />,
+    },
+  ];
 
-  // useEffect(() => {
-  //   const activeItem = mainMenus.find(
-  //     (item) => item.path && location.pathname.startsWith(item.path),
-  //   );
-  //   if (activeItem) {
-  //     setActiveMenu(activeItem.label);
-  //   }
-  // }, [location, mainMenus]);
+  useEffect(() => {
+    const activeItem = mainMenus.find(
+      (item) => item.path && location.pathname.startsWith(item.path),
+    );
+    if (activeItem) {
+      setActiveMenu(activeItem.label);
+    }
+  }, [location, mainMenus]);
 
-  // const handleNavigation = (item: any) => {
-  //   setActiveMenu(item.label === activeMenu ? null : item.label);
-  //   if (item.path) {
-  //     navigate(item.path);
-  //   }
-  // };
+  const handleNavigation = (item: any) => {
+    setActiveMenu(item.label === activeMenu ? null : item.label);
+    if (item.path) {
+      navigate(item.path);
+    }
+  };
 
-  // const toggleSubMenu = (label: string) => {
-  //   setOpenSubMenu(openSubMenu === label ? null : label);
-  // };
+  const toggleSubMenu = (label: string) => {
+    setOpenSubMenu(openSubMenu === label ? null : label);
+  };
 
   return (
     <>
@@ -92,7 +93,7 @@ const Header: React.FC = () => {
               </Link>
             </div>
 
-            {/* <div className="flex space-x-1">
+            <div className="space-x-1 hidden">
               {mainMenus.map((item) => (
                 <div key={item.label} className="relative">
                   <button
@@ -131,22 +132,19 @@ const Header: React.FC = () => {
                   )}
                 </div>
               ))}
-            </div> */}
+            </div>
           </div>
 
           <div className="flex items-center gap-6">
             <div className="flex ">
-              <button className="relative rounded-l-md bg-blue-500 p-2 hover:bg-blue-600">
-                <Plus className="h-4 w-4 text-bold text-gray-300" />
-              </button>
-              <button className="relative rounded-r-md border-l-[.5px] bg-blue-500 p-2 hover:bg-blue-600">
-                <ChevronDown className="h-4 w-4 text-gray-300" />
-              </button>
+              <div className="relative">
+                <Input
+                  type="search"
+                  placeholder="Mega Search"
+                  className="w-72 px-4 py-2"
+                />
+              </div>
             </div>
-
-            <button className="relative rounded-full p-2 hover:bg-gray-700">
-              <Search className="h-5 w-5 text-gray-300" />
-            </button>
 
             <button className="relative rounded-full p-2 hover:bg-gray-700">
               <Bell className="h-5 w-5 text-gray-300" />
