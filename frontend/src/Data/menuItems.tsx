@@ -20,7 +20,7 @@ export const menuItems: MenuItem[] = [
     id: 'organizations',
     label: 'Organizations',
     path: '/organizations',
-    icon: <LayoutDashboard className="w-5 h-5 mr-3" />,
+    icon: <Building2 className="w-5 h-5 mr-3" />,
   },
   {
     id: 'tickets',
