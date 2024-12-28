@@ -30,6 +30,34 @@ export const menuItems: MenuItem[] = [
     icon: <Briefcase className="w-5 h-5 mr-3" />,
   },
   {
+    id: 'projects',
+    label: 'Projects',
+    path: '/projects',
+    icon: <FolderDot className="w-5 h-5 mr-3" />,
+    subMenus: [
+      {
+        id: 'all-projects',
+        label: 'All Projects',
+        path: '/projects',
+      },
+      {
+        id: 'active-projects',
+        label: 'Active Projects',
+        path: '/projects/active',
+      },
+      {
+        id: 'completed-projects',
+        label: 'Completed',
+        path: '/projects/completed',
+      },
+      {
+        id: 'archived-projects',
+        label: 'Archived',
+        path: '/projects/archived',
+      },
+    ],
+  },
+  {
     id: 'tickets',
     label: 'Tickets',
     path: '/tickets',
@@ -46,29 +74,6 @@ export const menuItems: MenuItem[] = [
         id: 'urgent-tickets',
         label: 'Urgent Tickets',
         path: '/tickets/urgent',
-      },
-    ],
-  },
-  {
-    id: 'projects',
-    label: 'Projects',
-    path: '/projects',
-    icon: <FolderDot className="w-5 h-5 mr-3" />,
-    subMenus: [
-      {
-        id: 'active-projects',
-        label: 'Active Projects',
-        path: '/projects/active',
-      },
-      {
-        id: 'completed-projects',
-        label: 'Completed',
-        path: '/projects/completed',
-      },
-      {
-        id: 'archived-projects',
-        label: 'Archived',
-        path: '/projects/archived',
       },
     ],
   },

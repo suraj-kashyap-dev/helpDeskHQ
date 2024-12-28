@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 import { httpClient } from '../utils/httpClient';
-import { WORKSPACES } from '../config/constant';
+import { PROJECTS } from '../config/constant';
 import { ApiState } from '../types/apiState.types';
-import { Workspace, WorkspaceFormValues } from '../types/workspace.types';
 import { ApiResponse } from '../types/apiResponse.types';
 import { showToast } from '../utils/eventBus';
+import { Project, ProjectFormValues } from '../types/projects.types';
 
-interface WorkspaceApiState extends ApiState {
-  workspaces: Workspace[] | null;
-  workspace: Workspace | null;
+interface ProjectApiState extends ApiState {
+  projects: Project[] | null;
+  project: Project | null;
 }
 
-export const useWorkspaceApi = () => {
-  const [state, setState] = useState<WorkspaceApiState>({
+export const useProjectApi = () => {
+  const [state, setState] = useState<ProjectApiState>({
     loading: false,
     error: null,
-    workspaces: null,
-    workspace: null,
+    projects: null,
+    project: null,
   });
 
   useEffect(() => {
@@ -40,12 +40,11 @@ export const useWorkspaceApi = () => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response =
-        await httpClient.get<ApiResponse<Workspace[]>>(WORKSPACES);
+      const response = await httpClient.get<ApiResponse<Project[]>>(PROJECTS);
 
       setState((prev) => ({
         ...prev,
-        workspaces: response.data.data,
+        projects: response.data.data,
       }));
     } catch (error) {
       const errorMessage = handleError(error);
@@ -59,13 +58,13 @@ export const useWorkspaceApi = () => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response = await httpClient.get<ApiResponse<Workspace>>(
-        `${WORKSPACES}/${id}`,
+      const response = await httpClient.get<ApiResponse<Project>>(
+        `${PROJECTS}/${id}`,
       );
 
       setState((prev) => ({
         ...prev,
-        workspace: response.data.data,
+        project: response.data.data,
       }));
     } catch (error) {
       const errorMessage = handleError(error);
@@ -75,14 +74,14 @@ export const useWorkspaceApi = () => {
     }
   };
 
-  const create = async (payload: WorkspaceFormValues): Promise<Workspace> => {
+  const create = async (payload: ProjectFormValues): Promise<Project> => {
     try {
       setState((prev) => ({
         ...prev,
         loading: true,
         error: null,
-        workspaces: null,
-        workspace: null,
+        project: null,
+        projects: null,
       }));
 
       const formattedPayload = {
@@ -93,24 +92,22 @@ export const useWorkspaceApi = () => {
             : JSON.stringify(payload.settings),
       };
 
-      const response = await httpClient.post<ApiResponse<Workspace>>(
-        WORKSPACES,
+      const response = await httpClient.post<ApiResponse<Project>>(
+        PROJECTS,
         formattedPayload,
       );
 
-      const newWorkspace = response.data.data;
+      const newProject = response.data.data;
 
       setState((prev) => ({
         ...prev,
-        workspace: newWorkspace,
-        workspaces: prev.workspaces
-          ? [...prev.workspaces, newWorkspace]
-          : [newWorkspace],
+        project: newProject,
+        projects: prev.projects ? [...prev.projects, newProject] : [newProject],
       }));
 
-      showToast('Workspace created successfully');
+      showToast('Project created successfully');
 
-      return newWorkspace;
+      return newProject;
     } catch (error) {
       const errorMessage = handleError(error);
 
@@ -124,8 +121,8 @@ export const useWorkspaceApi = () => {
 
   const edit = async (
     id: number,
-    payload: WorkspaceFormValues,
-  ): Promise<Workspace> => {
+    payload: ProjectFormValues,
+  ): Promise<Project> => {
     try {
       setState((prev) => ({
         ...prev,
@@ -141,25 +138,25 @@ export const useWorkspaceApi = () => {
             : JSON.stringify(payload.settings),
       };
 
-      const response = await httpClient.put<ApiResponse<Workspace>>(
-        `${WORKSPACES}/${id}`,
+      const response = await httpClient.put<ApiResponse<Project>>(
+        `${PROJECTS}/${id}`,
         formattedPayload,
       );
 
-      const updatedWorkspace = response.data.data;
+      const updatedProject = response.data.data;
 
       setState((prev) => ({
         ...prev,
-        workspaces: prev.workspaces
-          ? prev.workspaces.map((org) =>
-              org.id === id ? updatedWorkspace : org,
+        projects: prev.projects
+          ? prev.projects.map((project) =>
+              project.id === id ? updatedProject : project,
             )
           : null,
       }));
 
-      showToast('Workspace updated successfully');
+      showToast('Project updated successfully');
 
-      return updatedWorkspace;
+      return updatedProject;
     } catch (error) {
       const errorMessage = handleError(error);
 
@@ -173,16 +170,16 @@ export const useWorkspaceApi = () => {
 
   const destroy = async (id: number) => {
     httpClient
-      .delete(`${WORKSPACES}/${id}`)
+      .delete(`${PROJECTS}/${id}`)
       .then(() => {
         setState((prev) => ({
           ...prev,
-          workspaces: prev.workspaces
-            ? prev.workspaces.filter((org) => org.id !== id)
+          projects: prev.projects
+            ? prev.projects.filter((project) => project.id !== id)
             : null,
         }));
 
-        showToast('Workspace delete successfully');
+        showToast('Project delete successfully');
       })
       .catch((error) => {
         const errorMessage = handleError(error);

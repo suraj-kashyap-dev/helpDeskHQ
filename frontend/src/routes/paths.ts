@@ -1,15 +1,24 @@
+import { ORGANIZATIONS, PROJECTS, WORKSPACES } from '../config/constant';
+
 export const ROUTES = {
   DASHBOARD: '/',
   ORGANIZATIONS: {
-    LIST: '/organizations',
-    NEW: '/organizations/new',
-    EDIT: (id: number | string) => `/organizations/edit/${id}`,
-    VIEW: (id: number | string) => `/organizations/view/${id}`,
+    LIST: `/${ORGANIZATIONS}`,
+    NEW: `/${ORGANIZATIONS}/new`,
+    EDIT: (id: number | string) => `/${ORGANIZATIONS}/edit/${id}`,
+    VIEW: (id: number | string) => `/${ORGANIZATIONS}/view/${id}`,
   },
   WORKSPACE: {
-    LIST: '/workspaces',
-    NEW: '/workspaces/new',
-    EDIT: (id: number | string) => `/workspaces/edit/${id}`,
-    VIEW: (id: number | string) => `/workspaces/view/${id}`,
+    LIST: `/${WORKSPACES}`,
+    NEW: `/${WORKSPACES}/new`,
+    EDIT: (id: number | string) => `/${WORKSPACES}/edit/${id}`,
+    VIEW: (id: number | string) => `/${WORKSPACES}/view/${id}`,
+  },
+
+  PROJECTS: {
+    LIST: `/${PROJECTS}`,
+    NEW: `/${PROJECTS}/new`,
+    EDIT: (id: number | string) => `/${PROJECTS}/edit/${id}`,
+    VIEW: (id: number | string) => `/${PROJECTS}/view/${id}`,
   },
 };

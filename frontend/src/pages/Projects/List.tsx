@@ -1,41 +1,41 @@
 import React, { useEffect } from 'react';
 import { Edit, Eye, Trash2 } from 'lucide-react';
-import { useOrganizationApi } from '../../hooks/useOrganization';
 import { Button } from '../../components/ui/form-controls/Button';
 import { confirmDialog } from '../../utils/eventBus';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/paths';
+import { useProjectApi } from '../../hooks/useProjectApi';
+import Tooltip from '../../components/Tooltip';
 
-const List: React.FC = () => {
-  const { organizations, fetchOrganization, deleteOrganization } =
-    useOrganizationApi();
+const Index: React.FC = () => {
+  const { projects, fetch, destroy } = useProjectApi();
 
   useEffect(() => {
-    fetchOrganization();
+    fetch();
   }, []);
 
   const handleDelete = (id: number) => {
     confirmDialog({
-      title: 'Delete Organization',
-      description: 'Are you sure you want to delete this organization?',
+      title: 'Delete Project',
+      description: 'Are you sure you want to delete this project?',
       confirmText: 'Confirm',
       cancelText: 'Cancel',
-      onConfirm: () => deleteOrganization(id),
+      onConfirm: () => destroy(id),
     });
   };
 
   return (
     <React.Fragment>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Organizations</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Projects</h2>
 
         <Link
-          to={ROUTES.ORGANIZATIONS.NEW}
+          to={ROUTES.PROJECTS.NEW}
           className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
         >
           <div className="flex gap-2">
-            <span>Add Organization</span>
+            <span>Add Projects</span>
           </div>
         </Link>
       </div>
@@ -46,7 +46,7 @@ const List: React.FC = () => {
             <div className="">
               <Input
                 type="text"
-                placeholder="Search organizations"
+                placeholder="Search projects"
                 className="w-[360px] px-4 py-2"
               />
             </div>
@@ -71,52 +71,75 @@ const List: React.FC = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Domain
+                Description
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Subscription Type
+                Workspace
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Oragnization
+              </th>
+
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Status
               </th>
             </tr>
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {organizations && organizations.length > 0 ? (
-              organizations.map((organization) => (
-                <tr key={organization.id} className="hover:bg-gray-50">
+            {projects && projects.length > 0 ? (
+              projects.map((project) => (
+                <tr key={project.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      {organization.id}
-                    </div>
+                    <div className="text-sm text-gray-900">{project.id}</div>
                   </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">{project.name}</div>
+                  </td>
+
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {organization.name}
+                      <Tooltip
+                        text={
+                          project.description == '' ? '-' : project.description
+                        }
+                        limit={25}
+                      />
                     </div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      <a
-                        href={organization.domain}
-                        className="text-blue-500 hover:underline"
-                      >
-                        {organization.domain}
-                      </a>
+                      {project.workspace.name}
                     </div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {organization.subscriptionType}
+                      {project.workspace?.organization?.name ?? '-'}
                     </div>
                   </td>
+
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">
+                      {project.status}
+                    </div>
+                  </td>
+
                   <td className="px-6 py-4 text-sm">
                     <div className="flex justify-center items-center gap-3">
                       <Link
-                        to={ROUTES.ORGANIZATIONS.VIEW(organization.id)}
+                        to={ROUTES.PROJECTS.VIEW(project.id)}
                         className="text-gray-800 focus:ring-0 focus:ring-offset-0"
                       >
                         <div className="flex justify-center gap-2 items-center">
@@ -125,7 +148,7 @@ const List: React.FC = () => {
                         </div>
                       </Link>
                       <Link
-                        to={ROUTES.ORGANIZATIONS.EDIT(organization.id)}
+                        to={ROUTES.PROJECTS.EDIT(project.id)}
                         className="text-blue-700 focus:ring-0 focus:ring-offset-0"
                       >
                         <div className="flex justify-center gap-2 items-center">
@@ -139,7 +162,7 @@ const List: React.FC = () => {
                         size="sm"
                         className="text-red-500 !p-0"
                         leftIcon={<Trash2 className="h-4 w-4" />}
-                        onClick={() => handleDelete(organization.id)}
+                        onClick={() => handleDelete(project.id)}
                       >
                         Delete
                       </Button>
@@ -164,4 +187,4 @@ const List: React.FC = () => {
   );
 };
 
-export default List;
+export default Index;

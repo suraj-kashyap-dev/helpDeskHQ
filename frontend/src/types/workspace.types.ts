@@ -1,4 +1,3 @@
-// Type for the workspace data as retrieved from the API response
 export interface Workspace {
   id: number;
   organization: {
@@ -18,8 +17,9 @@ export interface Workspace {
 }
 
 export interface WorkspaceFormValues {
+  id?: number;
   organization_id: number;
   name: string;
-  description: string;
-  settings: string;
+  description?: string;
+  settings?: string;
 }

@@ -40,14 +40,14 @@ const Index: React.FC = () => {
         </Link>
       </div>
 
-      <div className="bg-white rounded-lg border overflow-x-auto border-gray-200 shadow-lg">
+      <div className="bg-white rounded-lg border overflow-x-auto border-gray-200 shadow-sm">
         <div className="px-6 py-2 border-b border-gray-200">
           <div className="flex items-center justify-between">
             <div className="">
               <Input
                 type="text"
-                placeholder="Search organizations..."
-                className="w-[350px] px-4 py-2"
+                placeholder="Search workspace"
+                className="w-[360px] px-4 py-2"
               />
             </div>
           </div>
@@ -98,7 +98,14 @@ const Index: React.FC = () => {
 
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      <Tooltip text={workspace.description} limit={25} />
+                      <Tooltip
+                        text={
+                          workspace.description == ''
+                            ? '-'
+                            : workspace.description
+                        }
+                        limit={25}
+                      />
                     </div>
                   </td>
 

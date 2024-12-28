@@ -22,6 +22,10 @@ const WorkspaceCreate = lazy(() => import('./pages/Workspaces/Create'));
 const WorkspaceEdit = lazy(() => import('./pages/Workspaces/Edit'));
 const WorkspaceView = lazy(() => import('./pages/Workspaces/View'));
 
+// Project
+const ProjectList = lazy(() => import('./pages/Projects/List'));
+const ProjectView = lazy(() => import('./pages/Projects/View'));
+
 const App: React.FC = () => {
   return (
     <React.Fragment>
@@ -50,6 +54,11 @@ const App: React.FC = () => {
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />
               <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />
               <Route path="/workspaces/view/:id" element={<WorkspaceView />} />
+
+              <Route path="/projects" element={<ProjectList />} />
+              {/* <Route path="/workspaces/new" element={<WorkspaceCreate />} />
+              <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />*/}
+              <Route path="/projects/view/:id" element={<ProjectView />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />
