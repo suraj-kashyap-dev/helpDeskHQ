@@ -36,11 +36,15 @@ export const useProjectApi = () => {
     return error.message ?? 'An error occurred';
   };
 
-  const fetch = async (): Promise<void> => {
+  const fetch = async (status: string = 'ACTIVE'): Promise<void> => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response = await httpClient.get<ApiResponse<Project[]>>(PROJECTS);
+      const response = await httpClient.get<ApiResponse<Project[]>>(PROJECTS, {
+        params: {
+          status,
+        },
+      });
 
       setState((prev) => ({
         ...prev,

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.crm.crm.helpers.ApiResponse;
+import com.crm.crm.projects.enums.ProjectStatus;
 
 @RestController
 @RequestMapping("/projects")
@@ -17,8 +18,8 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Project>>> index() {
-        ApiResponse<List<Project>> response = projectService.index();
+    public ResponseEntity<ApiResponse<List<Project>>> index(@RequestParam(required = false) ProjectStatus status) {
+        ApiResponse<List<Project>> response = projectService.index(status);
         return ResponseEntity.ok(response);
     }
 

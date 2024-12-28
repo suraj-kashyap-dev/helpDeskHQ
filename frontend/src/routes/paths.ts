@@ -16,7 +16,7 @@ export const ROUTES = {
   },
 
   PROJECTS: {
-    LIST: `/${PROJECTS}`,
+    LIST: `/${PROJECTS}/active`,
     NEW: `/${PROJECTS}/new`,
     EDIT: (id: number | string) => `/${PROJECTS}/edit/${id}`,
     VIEW: (id: number | string) => `/${PROJECTS}/view/${id}`,

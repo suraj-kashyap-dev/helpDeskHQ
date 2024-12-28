@@ -3,17 +3,28 @@ import { Edit, Eye, Trash2 } from 'lucide-react';
 import { Button } from '../../components/ui/form-controls/Button';
 import { confirmDialog } from '../../utils/eventBus';
 import { Input } from '../../components/ui/form-controls/Input';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ROUTES } from '../../routes/paths';
 import { useProjectApi } from '../../hooks/useProjectApi';
 import Tooltip from '../../components/Tooltip';
 
+type Status = 'active' | 'completed' | 'inactive';
+
 const Index: React.FC = () => {
+  const { status } = useParams<{ status: string }>();
   const { projects, fetch, destroy } = useProjectApi();
 
   useEffect(() => {
-    fetch();
-  }, []);
+    if (status) {
+      const statusEnumMap: Record<Status, string> = {
+        active: 'ACTIVE',
+        completed: 'COMPLETED',
+        inactive: 'INACTIVE',
+      };
+
+      fetch(statusEnumMap[status as keyof typeof statusEnumMap]);
+    }
+  }, [status]);
 
   const handleDelete = (id: number) => {
     confirmDialog({

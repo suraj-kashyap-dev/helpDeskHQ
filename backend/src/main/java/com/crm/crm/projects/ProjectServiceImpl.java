@@ -3,12 +3,14 @@ package com.crm.crm.projects;
 import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.crm.crm.exceptions.resources.ResourceNotFoundException;
 import com.crm.crm.exceptions.resources.ResourceUpdateException;
 import com.crm.crm.exceptions.resources.ResourceCreationException;
 import com.crm.crm.exceptions.resources.ResourceDeletionException;
 import com.crm.crm.helpers.ApiResponse;
+import com.crm.crm.projects.enums.ProjectStatus;
 import com.crm.crm.workspaces.Workspace;
 import com.crm.crm.workspaces.WorkspaceRepository;
 
@@ -29,9 +31,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ApiResponse<List<Project>> index() {
+    public ApiResponse<List<Project>> index(ProjectStatus status) {
         try {
-            List<Project> projects = this.projectRepository.findAllByOrderByCreatedAtDesc();
+            List<Project> projects = this.projectRepository.findAllByStatusOrderByCreatedAtDesc(status);
             return ApiResponse.success("Projects retrieved successfully", projects);
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving projects", e);
@@ -131,9 +133,10 @@ public class ProjectServiceImpl implements ProjectService {
 
             this.projectRepository.deleteById(id);
             return ApiResponse.success("Project deleted successfully", null);
-        } catch (ResourceNotFoundException e) {
-            throw e;
+         } catch (DataIntegrityViolationException e) {
+            throw new ResourceDeletionException("Error deleting project. It is being used by another resource");
         } catch (Exception e) {
+            System.out.println(e);
             throw new ResourceDeletionException("Error deleting project");
         }
     }

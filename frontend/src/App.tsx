@@ -55,9 +55,7 @@ const App: React.FC = () => {
               <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />
               <Route path="/workspaces/view/:id" element={<WorkspaceView />} />
 
-              <Route path="/projects" element={<ProjectList />} />
-              {/* <Route path="/workspaces/new" element={<WorkspaceCreate />} />
-              <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />*/}
+              <Route path="/projects/:status" element={<ProjectList />} />
               <Route path="/projects/view/:id" element={<ProjectView />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>

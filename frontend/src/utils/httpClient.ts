@@ -22,8 +22,8 @@ class HttpClient {
     return HttpClient.instance;
   }
 
-  public async get<T>(url: string) {
-    return this.api.get<T>(url);
+  public async get<T>(url: string, params: object = {}) {
+    return this.api.get<T>(url, params);
   }
 
   public async post<T>(url: string, data?: any, config: object = {}) {

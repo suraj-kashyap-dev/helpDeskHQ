@@ -36,24 +36,19 @@ export const menuItems: MenuItem[] = [
     icon: <FolderDot className="w-5 h-5 mr-3" />,
     subMenus: [
       {
-        id: 'all-projects',
-        label: 'All Projects',
-        path: '/projects',
-      },
-      {
         id: 'active-projects',
         label: 'Active Projects',
         path: '/projects/active',
       },
       {
-        id: 'completed-projects',
-        label: 'Completed',
-        path: '/projects/completed',
+        id: 'in-active-projects',
+        label: 'Inactive Projects',
+        path: '/projects/inactive',
       },
       {
-        id: 'archived-projects',
-        label: 'Archived',
-        path: '/projects/archived',
+        id: 'completed-projects',
+        label: 'Completed Projects',
+        path: '/projects/completed',
       },
     ],
   },
