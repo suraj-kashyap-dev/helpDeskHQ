@@ -24,7 +24,7 @@ const App: React.FC = () => {
               <Route path="/dashboard/" element={<Dashboard />} />
               <Route path="/organizations" element={<OrganizationIndex />} />
               <Route
-                path="/organizations/create"
+                path="/organizations/new"
                 element={<OrganizationCreate />}
               />
               <Route path="/dashboard/profile" element={<Profile />} />

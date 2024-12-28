@@ -4,7 +4,7 @@ import {
   FolderDot,
   LayoutDashboard,
   Building2,
-  Users,
+  UsersRound,
   BarChart,
   Settings,
 } from 'lucide-react';
@@ -69,7 +69,7 @@ export const menuItems: MenuItem[] = [
     id: 'team',
     label: 'Team Members',
     path: '/team',
-    icon: <Users className="w-5 h-5 mr-3" />,
+    icon: <UsersRound className="w-5 h-5 mr-3" />,
     subMenus: [
       { id: 'team-list', label: 'Team List', path: '/team/list' },
       { id: 'team-schedule', label: 'Schedule', path: '/team/schedule' },

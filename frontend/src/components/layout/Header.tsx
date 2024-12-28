@@ -6,8 +6,6 @@ import {
   Users,
   Building2,
   Bell,
-  ChevronDown,
-  Plus,
   Search,
   User,
 } from 'lucide-react';
@@ -89,7 +87,9 @@ const Header: React.FC = () => {
                 className="items-center gap-2 text-white flex ml-14 lg:ml-0"
               >
                 <img src={logo} alt="Logo" className="h-8 w-auto" />
-                HelpDeskHQ
+                <span className='hidden lg:block'>
+                  HelpDeskHQ
+                </span>
               </Link>
             </div>
 
@@ -136,15 +136,19 @@ const Header: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-6">
-            <div className="flex ">
+            <div className="hidden lg:flex">
               <div className="relative">
                 <Input
                   type="search"
                   placeholder="Mega Search"
-                  className="w-72 px-4 py-2"
+                  className="w-80 px-4 py-2"
                 />
               </div>
             </div>
+
+            <button className="relative rounded-full p-2 hover:bg-gray-700 lg:hidden">
+              <Search className="h-5 w-5 text-gray-300" />
+            </button>
 
             <button className="relative rounded-full p-2 hover:bg-gray-700">
               <Bell className="h-5 w-5 text-gray-300" />

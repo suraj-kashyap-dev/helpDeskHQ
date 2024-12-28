@@ -5,10 +5,10 @@ import { Button } from '../../components/ui/form-controls/Button';
 import { ButtonGroup } from '../../components/ui/form-controls/ButtonGroup';
 import { confirmDialog } from '../../utils/eventBus';
 import { Input } from '../../components/ui/form-controls/Input';
+import { Link } from 'react-router-dom';
 
 const Index: React.FC = () => {
-  const { organizations, fetchOrganization, deleteOrganization } =
-    useOrganizationApi();
+  const { organizations, fetchOrganization, deleteOrganization } = useOrganizationApi();
 
   useEffect(() => {
     fetchOrganization();
@@ -29,12 +29,16 @@ const Index: React.FC = () => {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-800">Organizations</h2>
 
-          <Button
+          <Link
+            to={"/organizations/new"}
             className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
-            leftIcon={<PlusCircle />}
           >
-            Add Organization
-          </Button>
+            <div className='flex gap-2'>
+              <PlusCircle />
+
+              <span>Add Organization</span>
+            </div>
+          </Link>
         </div>
 
         <div className="bg-white rounded-lg border overflow-x-auto border-gray-200 shadow-lg">
