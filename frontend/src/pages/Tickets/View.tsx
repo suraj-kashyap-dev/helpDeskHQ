@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button } from '../../components/ui/form-controls/Button';
 import Loading from '../../components/Loading';
 import {
   AlertCircle,
@@ -12,8 +11,6 @@ import {
   Briefcase,
   Tag,
   Activity,
-  List,
-  Notebook,
   Scroll,
   ChartBar,
   Phone,

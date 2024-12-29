@@ -10,11 +10,9 @@ import {
   FolderDot,
   Hash,
   MessageSquare,
-  Scroll,
   Tag,
   Ticket,
   Trash2,
-  User,
   UserCheck,
   UserCog,
 } from 'lucide-react';
@@ -23,7 +21,6 @@ import { confirmDialog } from '../../utils/eventBus';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/paths';
-import Tooltip from '../../components/Tooltip';
 import { useTicketApi } from '../../hooks/useTickets';
 
 const Index: React.FC = () => {
