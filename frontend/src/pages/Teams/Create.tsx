@@ -59,7 +59,7 @@ const Create: React.FC = () => {
     handleChange,
     handleBlur,
     isSubmitting,
-    setFieldValue
+    setFieldValue,
   } = useFormik<TeamFormValues>({
     initialValues,
     validationSchema,
@@ -84,9 +84,7 @@ const Create: React.FC = () => {
     <React.Fragment>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Create Team
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-800">Create Team</h2>
           <div className="flex gap-2">
             <Link
               to={ROUTES.TEAM.LIST}

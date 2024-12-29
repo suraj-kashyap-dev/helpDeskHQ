@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import com.crm.crm.exceptions.resources.ResourceNotFoundException;
 import com.crm.crm.exceptions.resources.ResourceCreationException;
 import com.crm.crm.exceptions.resources.ResourceUpdateException;
-import com.crm.crm.exceptions.resources.ResourceDeletionException;
 import com.crm.crm.helpers.ApiResponse;
 import com.crm.crm.projects.ProjectRepository;
 import com.crm.crm.tickets.mapper.TicketMapper;
@@ -31,7 +30,8 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ApiResponse<List<Ticket>> index() {
         try {
-            List<Ticket> tickets = ticketRepository.findAll();
+            List<Ticket> tickets = this.ticketRepository.findAllByOrderByCreatedAtDesc();
+
             return ApiResponse.success("Tickets retrieved successfully", tickets);
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving tickets", e);
@@ -59,8 +59,6 @@ public class TicketServiceImpl implements TicketService {
                 "Ticket created successfully",
                 this.ticketRepository.save(ticket)
             );
-        } catch (ResourceNotFoundException e) {
-            throw e;
         } catch (Exception e) {
             throw new ResourceCreationException("Error creating ticket: " + e.getMessage());
         }
@@ -82,7 +80,7 @@ public class TicketServiceImpl implements TicketService {
                 ticketRepository.save(updatedTicket)
             );
         } catch (ResourceNotFoundException e) {
-            throw e;
+            throw new ResourceNotFoundException("Ticket not found: " + e.getMessage());
         } catch (Exception e) {
             throw new ResourceUpdateException("Error updating ticket: " + e.getMessage());
         }
@@ -94,10 +92,14 @@ public class TicketServiceImpl implements TicketService {
             if (!ticketRepository.existsById(id)) {
                 throw new ResourceNotFoundException("Ticket not found");
             }
+
             ticketRepository.deleteById(id);
+
             return ApiResponse.success("Ticket deleted successfully", null);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Ticket not found: " + e.getMessage());
         } catch (Exception e) {
-            throw new ResourceDeletionException("Error deleting ticket");
+            throw new ResourceUpdateException("Error destroying ticket: " + e.getMessage());
         }
     }
 }

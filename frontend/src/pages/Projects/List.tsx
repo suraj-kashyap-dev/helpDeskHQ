@@ -155,7 +155,9 @@ const Index: React.FC = () => {
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getBadgeClass(project.status)}`}>
+                    <span
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getBadgeClass(project.status)}`}
+                    >
                       {project.status}
                     </span>
                   </td>

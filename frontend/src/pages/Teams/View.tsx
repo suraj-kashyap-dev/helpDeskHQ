@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from '../../components/ui/form-controls/Button';
 import Loading from '../../components/Loading';
-import { Globe, Building2, Rss, Briefcase, Scroll } from 'lucide-react';
+import { Globe, Building2, Rss, Briefcase, Scroll, Shield } from 'lucide-react';
 import InfoListItem from '../../components/ui/InfolistItem';
 import { useTeamApi } from '../../hooks/useTeam';
 import { ROUTES } from '../../routes/paths';
@@ -26,9 +26,7 @@ const View: React.FC = () => {
   return (
     <React.Fragment>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">
-          Team Details
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-800">Team Details</h2>
 
         <div className="flex gap-2">
           <Link
@@ -56,6 +54,11 @@ const View: React.FC = () => {
               icon={<Briefcase className="h-5 w-5 text-gray-600" />}
               label="Team Name"
               value={team.name}
+            />
+            <InfoListItem
+              icon={<Shield className="h-5 w-5 text-gray-600" />}
+              label="Access Level"
+              value={team.accessLevel}
             />
             <InfoListItem
               icon={<Scroll className="h-5 w-5 text-gray-600" />}

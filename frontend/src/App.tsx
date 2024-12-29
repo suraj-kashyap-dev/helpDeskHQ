@@ -28,7 +28,6 @@ const ProjectView = lazy(() => import('./pages/Projects/View'));
 const ProjectCreate = lazy(() => import('./pages/Projects/Create'));
 const ProjectEdit = lazy(() => import('./pages/Projects/Edit'));
 
-
 // Teams
 const TeamList = lazy(() => import('./pages/Teams/List'));
 const TeamCreate = lazy(() => import('./pages/Teams/Create'));
@@ -59,11 +58,10 @@ const App: React.FC = () => {
                 element={<OrganizationView />}
               />
 
-              <Route path="/teams" element={<TeamList />} />
-              <Route path="/teams/new" element={<TeamCreate />} />
-              <Route path="/teams/edit/:id" element={<TeamEdit />} />
-              <Route path="/teams/view/:id" element={<TeamView />} />
-
+              <Route path="/users/teams" element={<TeamList />} />
+              <Route path="/users/teams/new" element={<TeamCreate />} />
+              <Route path="/users/teams/edit/:id" element={<TeamEdit />} />
+              <Route path="/users/teams/view/:id" element={<TeamView />} />
 
               <Route path="/workspaces" element={<WorkspaceList />} />
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />

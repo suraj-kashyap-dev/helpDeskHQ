@@ -40,8 +40,7 @@ export const useTeamApi = () => {
     try {
       setState((prev) => ({ ...prev, loading: true, error: null }));
 
-      const response =
-        await httpClient.get<ApiResponse<Team[]>>(TEAMS);
+      const response = await httpClient.get<ApiResponse<Team[]>>(TEAMS);
 
       setState((prev) => ({
         ...prev,
@@ -103,9 +102,7 @@ export const useTeamApi = () => {
       setState((prev) => ({
         ...prev,
         team: newTeam,
-        teams: prev.teams
-          ? [...prev.teams, newTeam]
-          : [newTeam],
+        teams: prev.teams ? [...prev.teams, newTeam] : [newTeam],
       }));
 
       showToast('Team created successfully');
@@ -122,10 +119,7 @@ export const useTeamApi = () => {
     }
   };
 
-  const edit = async (
-    id: number,
-    payload: TeamFormValues,
-  ): Promise<Team> => {
+  const edit = async (id: number, payload: TeamFormValues): Promise<Team> => {
     try {
       setState((prev) => ({
         ...prev,
@@ -151,9 +145,7 @@ export const useTeamApi = () => {
       setState((prev) => ({
         ...prev,
         teams: prev.teams
-          ? prev.teams.map((org) =>
-              org.id === id ? updatedTeam : org,
-            )
+          ? prev.teams.map((org) => (org.id === id ? updatedTeam : org))
           : null,
       }));
 
@@ -177,9 +169,7 @@ export const useTeamApi = () => {
       .then(() => {
         setState((prev) => ({
           ...prev,
-          teams: prev.teams
-            ? prev.teams.filter((org) => org.id !== id)
-            : null,
+          teams: prev.teams ? prev.teams.filter((org) => org.id !== id) : null,
         }));
 
         showToast('Team delete successfully');

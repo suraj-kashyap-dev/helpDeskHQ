@@ -18,19 +18,19 @@ public class TicketController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Ticket>>> index() {
-        ApiResponse<List<Ticket>> response = ticketService.index();
+        ApiResponse<List<Ticket>> response = this.ticketService.index();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Ticket>> show(@PathVariable Long id) {
-        ApiResponse<Ticket> response = ticketService.show(id);
+        ApiResponse<Ticket> response = this.ticketService.show(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Ticket>> store(@RequestBody TicketDTO ticketDTO) {
-        ApiResponse<Ticket> response = ticketService.store(ticketDTO);
+        ApiResponse<Ticket> response = this.ticketService.store(ticketDTO);
         return ResponseEntity.ok(response);
     }
 
@@ -38,13 +38,13 @@ public class TicketController {
     public ResponseEntity<ApiResponse<Ticket>> update(
             @PathVariable Long id,
             @RequestBody TicketDTO ticketDTO) {
-        ApiResponse<Ticket> response = ticketService.update(id, ticketDTO);
+        ApiResponse<Ticket> response = this.ticketService.update(id, ticketDTO);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
-        ApiResponse<Void> response = ticketService.destroy(id);
+        ApiResponse<Void> response = this.ticketService.destroy(id);
         return ResponseEntity.ok(response);
     }
 }

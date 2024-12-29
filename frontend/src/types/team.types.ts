@@ -18,6 +18,7 @@ export interface Team {
     updatedAt: string;
   };
   name: string;
+  accessLevel: string;
   description: string;
   settings: string;
   createdAt: string;

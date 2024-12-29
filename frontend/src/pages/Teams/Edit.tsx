@@ -83,9 +83,7 @@ const Edit: React.FC = () => {
     <React.Fragment>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Edit Team
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-800">Edit Team</h2>
           <div className="flex gap-2">
             <Link
               to={ROUTES.TEAM.LIST}

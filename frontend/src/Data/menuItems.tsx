@@ -4,7 +4,6 @@ import {
   FolderDot,
   LayoutDashboard,
   Building2,
-  UsersRound,
   BarChart,
   Settings,
   Briefcase,
@@ -14,6 +13,7 @@ import {
   Workflow,
   Cog,
   MessageSquare,
+  UserCog,
 } from 'lucide-react';
 
 export const menuItems: MenuItem[] = [
@@ -41,9 +41,21 @@ export const menuItems: MenuItem[] = [
     path: '/projects',
     icon: <FolderDot className="w-5 h-5 mr-3" />,
     subMenus: [
-      { id: 'active-projects', label: 'Active Projects', path: '/projects/active' },
-      { id: 'in-active-projects', label: 'Inactive Projects', path: '/projects/inactive' },
-      { id: 'completed-projects', label: 'Completed Projects', path: '/projects/completed' },
+      {
+        id: 'active-projects',
+        label: 'Active Projects',
+        path: '/projects/active',
+      },
+      {
+        id: 'in-active-projects',
+        label: 'Inactive Projects',
+        path: '/projects/inactive',
+      },
+      {
+        id: 'completed-projects',
+        label: 'Completed Projects',
+        path: '/projects/completed',
+      },
     ],
   },
   {
@@ -55,24 +67,43 @@ export const menuItems: MenuItem[] = [
       { id: 'all-tickets', label: 'All Tickets', path: '/tickets' },
       { id: 'my-tickets', label: 'My Tickets', path: '/tickets/my' },
       { id: 'open-tickets', label: 'Open Tickets', path: '/tickets/open' },
-      { id: 'closed-tickets', label: 'Closed Tickets', path: '/tickets/closed' },
-      { id: 'urgent-tickets', label: 'Urgent Tickets', path: '/tickets/urgent' },
+      {
+        id: 'closed-tickets',
+        label: 'Closed Tickets',
+        path: '/tickets/closed',
+      },
+      {
+        id: 'urgent-tickets',
+        label: 'Urgent Tickets',
+        path: '/tickets/urgent',
+      },
       { id: 'unassigned', label: 'Unassigned', path: '/tickets/unassigned' },
       { id: 'watching', label: 'Watching', path: '/tickets/watching' },
     ],
   },
   {
-    id: 'team',
-    label: 'Teams',
-    path: '/teams',
-    icon: <UsersRound className="w-5 h-5 mr-3" />,
-    // subMenus: [
-      // { id: 'teams', label: 'Team List', path: '/teams' },
-      // { id: 'members', label: 'Team Members', path: '/teams/members' },
-      // { id: 'roles', label: 'Roles', path: '/teams/roles' },
-      // { id: 'skills', label: 'Skill Matrix', path: '/teams/skills' },
-      // { id: 'schedule', label: 'Team Schedule', path: '/teams/schedule' },
-    // ],
+    id: 'users',
+    label: 'Users & Teams',
+    path: '/users',
+    icon: <UserCog className="w-5 h-5 mr-3" />,
+    subMenus: [
+      // Internal Users
+      { id: 'all-users', label: 'All Users', path: '/users/all' },
+      { id: 'user-roles', label: 'User Roles', path: '/users/roles' },
+      {
+        id: 'user-permissions',
+        label: 'Permissions',
+        path: '/users/permissions',
+      },
+      // Teams
+      { id: 'teams', label: 'Teams', path: '/users/teams' },
+      {
+        id: 'team-members',
+        label: 'Team Members',
+        path: '/users/team-members',
+      },
+      { id: 'skills-matrix', label: 'Skills Matrix', path: '/users/skills' },
+    ],
   },
   {
     id: 'customers',
@@ -93,7 +124,11 @@ export const menuItems: MenuItem[] = [
     icon: <BookOpen className="w-5 h-5 mr-3" />,
     subMenus: [
       { id: 'articles', label: 'Articles', path: '/knowledge-base/articles' },
-      { id: 'categories', label: 'Categories', path: '/knowledge-base/categories' },
+      {
+        id: 'categories',
+        label: 'Categories',
+        path: '/knowledge-base/categories',
+      },
       { id: 'drafts', label: 'Drafts', path: '/knowledge-base/drafts' },
     ],
   },
@@ -103,11 +138,27 @@ export const menuItems: MenuItem[] = [
     path: '/reports',
     icon: <BarChart className="w-5 h-5 mr-3" />,
     subMenus: [
-      { id: 'ticket-stats', label: 'Ticket Analytics', path: '/reports/tickets' },
-      { id: 'team-performance', label: 'Team Performance', path: '/reports/team' },
+      {
+        id: 'ticket-stats',
+        label: 'Ticket Analytics',
+        path: '/reports/tickets',
+      },
+      {
+        id: 'team-performance',
+        label: 'Team Performance',
+        path: '/reports/team',
+      },
       { id: 'sla-compliance', label: 'SLA Compliance', path: '/reports/sla' },
-      { id: 'customer-metrics', label: 'Customer Metrics', path: '/reports/customers' },
-      { id: 'custom-reports', label: 'Custom Reports', path: '/reports/custom' },
+      {
+        id: 'customer-metrics',
+        label: 'Customer Metrics',
+        path: '/reports/customers',
+      },
+      {
+        id: 'custom-reports',
+        label: 'Custom Reports',
+        path: '/reports/custom',
+      },
     ],
   },
   {
@@ -122,8 +173,16 @@ export const menuItems: MenuItem[] = [
         path: '/admin/security',
         icon: <Shield className="w-4 h-4 mr-2" />,
         subMenus: [
-          { id: 'users', label: 'User Management', path: '/admin/security/users' },
-          { id: 'roles', label: 'Role Management', path: '/admin/security/roles' },
+          {
+            id: 'users',
+            label: 'User Management',
+            path: '/admin/security/users',
+          },
+          {
+            id: 'roles',
+            label: 'Role Management',
+            path: '/admin/security/roles',
+          },
           { id: 'audit', label: 'Audit Logs', path: '/admin/security/audit' },
         ],
       },
@@ -133,9 +192,17 @@ export const menuItems: MenuItem[] = [
         path: '/admin/workflow',
         icon: <Workflow className="w-4 h-4 mr-2" />,
         subMenus: [
-          { id: 'automations', label: 'Automations', path: '/admin/workflow/automations' },
+          {
+            id: 'automations',
+            label: 'Automations',
+            path: '/admin/workflow/automations',
+          },
           { id: 'sla', label: 'SLA Policies', path: '/admin/workflow/sla' },
-          { id: 'business-hours', label: 'Business Hours', path: '/admin/workflow/hours' },
+          {
+            id: 'business-hours',
+            label: 'Business Hours',
+            path: '/admin/workflow/hours',
+          },
         ],
       },
       {
@@ -144,9 +211,21 @@ export const menuItems: MenuItem[] = [
         path: '/admin/integrations',
         icon: <MessageSquare className="w-4 h-4 mr-2" />,
         subMenus: [
-          { id: 'email', label: 'Email Settings', path: '/admin/integrations/email' },
-          { id: 'api', label: 'API Management', path: '/admin/integrations/api' },
-          { id: 'webhooks', label: 'Webhooks', path: '/admin/integrations/webhooks' },
+          {
+            id: 'email',
+            label: 'Email Settings',
+            path: '/admin/integrations/email',
+          },
+          {
+            id: 'api',
+            label: 'API Management',
+            path: '/admin/integrations/api',
+          },
+          {
+            id: 'webhooks',
+            label: 'Webhooks',
+            path: '/admin/integrations/webhooks',
+          },
         ],
       },
     ],
@@ -158,9 +237,21 @@ export const menuItems: MenuItem[] = [
     icon: <Settings className="w-5 h-5 mr-3" />,
     subMenus: [
       { id: 'profile', label: 'My Profile', path: '/settings/profile' },
-      { id: 'preferences', label: 'Preferences', path: '/settings/preferences' },
-      { id: 'notifications', label: 'Notifications', path: '/settings/notifications' },
-      { id: 'custom-fields', label: 'Custom Fields', path: '/settings/custom-fields' },
+      {
+        id: 'preferences',
+        label: 'Preferences',
+        path: '/settings/preferences',
+      },
+      {
+        id: 'notifications',
+        label: 'Notifications',
+        path: '/settings/notifications',
+      },
+      {
+        id: 'custom-fields',
+        label: 'Custom Fields',
+        path: '/settings/custom-fields',
+      },
       { id: 'tags', label: 'Tags', path: '/settings/tags' },
       { id: 'templates', label: 'Templates', path: '/settings/templates' },
     ],
