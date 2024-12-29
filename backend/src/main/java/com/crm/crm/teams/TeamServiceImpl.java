@@ -123,11 +123,11 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public ApiResponse<Void> destroy(Long id) {
         try {
-            if (! this.workspaceRepository.existsById(id)) {
+            if (! this.teamRepository.existsById(id)) {
                 throw new ResourceNotFoundException("Team not found");
             }
 
-            this.workspaceRepository.deleteById(id);
+            this.teamRepository.deleteById(id);
             return ApiResponse.success("Team deleted successfully", null);
         } catch (ResourceNotFoundException e) {
             throw e;

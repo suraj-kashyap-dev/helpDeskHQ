@@ -63,8 +63,8 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: 'team',
-    label: 'Team',
-    path: '/team',
+    label: 'Teams',
+    path: '/teams',
     icon: <UsersRound className="w-5 h-5 mr-3" />,
     // subMenus: [
       // { id: 'teams', label: 'Team List', path: '/teams' },

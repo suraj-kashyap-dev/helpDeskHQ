@@ -18,19 +18,19 @@ public class WorkspaceController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Workspace>>> index() {
-        ApiResponse<List<Workspace>> response = workspaceService.index();
+        ApiResponse<List<Workspace>> response = this.workspaceService.index();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Workspace>> show(@PathVariable Long id) {
-        ApiResponse<Workspace> response = workspaceService.show(id);
+        ApiResponse<Workspace> response = this.workspaceService.show(id);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<Workspace>> store(@RequestBody WorkspaceDTO workspaceDTO) {
-        ApiResponse<Workspace> response = workspaceService.store(workspaceDTO);
+        ApiResponse<Workspace> response = this.workspaceService.store(workspaceDTO);
         return ResponseEntity.ok(response);
     }
 
@@ -39,13 +39,13 @@ public class WorkspaceController {
         @PathVariable Long id,
         @RequestBody WorkspaceDTO workspaceDTO
     ) {
-        ApiResponse<Workspace> response = workspaceService.update(id, workspaceDTO);
+        ApiResponse<Workspace> response = this.workspaceService.update(id, workspaceDTO);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
-        ApiResponse<Void> response = workspaceService.destroy(id);
+        ApiResponse<Void> response = this.workspaceService.destroy(id);
         return ResponseEntity.ok(response);
     }
 }

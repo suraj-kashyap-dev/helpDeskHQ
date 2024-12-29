@@ -28,6 +28,13 @@ const ProjectView = lazy(() => import('./pages/Projects/View'));
 const ProjectCreate = lazy(() => import('./pages/Projects/Create'));
 const ProjectEdit = lazy(() => import('./pages/Projects/Edit'));
 
+
+// Teams
+const TeamList = lazy(() => import('./pages/Teams/List'));
+const TeamCreate = lazy(() => import('./pages/Teams/Create'));
+const TeamEdit = lazy(() => import('./pages/Teams/Edit'));
+const TeamView = lazy(() => import('./pages/Teams/View'));
+
 const App: React.FC = () => {
   return (
     <React.Fragment>
@@ -52,6 +59,12 @@ const App: React.FC = () => {
                 element={<OrganizationView />}
               />
 
+              <Route path="/teams" element={<TeamList />} />
+              <Route path="/teams/new" element={<TeamCreate />} />
+              <Route path="/teams/edit/:id" element={<TeamEdit />} />
+              <Route path="/teams/view/:id" element={<TeamView />} />
+
+
               <Route path="/workspaces" element={<WorkspaceList />} />
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />
               <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />
@@ -61,6 +74,7 @@ const App: React.FC = () => {
               <Route path="/projects/new" element={<ProjectCreate />} />
               <Route path="/projects/view/:id" element={<ProjectView />} />
               <Route path="/projects/view/edit/:id" element={<ProjectEdit />} />
+
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />

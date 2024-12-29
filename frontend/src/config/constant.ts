@@ -8,3 +8,4 @@ export const API_WORKSPACE: string = 'workspace';
 export const ORGANIZATIONS = 'organizations';
 export const WORKSPACES = 'workspaces';
 export const PROJECTS = 'projects';
+export const TEAMS = 'teams';
