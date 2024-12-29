@@ -11,7 +11,6 @@ import {
   FolderDot,
   ChartBarBig,
   Calendar,
-  Calendar1,
 } from 'lucide-react';
 import InfoListItem from '../../components/ui/InfolistItem';
 import { ROUTES } from '../../routes/paths';
