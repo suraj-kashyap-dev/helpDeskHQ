@@ -18,7 +18,7 @@ const Card: React.FC<CardProps> = ({
       className={`p-6 space-y-6 bg-white border border-gray-200 rounded-xl shadow-sm transition-shadow duration-300 ease-in-out ${className}`}
     >
       {title && (
-        <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-2">
+        <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">
           {title}
         </h3>
       )}

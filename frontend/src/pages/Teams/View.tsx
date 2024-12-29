@@ -30,7 +30,7 @@ const View: React.FC = () => {
 
         <div className="flex gap-2">
           <Link
-            to="/teams"
+            to={ROUTES.TEAM.LIST}
             className="px-4 py-2 text-gray-800 rounded-lg transition-colors flex items-center"
           >
             Back to List
