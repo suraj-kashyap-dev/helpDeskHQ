@@ -34,30 +34,70 @@ const View: React.FC = () => {
   }
 
   return (
-    <React.Fragment>
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Project Details</h2>
+    <div className="flex flex-col lg:flex-row gap-8 p-6 min-h-screen">
+      <div className="lg:w-1/4 space-y-6">
+        {project?.workspace && (
+          <Card title="Workspace Details">
+            <div className="flex flex-col gap-6">
+              <InfoListItem
+                icon={<Briefcase className="h-5 w-5 text-gray-600" />}
+                label="Workspace Name"
+                value={project.workspace.name}
+              />
+              <InfoListItem
+                icon={<Scroll className="h-5 w-5 text-gray-600" />}
+                label="Description"
+                value={project.workspace.description}
+              />
+            </div>
+          </Card>
+        )}
 
-        <div className="flex gap-2">
-          <Link
-            to={ROUTES.PROJECTS.LIST}
-            className="px-4 py-2 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2 border border-gray-200"
-          >
-            Back to List
-          </Link>
+        {project?.workspace?.organization && (
+          <Card title="Organization Details">
+            <div className="flex flex-col gap-6">
+              <InfoListItem
+                icon={<Building2 className="h-5 w-5 text-gray-600" />}
+                label="Organization Name"
+                value={project.workspace.organization.name}
+              />
+              <InfoListItem
+                icon={<Globe className="h-5 w-5 text-gray-600" />}
+                label="Domain"
+                value={project.workspace.organization.domain}
+              />
+              <InfoListItem
+                icon={<Rss className="h-5 w-5 text-gray-600" />}
+                label="Subscription Type"
+                value={project.workspace.organization.subscriptionType}
+              />
+            </div>
+          </Card>
+        )}
+      </div>
+      <div className="lg:w-3/4 space-y-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Ticket Details</h2>
 
-          <Link to={ROUTES.PROJECTS.EDIT(project.id)}>
-            <Button
-              type="button"
+          <div className="flex gap-3">
+            <Link
+              to={ROUTES.PROJECTS.LIST}
+              className="px-4 py-2 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2 border border-gray-200"
+            >
+              Back to List
+            </Link>
+
+            <Link
+              to={ROUTES.PROJECTS.EDIT(project.id)}
               className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
             >
-              Edit Project
-            </Button>
-          </Link>
+              <div className="flex gap-2">
+                <span>Add Project</span>
+              </div>
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div className="flex gap-2 flex-col">
         <Card title="General Information">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             <InfoListItem
@@ -87,47 +127,8 @@ const View: React.FC = () => {
             />
           </div>
         </Card>
-
-        {project?.workspace && (
-          <Card title="Workspace Details">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InfoListItem
-                icon={<Briefcase className="h-5 w-5 text-gray-600" />}
-                label="Workspace Name"
-                value={project.workspace.name}
-              />
-              <InfoListItem
-                icon={<Scroll className="h-5 w-5 text-gray-600" />}
-                label="Description"
-                value={project.workspace.description}
-              />
-            </div>
-          </Card>
-        )}
-
-        {project?.workspace?.organization && (
-          <Card title="Organization Details">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InfoListItem
-                icon={<Building2 className="h-5 w-5 text-gray-600" />}
-                label="Organization Name"
-                value={project.workspace.organization.name}
-              />
-              <InfoListItem
-                icon={<Globe className="h-5 w-5 text-gray-600" />}
-                label="Domain"
-                value={project.workspace.organization.domain}
-              />
-              <InfoListItem
-                icon={<Rss className="h-5 w-5 text-gray-600" />}
-                label="Subscription Type"
-                value={project.workspace.organization.subscriptionType}
-              />
-            </div>
-          </Card>
-        )}
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
