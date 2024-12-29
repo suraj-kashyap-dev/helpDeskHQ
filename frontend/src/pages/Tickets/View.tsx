@@ -14,7 +14,6 @@ import {
   Scroll,
   ChartBar,
   Phone,
-  Link2,
   ExternalLink,
 } from 'lucide-react';
 import InfoListItem from '../../components/ui/InfolistItem';
