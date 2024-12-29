@@ -6,10 +6,10 @@ import { Input } from '../../components/ui/form-controls/Input';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../routes/paths';
 import Tooltip from '../../components/Tooltip';
-import { useTeamApi } from '../../hooks/useTeam';
+import { useUserApi } from '../../hooks/useUserApi';
 
 const Index: React.FC = () => {
-  const { teams, fetch, destroy } = useTeamApi();
+  const { users, fetch, destroy } = useUserApi();
 
   useEffect(() => {
     fetch();
@@ -17,8 +17,8 @@ const Index: React.FC = () => {
 
   const handleDelete = (id: number) => {
     confirmDialog({
-      title: 'Delete Team',
-      description: 'Are you sure you want to delete this team?',
+      title: 'Delete User',
+      description: 'Are you sure you want to delete this user?',
       confirmText: 'Confirm',
       cancelText: 'Cancel',
       onConfirm: () => destroy(id),
@@ -28,14 +28,14 @@ const Index: React.FC = () => {
   return (
     <React.Fragment>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-semibold text-gray-800">Teams</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Users</h2>
 
         <Link
-          to={ROUTES.TEAM.NEW}
+          to={ROUTES.USER.NEW}
           className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
         >
           <div className="flex gap-2">
-            <span>Add Team</span>
+            <span>Add User</span>
           </div>
         </Link>
       </div>
@@ -46,7 +46,7 @@ const Index: React.FC = () => {
             <div className="">
               <Input
                 type="text"
-                placeholder="Search team"
+                placeholder="Search user"
                 className="w-[360px] px-4 py-2"
               />
             </div>
@@ -71,61 +71,51 @@ const Index: React.FC = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Description
+                Email
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Workspace
+                Phone
               </th>
-
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Oragnization
+                Status
               </th>
             </tr>
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {teams && teams.length > 0 ? (
-              teams.map((team) => (
-                <tr key={team.id} className="hover:bg-gray-50">
+            {users && users.length > 0 ? (
+              users.map((user) => (
+                <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{team.id}</div>
+                    <div className="text-sm text-gray-900">{user.id}</div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{team.name}</div>
+                    <div className="text-sm text-gray-900">{user.fullName}</div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      <Tooltip
-                        text={team.description == '' ? '-' : team.description}
-                        limit={25}
-                      />
-                    </div>
+                    <div className="text-sm text-gray-900">{user.email}</div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      {team.workspace.name}
-                    </div>
+                    <div className="text-sm text-gray-900">{user.phone}</div>
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
-                      {team.workspace.organization.name}
-                    </div>
+                    <div className="text-sm text-gray-900">{user.status}</div>
                   </td>
 
                   <td className="px-6 py-4 text-sm">
                     <div className="flex justify-center items-center gap-3">
                       <Link
-                        to={ROUTES.TEAM.VIEW(team.id)}
+                        to={ROUTES.USER.VIEW(user.id)}
                         className="text-gray-800 focus:ring-0 focus:ring-offset-0"
                       >
                         <div className="flex justify-center gap-2 items-center">
@@ -134,7 +124,7 @@ const Index: React.FC = () => {
                         </div>
                       </Link>
                       <Link
-                        to={ROUTES.TEAM.EDIT(team.id)}
+                        to={ROUTES.USER.EDIT(user.id)}
                         className="text-blue-700 focus:ring-0 focus:ring-offset-0"
                       >
                         <div className="flex justify-center gap-2 items-center">
@@ -148,7 +138,7 @@ const Index: React.FC = () => {
                         size="sm"
                         className="text-red-500 !p-0"
                         leftIcon={<Trash2 className="h-4 w-4" />}
-                        onClick={() => handleDelete(team.id)}
+                        onClick={() => handleDelete(user.id)}
                       >
                         Delete
                       </Button>

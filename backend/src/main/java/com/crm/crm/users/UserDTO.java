@@ -16,7 +16,7 @@ public class UserDTO {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("fullName")
+    @JsonProperty("full_name")
     private String fullName;
 
     @JsonProperty("password")

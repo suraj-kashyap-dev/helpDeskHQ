@@ -58,6 +58,7 @@ const Create: React.FC = () => {
     handleChange,
     handleBlur,
     isSubmitting,
+    setFieldValue,
   } = useFormik<WorkspaceFormValues>({
     initialValues,
     validationSchema,
@@ -67,6 +68,12 @@ const Create: React.FC = () => {
       navigate('/workspaces');
     },
   });
+
+  useEffect(() => {
+    if (organizations) {
+      setFieldValue('organization_id', organizations[0].id);
+    }
+  }, [organizations]);
 
   if (loading) {
     return <Loading />;

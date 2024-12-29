@@ -72,7 +72,7 @@ const Create: React.FC = () => {
 
   useEffect(() => {
     if (workspaces) {
-      setFieldValue('workspace_id', workspaces[0].id);
+      setFieldValue('workspace_id', workspaces[0]?.id);
     }
   }, [workspaces]);
 

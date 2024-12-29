@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useWorkspaceApi } from '../../hooks/useWorkspace';
-import { WorkspaceFormValues } from '../../types/workspace.types';
 import { ErrorMessage } from '../../components/ui/form-controls/ErrorMessage';
 import { Label } from '../../components/ui/form-controls/Label';
 import { Textarea } from '../../components/ui/form-controls/Textarea';
@@ -56,10 +55,6 @@ const Create: React.FC = () => {
 
   useEffect(() => {
     fetchWorkspace();
-
-    if (workspaces) {
-      setFieldValue('workspace_id', workspaces[0].id);
-    }
   }, []);
 
   const formatDate = (date: string) => {
@@ -94,7 +89,7 @@ const Create: React.FC = () => {
 
   useEffect(() => {
     if (workspaces) {
-      setFieldValue('workspace_id', workspaces[0].id);
+      setFieldValue('workspace_id', workspaces[0]?.id);
     }
   }, [workspaces]);
 

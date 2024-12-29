@@ -69,11 +69,10 @@ const App: React.FC = () => {
               <Route path="/users/edit/:id" element={<UserEdit />} />
               <Route path="/users/view/:id" element={<UserView />} />
 
-
-              <Route path="/users/teams" element={<TeamList />} />
-              <Route path="/users/teams/new" element={<TeamCreate />} />
-              <Route path="/users/teams/edit/:id" element={<TeamEdit />} />
-              <Route path="/users/teams/view/:id" element={<TeamView />} />
+              <Route path="/teams" element={<TeamList />} />
+              <Route path="/teams/new" element={<TeamCreate />} />
+              <Route path="/teams/edit/:id" element={<TeamEdit />} />
+              <Route path="/teams/view/:id" element={<TeamView />} />
 
               <Route path="/workspaces" element={<WorkspaceList />} />
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />
