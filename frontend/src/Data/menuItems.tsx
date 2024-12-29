@@ -64,7 +64,7 @@ export const menuItems: MenuItem[] = [
     path: '/tickets',
     icon: <Ticket className="w-5 h-5 mr-3" />,
     subMenus: [
-      { id: 'all-tickets', label: 'All Tickets', path: '/tickets' },
+      { id: 'all-tickets', label: 'All Tickets', path: '/tickets/all' },
       { id: 'my-tickets', label: 'My Tickets', path: '/tickets/my' },
       { id: 'open-tickets', label: 'Open Tickets', path: '/tickets/open' },
       {

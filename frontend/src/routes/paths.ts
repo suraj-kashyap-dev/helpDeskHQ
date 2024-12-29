@@ -4,6 +4,7 @@ import {
   WORKSPACES,
   TEAMS,
   USERS,
+  TICKETS,
 } from '../config/constant';
 
 export const ROUTES = {
@@ -41,5 +42,12 @@ export const ROUTES = {
     NEW: `/${PROJECTS}/new`,
     EDIT: (id: number | string) => `/${PROJECTS}/edit/${id}`,
     VIEW: (id: number | string) => `/${PROJECTS}/view/${id}`,
+  },
+
+  TICKETS: {
+    LIST: `/${TICKETS}/all`,
+    NEW: `/${TICKETS}/tickets/new`,
+    EDIT: (id: number | string) => `/${TICKETS}/edit/${id}`,
+    VIEW: (id: number | string) => `/${TICKETS}/view/${id}`,
   },
 };

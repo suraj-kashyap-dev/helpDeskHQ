@@ -7,6 +7,7 @@ export const API_WORKSPACE: string = 'workspace';
 
 export const ORGANIZATIONS = 'organizations';
 export const WORKSPACES = 'workspaces';
+export const TICKETS = 'tickets';
 export const PROJECTS = 'projects';
 export const TEAMS = 'teams';
 export const USERS = 'users';

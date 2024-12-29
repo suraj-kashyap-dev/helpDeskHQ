@@ -96,7 +96,7 @@ const Edit: React.FC = () => {
           <div className="flex gap-2">
             <Link
               to={ROUTES.USER.LIST}
-              className="px-4 py-2 text-gray-800 rounded-lg transition-colors flex items-center"
+              className="px-4 py-2 text-gray-700 bg-white rounded-lg shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2 border border-gray-200"
             >
               Cancel
             </Link>

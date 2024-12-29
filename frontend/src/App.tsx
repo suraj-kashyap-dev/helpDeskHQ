@@ -40,6 +40,11 @@ const TeamCreate = lazy(() => import('./pages/Teams/Create'));
 const TeamEdit = lazy(() => import('./pages/Teams/Edit'));
 const TeamView = lazy(() => import('./pages/Teams/View'));
 
+const TicketList = lazy(() => import('./pages/Tickets/List'));
+const TicketCreate = lazy(() => import('./pages/Tickets/Create'));
+const TicketEdit = lazy(() => import('./pages/Tickets/Edit'));
+const TicketView = lazy(() => import('./pages/Tickets/View'));
+
 const App: React.FC = () => {
   return (
     <React.Fragment>
@@ -78,6 +83,11 @@ const App: React.FC = () => {
               <Route path="/workspaces/new" element={<WorkspaceCreate />} />
               <Route path="/workspaces/edit/:id" element={<WorkspaceEdit />} />
               <Route path="/workspaces/view/:id" element={<WorkspaceView />} />
+
+              <Route path="/tickets/:type" element={<TicketList />} />
+              <Route path="/tickets/new" element={<TicketCreate />} />
+              <Route path="/tickets/view/:id" element={<TicketView />} />
+              <Route path="/tickets/edit/:id" element={<TicketEdit />} />
 
               <Route path="/projects/:status" element={<ProjectList />} />
               <Route path="/projects/new" element={<ProjectCreate />} />
