@@ -47,7 +47,7 @@ const View: React.FC = () => {
             Back to List
           </Link>
 
-          <Link to={ROUTES.WORKSPACE.EDIT(project.id)}>
+          <Link to={ROUTES.PROJECTS.EDIT(project.id)}>
             <Button
               type="button"
               className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
@@ -66,12 +66,6 @@ const View: React.FC = () => {
               label="Project Name"
               value={project.name}
             />
-
-            <InfoListItem
-              icon={<ChartBarBig className="h-5 w-5 text-gray-600" />}
-              label="Status"
-              value={project.status}
-            />
             <InfoListItem
               icon={<Calendar className="h-5 w-5 text-gray-600" />}
               label="Start Date"
@@ -82,7 +76,11 @@ const View: React.FC = () => {
               label="End Date"
               value={formatDate(project.endDate, 'yyyy-MM-dd HH:mm')}
             />
-
+            <InfoListItem
+              icon={<ChartBarBig className="h-5 w-5 text-gray-600" />}
+              label="Status"
+              value={project.status}
+            />
             <InfoListItem
               icon={<Scroll className="h-5 w-5 text-gray-600" />}
               label="Description"

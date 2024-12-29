@@ -13,7 +13,6 @@ import { useProjectApi } from '../../hooks/useProjectApi';
 import { ProjectFormValues } from '../../types/projects.types';
 import { ROUTES } from '../../routes/paths';
 import Loading from '../../components/Loading';
-import formatDate from '../../utils/dateFormat';
 
 const validationSchema = Yup.object({
   workspace_id: Yup.number().required('Workspace is required'),
@@ -26,8 +25,8 @@ const validationSchema = Yup.object({
     'Description must not exceed 255 characters',
   ),
   status: Yup.string().required('Status is required'),
-  start_date: Yup.date().required('Start date is required'),
-  end_date: Yup.date().required('End date is required'),
+  start_date: Yup.date(),
+  end_date: Yup.date(),
   settings: Yup.string().test('valid-json', 'Invalid JSON format', (value) => {
     if (!value) return true;
     try {
@@ -51,7 +50,7 @@ const Create: React.FC = () => {
     if (id) {
       show(parseInt(id));
     }
-      
+
     if (workspaces) {
       setFieldValue('workspace_id', workspaces[0].id);
     }
@@ -92,8 +91,8 @@ const Create: React.FC = () => {
       if (id) {
         await edit(parseInt(id), {
           ...values,
-          start_date: formatDate(values.start_date),
-          end_date: formatDate(values.end_date),
+          start_date: values.start_date ? formatDate(values.start_date) : '',
+          end_date: values.end_date ? formatDate(values.end_date) : '',
         });
       }
 
@@ -126,6 +125,14 @@ const Create: React.FC = () => {
               Cancel
             </Link>
 
+            {project?.id && (
+              <Link
+                to={ROUTES.PROJECTS.VIEW(project.id)}
+                className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+              >
+                View
+              </Link>
+            )}
             <Button
               disabled={isSubmitting}
               type="submit"

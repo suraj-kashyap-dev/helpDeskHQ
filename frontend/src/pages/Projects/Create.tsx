@@ -26,8 +26,8 @@ const validationSchema = Yup.object({
     'Description must not exceed 255 characters',
   ),
   status: Yup.string().required('Status is required'),
-  start_date: Yup.date().required('Start date is required'),
-  end_date: Yup.date().required('End date is required'),
+  start_date: Yup.date(),
+  end_date: Yup.date(),
   settings: Yup.string().test('valid-json', 'Invalid JSON format', (value) => {
     if (!value) return true;
     try {
