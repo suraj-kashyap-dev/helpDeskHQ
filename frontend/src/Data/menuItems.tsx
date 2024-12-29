@@ -87,9 +87,8 @@ export const menuItems: MenuItem[] = [
     path: '/users',
     icon: <UserCog className="w-5 h-5 mr-3" />,
     subMenus: [
-      // Internal Users
       { id: 'all-users', label: 'Users', path: '/users' },
-      { id: 'teams', label: 'Teams', path: '/teams' },
+      { id: 'teams', label: 'Teams', path: '/users/teams' },
       { id: 'user-roles', label: 'User Roles', path: '/users/roles' },
       {
         id: 'user-permissions',

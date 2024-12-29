@@ -30,10 +30,10 @@ export const ROUTES = {
   },
 
   TEAM: {
-    LIST: `/${TEAMS}`,
-    NEW: `/${TEAMS}/new`,
-    EDIT: (id: number | string) => `/${TEAMS}/edit/${id}`,
-    VIEW: (id: number | string) => `/${TEAMS}/view/${id}`,
+    LIST: `/${USERS}/${TEAMS}`,
+    NEW: `/${USERS}/${TEAMS}/new`,
+    EDIT: (id: number | string) => `/${USERS}/${TEAMS}/edit/${id}`,
+    VIEW: (id: number | string) => `/${USERS}/${TEAMS}/view/${id}`,
   },
 
   PROJECTS: {

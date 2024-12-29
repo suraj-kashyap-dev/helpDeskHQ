@@ -70,7 +70,7 @@ const Edit: React.FC = () => {
       if (id) {
         await edit(parseInt(id), values);
 
-        navigate('/teams');
+        navigate(ROUTES.TEAM.LIST);
       }
     },
   });
