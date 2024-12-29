@@ -10,6 +10,19 @@ import Tooltip from '../../components/Tooltip';
 
 type Status = 'active' | 'completed' | 'inactive';
 
+const getBadgeClass = (status: string) => {
+  switch (status.toUpperCase()) {
+    case 'ACTIVE':
+      return 'bg-green-100 text-green-800';
+    case 'INACTIVE':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'COMPLETED':
+      return 'bg-blue-100 text-blue-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
+};
+
 const Index: React.FC = () => {
   const { status } = useParams<{ status: string }>();
   const { projects, fetch, destroy } = useProjectApi();
@@ -142,9 +155,9 @@ const Index: React.FC = () => {
                   </td>
 
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getBadgeClass(project.status)}`}>
                       {project.status}
-                    </div>
+                    </span>
                   </td>
 
                   <td className="px-6 py-4 text-sm">

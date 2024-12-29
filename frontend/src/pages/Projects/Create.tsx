@@ -10,19 +10,24 @@ import { Textarea } from '../../components/ui/form-controls/Textarea';
 import { Select } from '../../components/ui/form-controls/Select';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
-import { useOrganizationApi } from '../../hooks/useOrganization';
+import { useProjectApi } from '../../hooks/useProjectApi';
+import { ProjectFormValues } from '../../types/projects.types';
+import { ROUTES } from '../../routes/paths';
 import Loading from '../../components/Loading';
 
 const validationSchema = Yup.object({
+  workspace_id: Yup.number().required('Workspace is required'),
   name: Yup.string()
-    .required('Workspace name is required')
+    .required('Project name is required')
     .min(2, 'Name must be at least 2 characters')
     .max(100, 'Name must not exceed 100 characters'),
-  organization_id: Yup.number().required('Organization is required'),
   description: Yup.string().max(
     255,
     'Description must not exceed 255 characters',
   ),
+  status: Yup.string().required('Status is required'),
+  start_date: Yup.date().required('Start date is required'),
+  end_date: Yup.date().required('End date is required'),
   settings: Yup.string().test('valid-json', 'Invalid JSON format', (value) => {
     if (!value) return true;
     try {
@@ -34,21 +39,34 @@ const validationSchema = Yup.object({
   }),
 });
 
-const initialValues: WorkspaceFormValues = {
+const initialValues: ProjectFormValues = {
+  workspace_id: 0,
   name: '',
-  organization_id: 0,
-  settings: JSON.stringify({ theme: 'light', language: 'en' }, null, 2),
   description: '',
+  status: 'INACTIVE',
+  start_date: '',
+  end_date: '',
+  settings: JSON.stringify({}, null, 2),
 };
 
 const Create: React.FC = () => {
   const navigate = useNavigate();
-  const { create } = useWorkspaceApi();
-  const { organizations, loading, fetchOrganization } = useOrganizationApi();
+  const { create, loading } = useProjectApi();
+  const { fetch: fetchWorkspace, workspaces } = useWorkspaceApi();
 
   useEffect(() => {
-    fetchOrganization();
+    fetchWorkspace();
+
+    if (workspaces) {
+      setFieldValue('workspace_id', workspaces[0].id);
+    }
   }, []);
+
+  const formatDate = (date: string) => {
+    const formattedDate = new Date(date);
+    formattedDate.setHours(12, 0, 0);
+    return formattedDate.toISOString();
+  };
 
   const {
     values,
@@ -56,17 +74,29 @@ const Create: React.FC = () => {
     touched,
     handleSubmit,
     handleChange,
+    setFieldValue,
     handleBlur,
     isSubmitting,
-  } = useFormik<WorkspaceFormValues>({
+  } = useFormik<ProjectFormValues>({
+    enableReinitialize: true,
     initialValues,
     validationSchema,
     onSubmit: async (values) => {
-      await create(values);
+      await create({
+        ...values,
+        start_date: formatDate(values.start_date),
+        end_date: formatDate(values.end_date),
+      });
 
-      navigate('/workspaces');
+      navigate(`${ROUTES.PROJECTS.LIST}`);
     },
   });
+
+  useEffect(() => {
+    if (workspaces) {
+      setFieldValue('workspace_id', workspaces[0].id);
+    }
+  }, [workspaces]);
 
   if (loading) {
     return <Loading />;
@@ -77,11 +107,11 @@ const Create: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-800">
-            Create Workspace
+            Create Projects
           </h2>
           <div className="flex gap-2">
             <Link
-              to="/workspaces"
+              to={ROUTES.PROJECTS.LIST}
               className="px-4 py-2 text-gray-800 rounded-lg transition-colors flex items-center"
             >
               Cancel
@@ -93,76 +123,160 @@ const Create: React.FC = () => {
               className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
               isLoading={loading}
             >
-              Save Workspace
+              Save Project
             </Button>
           </div>
         </div>
 
-        <div className="p-6 space-y-6 bg-white border shadow-sm border-neutral-200/30 rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-4">
-              <div className="flex-1 space-y-2">
-                <Label htmlFor="name" className="required">
-                  Workspace Name
-                </Label>
+        <div className="p-6 bg-white border shadow-sm border-neutral-200/30 rounded-lg">
+          <div className="flex">
+            {/* Left side containing inputs */}
+            <div className="w-full lg:w-1/2">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="required">
+                    Project Name
+                  </Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Enter project name"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name}
+                    className={`${
+                      errors.name && touched.name
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  />
+                  {errors.name && touched.name && (
+                    <ErrorMessage error={errors.name} />
+                  )}
+                </div>
 
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Enter workspace name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                  className={`mt-1 block w-full rounded-md shadow-sm ${errors.name && touched.name ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="workspace_id" className="required">
+                    Workspace
+                  </Label>
+                  <Select
+                    id="workspace_id"
+                    name="workspace_id"
+                    onChange={(e) =>
+                      handleChange({
+                        target: {
+                          name: 'workspace_id',
+                          value: parseInt(e.target.value, 10),
+                        },
+                      })
+                    }
+                    onBlur={handleBlur}
+                    value={values.workspace_id}
+                    className={`${
+                      errors.workspace_id && touched.workspace_id
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  >
+                    {workspaces?.map((org) => (
+                      <option key={org.id} value={org.id}>
+                        {org.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.workspace_id && touched.workspace_id && (
+                    <ErrorMessage error={errors.workspace_id} />
+                  )}
+                </div>
 
-                {errors.name && touched.name && (
-                  <ErrorMessage error={errors.name} />
-                )}
-              </div>
+                <div className="space-y-2">
+                  <Label htmlFor="status" className="required">
+                    Status
+                  </Label>
+                  <Select
+                    id="status"
+                    name="status"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.status}
+                    className={`${
+                      errors.status && touched.status
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  >
+                    <option value="ACTIVE">Active</option>
+                    <option value="INACTIVE">Inactive</option>
+                    <option value="COMPLETED">Completed</option>
+                  </Select>
+                  {errors.status && touched.status && (
+                    <ErrorMessage error={errors.status} />
+                  )}
+                </div>
 
-              <div className="flex-1 space-y-2">
-                <Label htmlFor="organization_id" className="required">
-                  Organization
-                </Label>
+                <div className="space-y-2">
+                  <Label htmlFor="start_date" className="required">
+                    Start Date
+                  </Label>
+                  <Input
+                    id="start_date"
+                    name="start_date"
+                    type="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.start_date}
+                    className={`${
+                      errors.start_date && touched.start_date
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  />
+                  {errors.start_date && touched.start_date && (
+                    <ErrorMessage error={errors.start_date} />
+                  )}
+                </div>
 
-                <Select
-                  id="organization_id"
-                  name="organization_id"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.organization_id}
-                  className={`mt-1 block w-full rounded-md shadow-sm ${errors.organization_id && touched.organization_id ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}
-                >
-                  {organizations?.map((org) => (
-                    <option key={org.id} value={org.id}>
-                      {org.name}
-                    </option>
-                  ))}
-                </Select>
-
-                {errors.organization_id && touched.organization_id && (
-                  <ErrorMessage error={errors.organization_id} />
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-
-                <Textarea
-                  id="description"
-                  name="description"
-                  placeholder="Enter workspace description"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.description}
-                  className={`h-32 resize-none mt-1 block w-full rounded-md shadow-sm ${errors.description && touched.description ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'}`}
-                />
-
-                {errors.description && touched.description && (
-                  <ErrorMessage error={errors.description} />
-                )}
+                <div className="space-y-2">
+                  <Label htmlFor="end_date" className="required">
+                    End Date
+                  </Label>
+                  <Input
+                    id="end_date"
+                    name="end_date"
+                    type="date"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.end_date}
+                    className={`${
+                      errors.end_date && touched.end_date
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  />
+                  {errors.end_date && touched.end_date && (
+                    <ErrorMessage error={errors.end_date} />
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    placeholder="Enter workspace description"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.description}
+                    className={`h-32 resize-none ${
+                      errors.description && touched.description
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                        : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    }`}
+                  />
+                  {errors.description && touched.description && (
+                    <ErrorMessage error={errors.description} />
+                  )}
+                </div>
               </div>
             </div>
           </div>

@@ -29,11 +29,11 @@ export interface Project {
 
 export interface ProjectFormValues {
   id?: number;
-  workspaceId: number;
+  workspace_id: number;
   name: string;
   description: string;
   status: string;
   settings?: string;
-  startDate: string;
-  endDate: string;
+  start_date: string;
+  end_date: string;
 }
