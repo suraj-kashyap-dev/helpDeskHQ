@@ -12,6 +12,7 @@ import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
 import { useOrganizationApi } from '../../hooks/useOrganization';
 import Loading from '../../components/Loading';
+import { ROUTES } from '../../routes/paths';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -87,11 +88,19 @@ const Edit: React.FC = () => {
           </h2>
           <div className="flex gap-2">
             <Link
-              to="/workspaces"
+              to={ROUTES.WORKSPACE.LIST}
               className="px-4 py-2 text-gray-800 rounded-lg transition-colors flex items-center"
             >
               Cancel
             </Link>
+
+            <Link
+              to={ROUTES.WORKSPACE.VIEW(workspace.id)}
+              className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+            >
+              View
+            </Link>
+
             <Button
               disabled={isSubmitting}
               type="submit"

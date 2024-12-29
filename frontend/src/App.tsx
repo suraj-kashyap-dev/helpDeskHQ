@@ -60,7 +60,7 @@ const App: React.FC = () => {
               <Route path="/projects/:status" element={<ProjectList />} />
               <Route path="/projects/new" element={<ProjectCreate />} />
               <Route path="/projects/view/:id" element={<ProjectView />} />
-              <Route path="/projects/edit/:id" element={<ProjectEdit />} />
+              <Route path="/projects/view/edit/:id" element={<ProjectEdit />} />
               <Route path="/dashboard/profile" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFound />} />

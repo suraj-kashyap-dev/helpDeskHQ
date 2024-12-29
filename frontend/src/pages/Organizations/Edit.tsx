@@ -11,6 +11,7 @@ import { Select } from '../../components/ui/form-controls/Select';
 import { Input } from '../../components/ui/form-controls/Input';
 import { Button } from '../../components/ui/form-controls/Button';
 import Loading from '../../components/Loading';
+import { ROUTES } from '../../routes/paths';
 
 type SubscriptionType = 'FREE' | 'STANDARD' | 'PREMIUM';
 
@@ -107,10 +108,17 @@ const Edit: React.FC = () => {
 
           <div className="flex gap-2">
             <Link
-              to={'/organizations'}
+              to={ROUTES.ORGANIZATIONS.LIST}
               className="px-4 py-2 text-gray-800 rounded-lg transition-colors flex items-center"
             >
               Cancel
+            </Link>
+
+            <Link
+              to={ROUTES.ORGANIZATIONS.VIEW(organization.id)}
+              className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
+            >
+              View
             </Link>
 
             <Button
