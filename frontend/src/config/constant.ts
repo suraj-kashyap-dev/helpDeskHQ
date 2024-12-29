@@ -9,3 +9,4 @@ export const ORGANIZATIONS = 'organizations';
 export const WORKSPACES = 'workspaces';
 export const PROJECTS = 'projects';
 export const TEAMS = 'teams';
+export const USERS = 'users';

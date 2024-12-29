@@ -1,4 +1,4 @@
-import { ORGANIZATIONS, PROJECTS, WORKSPACES, TEAMS } from '../config/constant';
+import { ORGANIZATIONS, PROJECTS, WORKSPACES, TEAMS, USERS } from '../config/constant';
 
 export const ROUTES = {
   DASHBOARD: '/',
@@ -14,6 +14,13 @@ export const ROUTES = {
     NEW: `/${WORKSPACES}/new`,
     EDIT: (id: number | string) => `/${WORKSPACES}/edit/${id}`,
     VIEW: (id: number | string) => `/${WORKSPACES}/view/${id}`,
+  },
+
+  USER: {
+    LIST: `/${USERS}`,
+    NEW: `/${USERS}/new`,
+    EDIT: (id: number | string) => `/${USERS}/edit/${id}`,
+    VIEW: (id: number | string) => `/${USERS}/view/${id}`,
   },
 
   TEAM: {

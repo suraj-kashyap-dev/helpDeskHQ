@@ -28,6 +28,12 @@ const ProjectView = lazy(() => import('./pages/Projects/View'));
 const ProjectCreate = lazy(() => import('./pages/Projects/Create'));
 const ProjectEdit = lazy(() => import('./pages/Projects/Edit'));
 
+// Users
+const UserList = lazy(() => import('./pages/Users/List'));
+const UserCreate = lazy(() => import('./pages/Users/Create'));
+const UserEdit = lazy(() => import('./pages/Users/Edit'));
+const UserView = lazy(() => import('./pages/Users/View'));
+
 // Teams
 const TeamList = lazy(() => import('./pages/Teams/List'));
 const TeamCreate = lazy(() => import('./pages/Teams/Create'));
@@ -57,6 +63,12 @@ const App: React.FC = () => {
                 path="/organizations/view/:id"
                 element={<OrganizationView />}
               />
+
+              <Route path="/users" element={<UserList />} />
+              <Route path="/users/new" element={<UserCreate />} />
+              <Route path="/users/edit/:id" element={<UserEdit />} />
+              <Route path="/users/view/:id" element={<UserView />} />
+
 
               <Route path="/users/teams" element={<TeamList />} />
               <Route path="/users/teams/new" element={<TeamCreate />} />
