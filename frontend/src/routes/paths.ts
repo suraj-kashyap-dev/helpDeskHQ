@@ -46,7 +46,7 @@ export const ROUTES = {
 
   TICKETS: {
     LIST: `/${TICKETS}/all`,
-    NEW: `/${TICKETS}/tickets/new`,
+    NEW: `/${TICKETS}/new`,
     EDIT: (id: number | string) => `/${TICKETS}/edit/${id}`,
     VIEW: (id: number | string) => `/${TICKETS}/view/${id}`,
   },

@@ -146,7 +146,7 @@ const TicketView: React.FC = () => {
               className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center"
             >
               <div className="flex gap-2">
-                <span>Add Workspace</span>
+                <span>Edit Ticket</span>
               </div>
             </Link>
           </div>
