@@ -14,6 +14,8 @@ import {
   Scroll,
   ChartBar,
   Phone,
+  Link2,
+  ExternalLink,
 } from 'lucide-react';
 import InfoListItem from '../../components/ui/InfolistItem';
 import { useTicketApi } from '../../hooks/useTickets';
@@ -103,9 +105,15 @@ const TicketView: React.FC = () => {
                 icon={<Briefcase className="h-5 w-5" />}
                 label="Project Name"
                 value={
-                  <span className="font-medium text-gray-900">
-                    {ticket.project.name}
-                  </span>
+                   <div className="flex items-center gap-2">
+                   <span className="font-medium text-gray-900">
+                     {ticket.project.name}
+                   </span>
+
+                   <Link to={ROUTES.PROJECTS.VIEW(ticket.project.id)}>
+                     <ExternalLink className="h-4 w-4 text-blue-600 hover:text-blue-800" />
+                   </Link>
+                 </div>
                 }
               />
               <InfoListItem
@@ -210,18 +218,27 @@ const TicketView: React.FC = () => {
                 icon={<User className="h-5 w-5" />}
                 label="Reporter Name"
                 value={
-                  <span className="font-medium text-gray-900">
-                    {ticket.reporter.fullName}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-900">
+                      {ticket.reporter.fullName}
+                    </span>
+
+                    <Link to={ROUTES.USER.VIEW(ticket.reporter.id)}>
+                      <ExternalLink className="h-4 w-4 text-blue-600 hover:text-blue-800" />
+                    </Link>
+                  </div>
                 }
               />
               <InfoListItem
                 icon={<Info className="h-5 w-5" />}
                 label="Reporter Email"
                 value={
-                  <span className="text-blue-600 hover:text-blue-800">
+                  <a
+                    href={`mailto:${ticket.reporter.email}`}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
                     {ticket.reporter.email}
-                  </span>
+                  </a>
                 }
               />
               <InfoListItem
@@ -264,18 +281,27 @@ const TicketView: React.FC = () => {
                 icon={<User className="h-5 w-5" />}
                 label="Assignee Name"
                 value={
-                  <span className="font-medium text-gray-900">
-                    {ticket.assignee.fullName}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-900">
+                      {ticket.assignee.fullName}
+                    </span>
+
+                    <Link to={ROUTES.USER.VIEW(ticket.assignee.id)}>
+                      <ExternalLink className="h-4 w-4 text-blue-600 hover:text-blue-800" />
+                    </Link>
+                  </div>
                 }
               />
               <InfoListItem
                 icon={<Info className="h-5 w-5" />}
                 label="Assignee Email"
                 value={
-                  <span className="text-blue-600 hover:text-blue-800">
+                  <a
+                    href={`mailto:${ticket.assignee.email}`}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
                     {ticket.assignee.email}
-                  </span>
+                  </a>
                 }
               />
               <InfoListItem
