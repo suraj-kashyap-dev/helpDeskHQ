@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import {
@@ -20,10 +20,13 @@ import InfoListItem from '../../components/ui/InfolistItem';
 import { useTicketApi } from '../../hooks/useTickets';
 import { ROUTES } from '../../routes/paths';
 import Card from '../../components/ui/Card';
+import View from '../../components/shimmer/tickets/View';
+import Drawer from '../../components/ui/Drawer';
 
 const TicketView: React.FC = () => {
   const { id } = useParams();
   const { show, ticket, loading } = useTicketApi();
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const ticketId = parseInt(id || '', 10);
@@ -33,7 +36,7 @@ const TicketView: React.FC = () => {
   }, [id]);
 
   if (loading || !ticket) {
-    return <Loading />;
+    return <View />;
   }
 
   return (
@@ -104,15 +107,15 @@ const TicketView: React.FC = () => {
                 icon={<Briefcase className="h-5 w-5" />}
                 label="Project Name"
                 value={
-                   <div className="flex items-center gap-2">
-                   <span className="font-medium text-gray-900">
-                     {ticket.project.name}
-                   </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-900">
+                      {ticket.project.name}
+                    </span>
 
-                   <Link to={ROUTES.PROJECTS.VIEW(ticket.project.id)}>
-                     <ExternalLink className="h-4 w-4 text-blue-600 hover:text-blue-800" />
-                   </Link>
-                 </div>
+                    <Link to={ROUTES.PROJECTS.VIEW(ticket.project.id)}>
+                      <ExternalLink className="h-4 w-4 text-blue-600 hover:text-blue-800" />
+                    </Link>
+                  </div>
                 }
               />
               <InfoListItem
@@ -151,6 +154,28 @@ const TicketView: React.FC = () => {
             </Link>
           </div>
         </div>
+
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Open Drawer
+        </button>
+
+        <Drawer
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          position="right"
+          initialWidth={400}
+          minWidth={320}
+          maxWidth={800}
+          header="Drawer Title"
+          footer={
+            <button className="bg-blue-500 text-white px-4 py-2 rounded">
+              Save
+            </button>
+          }
+        />
 
         <Card title="General Information">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

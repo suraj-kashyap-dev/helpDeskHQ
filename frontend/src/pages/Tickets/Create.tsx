@@ -82,7 +82,7 @@ const Create: React.FC = () => {
     validationSchema,
     onSubmit: async (values) => {
       console.log(values);
-      
+
       await create(values);
 
       navigate('/tickets');

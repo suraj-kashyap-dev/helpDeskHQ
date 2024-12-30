@@ -77,7 +77,7 @@ const View: React.FC = () => {
       </div>
       <div className="lg:w-3/4 space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Ticket Details</h2>
+          <h2 className="text-2xl font-bold text-gray-900">Project Details</h2>
 
           <div className="flex gap-3">
             <Link
