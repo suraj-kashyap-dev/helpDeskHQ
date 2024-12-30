@@ -21,12 +21,10 @@ import { useTicketApi } from '../../hooks/useTickets';
 import { ROUTES } from '../../routes/paths';
 import Card from '../../components/ui/Card';
 import View from '../../components/shimmer/tickets/View';
-import Drawer from '../../components/ui/Drawer';
 
 const TicketView: React.FC = () => {
   const { id } = useParams();
   const { show, ticket, loading } = useTicketApi();
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const ticketId = parseInt(id || '', 10);
@@ -154,28 +152,6 @@ const TicketView: React.FC = () => {
             </Link>
           </div>
         </div>
-
-        <button
-          onClick={() => setIsOpen(true)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Open Drawer
-        </button>
-
-        <Drawer
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          position="right"
-          initialWidth={400}
-          minWidth={320}
-          maxWidth={800}
-          header="Drawer Title"
-          footer={
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">
-              Save
-            </button>
-          }
-        />
 
         <Card title="General Information">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
