@@ -1,124 +1,136 @@
-import { useState, useEffect } from 'react';
-import { X, GripVertical } from 'lucide-react';
+import React, { useEffect, ReactNode } from 'react';
+import { X } from 'lucide-react';
 
-const Drawer = ({
+type Position = 'top' | 'right' | 'bottom' | 'left';
+
+interface DrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  position?: Position;
+  width?: string;
+  children: ReactNode;
+}
+
+interface DrawerHeaderProps {
+  children: ReactNode;
+  onClose: () => void;
+}
+
+interface DrawerBodyProps {
+  children: ReactNode;
+}
+
+interface DrawerFooterProps {
+  children: ReactNode;
+}
+
+interface DrawerComposition {
+  Header: React.FC<DrawerHeaderProps>;
+  Body: React.FC<DrawerBodyProps>;
+  Footer: React.FC<DrawerFooterProps>;
+}
+
+const Drawer: React.FC<DrawerProps> & DrawerComposition = ({
   isOpen,
   onClose,
+  position = 'right',
+  width = '500px',
   children,
-  position = 'left',
-  initialWidth = 320,
-  minWidth = 280,
-  maxWidth = 800,
-  header,
-  footer,
-  className,
 }) => {
-  const [width, setWidth] = useState(initialWidth);
-  const [isDragging, setIsDragging] = useState(false);
-
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!isDragging) return;
-
-      let newWidth;
-      if (position === 'left') {
-        newWidth = e.clientX;
-      } else if (position === 'right') {
-        newWidth = window.innerWidth - e.clientX;
-      }
-
-      if (newWidth >= minWidth && newWidth <= maxWidth) {
-        setWidth(newWidth);
-      }
-    };
-
-    const handleMouseUp = () => setIsDragging(false);
-
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.overflow = 'auto';
     };
-  }, [isDragging, position, minWidth, maxWidth]);
+  }, [isOpen]);
 
-  const positionClasses = {
-    left: 'left-0 h-screen',
-    right: 'right-0 h-screen',
-    bottom: 'bottom-0 w-full',
+  const getTranslateClass = (): string => {
+    switch (position) {
+      case 'top':
+        return 'translate-y-[-100%]';
+      case 'bottom':
+        return 'translate-y-[100%]';
+      case 'left':
+        return 'translate-x-[-100%]';
+      case 'right':
+        return 'translate-x-[100%]';
+      default:
+        return 'translate-x-[100%]';
+    }
   };
 
-  const transformClasses = {
-    left: isOpen ? 'translate-x-0' : '-translate-x-full',
-    right: isOpen ? 'translate-x-0' : 'translate-x-full',
-    bottom: isOpen ? 'translate-y-0' : 'translate-y-full',
+  const getPositionClasses = (): string => {
+    switch (position) {
+      case 'top':
+        return 'inset-x-0 top-0';
+      case 'bottom':
+        return 'inset-x-0 bottom-0';
+      case 'left':
+        return 'inset-y-0 left-0';
+      case 'right':
+        return 'inset-y-0 right-0';
+      default:
+        return 'inset-y-0 right-0';
+    }
   };
-
-  const resizeHandle = position !== 'bottom' && (
-    <div
-      className={`absolute top-0 ${position === 'left' ? 'right-0' : 'left-0'} h-full w-1 cursor-col-resize 
-        hover:bg-blue-200 active:bg-blue-300 group flex items-center justify-center`}
-      onMouseDown={() => setIsDragging(true)}
-    >
-      <div className="absolute h-16 w-6 flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <GripVertical className="w-4 h-4 text-blue-500" />
-      </div>
-    </div>
-  );
 
   return (
     <>
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity z-40"
-          onClick={onClose}
-        />
-      )}
+      <div
+        className={`fixed inset-0 z-[10002] bg-gray-500 bg-opacity-50 backdrop-blur-sm transition-opacity duration-300 ease-in-out
+          ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={onClose}
+      />
 
       <div
-        style={{ width: position !== 'bottom' ? width : '100%' }}
-        className={`
-          fixed
-          h-screen
-          bg-white
-          shadow-2xl
-          transition-transform
-          duration-300
-          ease-in-out
-          z-50
-          flex
-          flex-col
-          ${positionClasses[position]}
-          ${transformClasses[position]}
-          ${className || ''}
-        `}
+        className={`fixed z-[10003]  bg-white dark:bg-gray-900 transition-transform duration-200 ease-in-out
+          ${getPositionClasses()}
+          ${isOpen ? 'translate-x-0' : getTranslateClass()}
+          max-sm:!w-full`}
+        style={{ width }}
       >
-        {header && (
-          <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
-            <div className="font-semibold">{header}</div>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-              aria-label="Close drawer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        )}
-
-        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-          <div className="p-4">{children}</div>
+        <div className="pointer-events-auto h-full w-full overflow-auto rounded-lg bg-white dark:bg-gray-900">
+          <div className="flex h-full w-full flex-col">{children}</div>
         </div>
-
-        {footer && <div className="p-4 border-t bg-gray-50">{footer}</div>}
-
-        {resizeHandle}
       </div>
     </>
   );
 };
+
+// Header Component
+const Header: React.FC<DrawerHeaderProps> = ({ children, onClose }) => {
+  return (
+    <div className="grid gap-y-2.5 border-b p-3 dark:border-gray-800 max-sm:px-4 relative">
+      {children}
+      <div className="absolute top-3 right-3">
+        <X
+          className="cursor-pointer text-3xl hover:rounded-md hover:bg-gray-100 dark:hover:bg-gray-950"
+          onClick={onClose}
+          size={24}
+        />
+      </div>
+    </div>
+  );
+};
+
+// Body Component
+const Body: React.FC<DrawerBodyProps> = ({ children }) => {
+  return <div className="flex-1 overflow-auto p-3 max-sm:px-4">{children}</div>;
+};
+
+// Footer Component
+const Footer: React.FC<DrawerFooterProps> = ({ children }) => {
+  return <div className="pb-8">{children}</div>;
+};
+
+// Attach sub-components
+Drawer.Header = Header;
+Drawer.Body = Body;
+Drawer.Footer = Footer;
 
 export default Drawer;
