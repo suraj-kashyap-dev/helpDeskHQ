@@ -21,7 +21,7 @@ interface DrawerBodyProps {
 }
 
 interface DrawerFooterProps {
-  children: ReactNode;
+  children: ReactNode;    
 }
 
 interface DrawerComposition {

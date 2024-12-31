@@ -11,3 +11,4 @@ export const TICKETS = 'tickets';
 export const PROJECTS = 'projects';
 export const TEAMS = 'teams';
 export const USERS = 'users';
+export const COMMENTS = 'comments';

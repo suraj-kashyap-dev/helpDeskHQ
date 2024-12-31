@@ -1,147 +1,22 @@
-// types.ts
-interface User {
-  id: number;
-  name: string;
-  avatar?: string;
-  role: string;
-  isOnline?: boolean;
-}
-
-interface Attachment {
-  id: number;
-  name: string;
-  size: string;
-  type: string;
-  url: string;
-  thumbnailUrl?: string;
-}
-
-interface StatusUpdate {
-  type: 'status_change' | 'assignment' | 'priority_change' | 'system';
-  content: string;
-  timestamp: Date;
-}
-
-interface Message {
-  id: number;
-  type: 'message' | 'status_update' | 'auto_reply';
-  sender: User;
-  content: string;
-  timestamp: Date;
-  attachments?: Attachment[];
-  status?: 'sent' | 'delivered' | 'read';
-  reactions?: Array<{
-    emoji: string;
-    count: number;
-    users: string[];
-  }>;
-  isEdited?: boolean;
-  threadCount?: number;
-  statusUpdate?: StatusUpdate;
-}
-
-// TicketConversation.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   User, Send, Paperclip, MoreVertical, Clock, 
-  Check, CheckCheck, ThumbsUp, Smile, MessageSquare,
+  Check, CheckCheck, Smile, MessageSquare,
   AlertCircle, ChevronRight, FileText, Image as ImageIcon,
-  Link as LinkIcon, Edit, Trash, Reply
+  Link as LinkIcon, Edit, Reply
 } from 'lucide-react';
-
-const mockMessages: Message[] = [
-  {
-    id: 1,
-    type: 'status_update',
-    sender: {
-      id: 1,
-      name: "System",
-      role: "system"
-    },
-    content: "Ticket created and assigned to Support Team",
-    timestamp: new Date('2024-03-15T10:25:00'),
-    statusUpdate: {
-      type: 'system',
-      content: 'Ticket #1234 has been created',
-      timestamp: new Date('2024-03-15T10:25:00')
-    }
-  },
-  {
-    id: 2,
-    type: 'message',
-    sender: {
-      id: 2,
-      name: "Alice Smith",
-      role: "Customer",
-      isOnline: true
-    },
-    content: "I'm experiencing issues with the dashboard loading. It's showing a 404 error consistently.",
-    timestamp: new Date('2024-03-15T10:30:00'),
-    status: 'read',
-    attachments: [
-      {
-        id: 1,
-        name: "error-screenshot.png",
-        size: "245 KB",
-        type: "image/png",
-        url: "https://avatar.iran.liara.run/public",
-        thumbnailUrl: "https://avatar.iran.liara.run/public"
-      }
-    ]
-  },
-  {
-    id: 3,
-    type: 'auto_reply',
-    sender: {
-      id: 3,
-      name: "Support Bot",
-      role: "Assistant",
-      avatar: "https://avatar.iran.liara.run/public"
-    },
-    content: "Thank you for reporting this issue. Our team has been notified and an agent will assist you shortly. Your ticket priority has been set to HIGH based on the impact.",
-    timestamp: new Date('2024-03-15T10:31:00')
-  },
-  {
-    id: 4,
-    type: 'status_update',
-    sender: {
-      id: 4,
-      name: "System",
-      role: "system"
-    },
-    content: "Ticket assigned to John Doe",
-    timestamp: new Date('2024-03-15T10:32:00'),
-    statusUpdate: {
-      type: 'assignment',
-      content: 'John Doe has been assigned to this ticket',
-      timestamp: new Date('2024-03-15T10:32:00')
-    }
-  },
-  {
-    id: 5,
-    type: 'message',
-    sender: {
-      id: 5,
-      name: "John Doe",
-      role: "Support Agent",
-      isOnline: true
-    },
-    content: "Hi Alice, I'm looking into this issue right now. I can see that you're getting a 404 error. I'm checking our routing configurations. Could you confirm if this started happening after our recent update?",
-    timestamp: new Date('2024-03-15T10:35:00'),
-    status: 'delivered',
-    reactions: [
-      {
-        emoji: '👍',
-        count: 1,
-        users: ['Alice Smith']
-      }
-    ]
-  }
-];
+import { useCommentApi } from '../../hooks/useCommentApi';
+import { useParams } from 'react-router-dom';
+import { use } from 'i18next';
+import { Attachment } from '../../types/comment.types';
 
 const TicketConversation: React.FC = () => {
-  const [newMessage, setNewMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const { id } = useParams<{ id: string }>();
+  const { fetch, comments } = useCommentApi();
+
+  useEffect(() => {
+    fetch();
+  }, []);
 
   const renderStatusUpdate = (message: Message) => {
     if (!message.statusUpdate) return null;
@@ -231,34 +106,20 @@ const TicketConversation: React.FC = () => {
 
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto px-6 py-4 space-y-6">
-        {mockMessages.map((message) => (
+        {comments.map((message) => (
           <React.Fragment key={message.id}>
             {message.type === 'status_update' ? (
               renderStatusUpdate(message)
             ) : (
               <div className="flex gap-4 group">
                 <div className="flex-shrink-0">
-                  {message.sender.avatar ? (
-                    <img
-                      src={message.sender.avatar}
-                      alt={message.sender.name}
-                      className="w-10 h-10 rounded-full"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                      <User className="w-6 h-6 text-gray-500" />
-                    </div>
-                  )}
-                  {message.sender.isOnline && (
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white" />
-                  )}
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <User className="w-6 h-6 text-gray-500" />
+                  </div>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-gray-900">{message.sender.name}</span>
-                    <span className="text-sm px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
-                      {message.sender.role}
-                    </span>
+                    <span className="font-medium text-gray-900">{message.sender.fullName}</span>
                     <span className="text-sm text-gray-400 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
