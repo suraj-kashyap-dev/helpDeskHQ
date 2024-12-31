@@ -84,8 +84,8 @@ const mockMessages: Message[] = [
         name: "error-screenshot.png",
         size: "245 KB",
         type: "image/png",
-        url: "/api/placeholder/400/300",
-        thumbnailUrl: "/api/placeholder/100/100"
+        url: "https://avatar.iran.liara.run/public",
+        thumbnailUrl: "https://avatar.iran.liara.run/public"
       }
     ]
   },
@@ -96,7 +96,7 @@ const mockMessages: Message[] = [
       id: 3,
       name: "Support Bot",
       role: "Assistant",
-      avatar: "/api/placeholder/40/40"
+      avatar: "https://avatar.iran.liara.run/public"
     },
     content: "Thank you for reporting this issue. Our team has been notified and an agent will assist you shortly. Your ticket priority has been set to HIGH based on the impact.",
     timestamp: new Date('2024-03-15T10:31:00')
@@ -180,7 +180,7 @@ const TicketConversation: React.FC = () => {
       <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg mt-2 group hover:bg-gray-100 transition-colors">
         <div className="flex-shrink-0">
           {isImage ? (
-            <div className="relative w-12 h-12 rounded-lg overflow-hidden">
+            <div className="w-12 h-12 rounded-lg overflow-hidden">
               <img 
                 src={attachment.thumbnailUrl || attachment.url} 
                 alt={attachment.name}
@@ -209,7 +209,7 @@ const TicketConversation: React.FC = () => {
   return (
     <div className="flex flex-col h-full bg-white rounded-lg shadow-sm border">
       {/* Conversation Header */}
-      <div className="px-6 py-4 border-b flex items-center justify-between bg-white sticky top-0 z-10">
+      <div className="px-6 py-4 border-b flex items-center justify-between bg-white overflow-x-auto">
         <div className="flex items-center gap-4">
           <h3 className="text-lg font-semibold">Conversation History</h3>
           <div className="flex items-center gap-2">
@@ -237,7 +237,7 @@ const TicketConversation: React.FC = () => {
               renderStatusUpdate(message)
             ) : (
               <div className="flex gap-4 group">
-                <div className="flex-shrink-0 relative">
+                <div className="flex-shrink-0">
                   {message.sender.avatar ? (
                     <img
                       src={message.sender.avatar}
