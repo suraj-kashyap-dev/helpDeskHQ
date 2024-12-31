@@ -1,4 +1,5 @@
 import { User } from "./user.types";
+import { Ticket } from "./tickets.types";
 
 export interface Attachment {
     id: number;
@@ -10,25 +11,22 @@ export interface Attachment {
 }
 
 export interface StatusUpdate {
-    type: 'status_change' | 'assignment' | 'priority_change' | 'system';
+    type: 'status_change' | 'assignment' | 'priority_change' | 'system'
     content: string;
-    timestamp: Date;
+    timestamp: string;
 }
 
 export interface Comment {
     id: number;
-    type: 'message' | 'status_update' | 'auto_reply';
+    ticket: Ticket;
     sender: User;
-    content: string;
-    timestamp: Date;
-    attachments?: Attachment[];
+    type: string;
     status?: 'sent' | 'delivered' | 'read';
-    reactions?: Array<{
-        emoji: string;
-        count: number;
-        users: string[];
-    }>;
-    isEdited?: boolean;
-    threadCount?: number;
-    statusUpdate?: StatusUpdate;
+    statusUpdate: StatusUpdate;
+    mentions?: string | null;
+    content: string;
+    isInternal: boolean;
+    isResolution: boolean;
+    createdAt: string;
+    updatedAt: string;
 }

@@ -36,8 +36,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ApiResponse<List<Comment>> index() {
         try {
-            List<Comment> comments = this.commentRepository.findAllByOrderByCreatedAtDesc();
-            return ApiResponse.success("Comments retrieved successfully", comments);
+            return ApiResponse.success(
+                "Comments retrieved successfully", 
+                this.commentRepository.findAllByOrderByCreatedAtDesc()
+            );
         } catch (Exception e) {
             throw new RuntimeException("Error retrieving comments", e);
         }
